@@ -1,0 +1,6 @@
+#Ignore svn files.
+.svn
+
+#Ignore eclipse files
+.project
+.settings
