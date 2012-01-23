@@ -1,8 +1,15 @@
 <?php
 
+/**
+ * Default Error controller
+ */
 class Default_ErrorController extends Zend_Controller_Action
 {
-
+    /**
+     * Error action
+     * 
+     * Catches all uncatched Exceptions
+     */
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
@@ -40,9 +47,15 @@ class Default_ErrorController extends Zend_Controller_Action
             $this->view->exception = $errors->exception;
         }
         
-        $this->view->request   = $errors->request;
+        $this->view->request = $errors->request;
     }
 
+    /**
+     * Gets the log from the config (if any)
+     * 
+     * @param  void
+     * @return Zend_Log
+     */
     public function getLog()
     {
         $bootstrap = $this->getInvokeArg('bootstrap');
@@ -52,7 +65,5 @@ class Default_ErrorController extends Zend_Controller_Action
         $log = $bootstrap->getResource('Log');
         return $log;
     }
-
-
 }
 

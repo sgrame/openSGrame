@@ -1,0 +1,35 @@
+<?php /* SVN File $Id: _head.phtml 30 2010-07-23 21:16:09Z SerialGraphics $ */ ?>
+<head>
+	<?php echo $this->headTitle() ?>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<?php echo $this->headMeta() ?>
+	
+	<?php echo $this->headLink()->prependStylesheet('/theme/jquery-ui-lightness/jquery-ui.css', 'all')
+								->prependStylesheet('/theme/rs-register/css/pages-print.css', 'print')
+								->prependStylesheet('/theme/rs-register/css/layout-print.css', 'print')
+								->prependStylesheet('/theme/rs-register/css/pages.css', 'all')
+								->prependStylesheet('/theme/rs-register/css/layout.css', 'all')
+								->prependStylesheet('/theme/rs-register/css/elements.css', 'all')
+								->prependStylesheet('/theme/rs-register/css/reset.css', 'all'); ?>
+	<?php echo $this->headStyle(); ?>
+	
+	<!--[if lte IE 7]>
+  		<link rel="stylesheet" type="text/css" href="<?php echo APPLICATION_URL; ?>/theme/rs-register/css/ie-fix.css" />
+	<![endif]-->
+	
+	
+	<?php echo $this->headScript()->prependFile('/js/library/jquery-ui.min.js')
+								  ->prependFile('/js/library/jquery.min.js')
+	                              ->appendFile('/js/library/jquery-ui.datepicker-nl-BE.js')
+	                              ->appendFile('/js/app-register.js'); ?>
+	                              
+	<!--[if IE 6]>	
+		<script src="/js/library/DD_belatedPNG_0.0.8a-min.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf-8">
+			DD_belatedPNG.fix('#app-logo, #app-title, .icon-add, .icon-edit, .icon-next, .icon-delete');
+		</script>
+	<![endif]-->
+	
+</head>
