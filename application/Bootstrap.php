@@ -42,17 +42,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     
     /**
-     * Init the layouts doctype
-     *  
-     */
-    protected function __initDoctype()
-    {
-        $this->bootstrap('view');
-        $view = $this->getResource('view');        
-        $view->doctype('XHTML1_STRICT');
-    }
-    
-    /**
      * Init the translation
      * 
      */
@@ -118,14 +107,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      * 
      * @todo Menu should come from the database!
      */
-    protected function __initNavigation()
+    protected function _initNavigation()
     {
         $this->bootstrap('layout');
         $layout = $this->getResource('layout');
         $view = $layout->getView();
         
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/navigation.ini');
-        $navigation = new Zend_Navigation($config);
+        
+        // add the main navigation 
+        $navigation = new Zend_Navigation($config); 
         $view->navigation($navigation);
     }
 

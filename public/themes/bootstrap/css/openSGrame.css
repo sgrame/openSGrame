@@ -1,0 +1,16 @@
+
+body {
+  padding-top: 60px;
+}
+
+.container-fluid > .sidebar {
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 20px;
+  width: 220px;
+}
+.container-fluid > .content {
+  margin-left: 0;
+  margin-right: 240px;
+}

@@ -1,0 +1,28 @@
+<?php
+/**
+ * Renders a menu item & its children
+ * 
+ * Variables:
+ * 
+ * $this->page (Zend_Navigation_Page)
+ *     The page to render
+ */
+
+// "preprocess"
+$class = array();
+if($this->page->isActive()) {
+  $class[] = 'active';
+}
+if($this->page->hasChildren()) {
+  $class[] = 'dropdown';
+  $this->page->setClass('dropdown-toggle');
+}
+$class = (count($class)) ? ' class="' . implode(' ', $class) . '"' : null;
+?>
+
+<li<?php echo $class; ?>>
+    <?php echo $this->navigation()->menu()->htmlify($this->page); ?>
+    <?php if($this->page->hasChildren()): ?>
+        <?php echo $this->partial('_menu.phtml', array('page' => $this->page, 'class' => 'dropdown-menu')); ?>
+    <?php endif; ?>
+</li>

@@ -1,0 +1,35 @@
+
+<?php echo $this->doctype(); ?>
+
+<head>
+
+    <?php echo $this->headTitle() ?>
+	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+    <?php echo $this->headMeta(); ?>
+	
+    <?php 
+    	  echo $this->headLink()
+            ->prependStylesheet('/themes/bootstrap/css/openSGrame.css', 'all')
+            ->prependStylesheet('/themes/bootstrap/css/bootstrap.css', 'all');
+             
+    ?>
+  
+    <?php echo $this->headStyle(); ?>
+	
+    <?php 
+        echo $this->headScript()
+            ->prependFile('/themes/shared/js/jquery.min.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-alerts.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-buttons.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-dropdown.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-modal.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-popover.js')
+            ->appendFile('/themes/bootstrap/js/bootstrap-tabs.js')
+            ->appendFile('/themes/bootstrap/js/openSGrame.js'); 
+    ?>
+	
+</head>
+
+<body>

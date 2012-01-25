@@ -1,0 +1,25 @@
+<?php
+/**
+ * Renders a menu
+ * 
+ * Variables:
+ * 
+ * $this->page (Zend_Navigation_Page)
+ *     The page to render
+ * $this->class (string)
+ *     Optional class for the menu
+ */
+
+$class = (!empty($this->class)) ? ' class="' . $this->class . '"' : null;
+
+if(!empty($this->page) && $this->page->hasChildren()): ?>
+
+<ul<?php echo $class; ?>>
+<?php
+    foreach($this->page AS $child) {
+        echo $this->partial('_menu_item.phtml', array('page' => $child));
+    }
+?>
+</ul>
+
+<?php endif; ?>
