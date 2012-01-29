@@ -1,6 +1,13 @@
-#Ignore svn files.
+# Ignore svn files.
 .svn
 
-#Ignore eclipse files
+# Ignore eclipse files
 .project
 .settings
+
+# Ignore variable files
+data/session/*
+!.gitignore
+
+data/cache/*
+!.gitignore
