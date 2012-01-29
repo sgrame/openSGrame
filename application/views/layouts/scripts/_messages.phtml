@@ -1,0 +1,36 @@
+<?php
+/**
+ * Prints out the flashMessenger messages
+ */
+
+// get the message array
+$messages = $this->messages();
+
+?>
+
+<div class="container-fluid"><div id="messages">
+  
+    <?php foreach($messages AS $message): ?>
+        <div class="alert-message block-message <?php echo $this->escape($message['type']); ?>">
+            <a class="close" href="#">×</a>
+            
+            <div class="alert-messages">
+                <?php if(is_array($message['message'])): ?>
+                    <?php echo implode(PHP_EOL, $message['message']); ?>
+                <?php else: ?>
+                    <?php echo $this->escape($message['message']); ?>
+                <?php endif; ?>
+            </div>
+            
+            <?php if(!empty($message['actions'])): ?>
+                <div class="alert-actions">
+                    <?php foreach($message['actions'] AS $action => $label): ?>
+                        <a class="btn small" href="<?php echo $action; ?>"><?php echo $this->escape($label); ?></a>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        
+        </div>
+    <?php endforeach; ?>
+          
+</div></div><!-- /messages -->

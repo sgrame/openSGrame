@@ -101,6 +101,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     
     /**
+     * Init the View Helpers
+     * 
+     * @TODO this should be loaded trough the application.ini settings!
+     */
+    protected function _initViewHelpers()
+    {
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        
+        $view->addHelperPath('SG/View/Helper','SG_View_Helper');
+    }
+    
+    /**
      * Init the navigation
      * 
      * Creates the navigation from a config file

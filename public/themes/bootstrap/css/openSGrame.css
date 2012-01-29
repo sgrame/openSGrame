@@ -14,3 +14,12 @@ body {
   margin-left: 0;
   margin-right: 240px;
 }
+
+
+/**
+ * Messages
+ */
+.alert-message div.alert-messages {
+  line-height: 18px;
+  margin-top: 0;
+}

@@ -7,7 +7,8 @@
   // Make the dropdowns work
   $('#topbar').dropdown();
   
-  
+  // alert close
+  $(".alert-message").alert();
 });
 
 

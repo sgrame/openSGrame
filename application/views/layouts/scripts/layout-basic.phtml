@@ -1,0 +1,23 @@
+<?php
+/**
+ * Basic layout
+ */
+?>
+
+
+<?php echo $this->render('_header.phtml'); ?>
+
+<div class="content">
+    <section id="main">
+        <?php if(!empty($this->layout()->title)): ?>
+            <div class="page-header">
+                <h1><?php echo $this->layout()->title; ?></h1>
+            </div>
+        <?php endif; ?>
+            
+        <?php echo $this->layout()->content; ?> 
+            
+    </section>  
+</div>
+    
+<?php echo $this->render('_footer.phtml'); ?>

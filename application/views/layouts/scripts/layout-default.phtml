@@ -7,10 +7,11 @@
 ?>
 
 
-<?php echo $this->partial('_header.phtml'); ?>
+<?php echo $this->render('_header.phtml'); ?>
 
-<?php echo $this->partial('_header_menu.phtml'); ?>
+<?php echo $this->render('_header_menu.phtml'); ?>
 
+<?php echo $this->render('_messages.phtml'); ?>
 
 
 <!-- CONTENT -->
@@ -44,9 +45,11 @@
     
     <div class="content">
         <section id="main">
+        <?php if(!empty($this->layout()->title)): ?>
             <div class="page-header">
-                <h1>Test the page header</h1>
+                <h1><?php echo $this->layout()->title; ?></h1>
             </div>
+        <?php endif; ?>
             
             <?php echo $this->layout()->content; ?> 
             
@@ -71,4 +74,4 @@
 
 
 
-<?php echo $this->partial('_footer.phtml'); ?>
+<?php echo $this->render('_footer.phtml'); ?>
