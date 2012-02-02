@@ -9,6 +9,12 @@ body {
   left: auto;
   right: 20px;
   width: 220px;
+  
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  float: right;
 }
 .container-fluid > .content {
   margin-left: 0;

@@ -9,7 +9,7 @@ class Default_ErrorController extends Zend_Controller_Action
      * Set the default layout for error handler
      */
     public function init() {
-        $this->_helper->layout->setLayout('layout-basic');
+        //$this->_helper->layout->setLayout('layout-basic');
     }
     
     /**

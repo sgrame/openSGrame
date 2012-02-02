@@ -8,7 +8,7 @@ $messages = $this->messages();
 
 ?>
 
-<div class="container-fluid"><div id="messages">
+<div id="messages">
   
     <?php foreach($messages AS $message): ?>
         <div class="alert-message block-message <?php echo $this->escape($message['type']); ?>">
@@ -18,7 +18,7 @@ $messages = $this->messages();
                 <?php if(is_array($message['message'])): ?>
                     <?php echo implode(PHP_EOL, $message['message']); ?>
                 <?php else: ?>
-                    <?php echo $this->escape($message['message']); ?>
+                    <?php echo $message['message']; ?>
                 <?php endif; ?>
             </div>
             
@@ -33,4 +33,4 @@ $messages = $this->messages();
         </div>
     <?php endforeach; ?>
           
-</div></div><!-- /messages -->
+</div><!-- /messages -->
