@@ -9,19 +9,32 @@
  */
 
 // "preprocess"
-$class = array();
+$liClass = array();
+$aClass  = array();
+$aExtra  = NULL;
+$aHref   = $this->page->getHref();
+$aLabel  = $this->page->getLabel();
+
 if($this->page->isActive()) {
-  $class[] = 'active';
+  $liClass[] = 'active';
 }
+
 if($this->page->hasChildren()) {
-  $class[] = 'dropdown';
+  $liClass[] = 'dropdown';
+  $aClass[]  = 'dropdown-toggle';
+  $aExtra    = '<b class="caret"></b>';
+  $aHref     = '#';
+  
+  $this->page->setTarget('#');
   $this->page->setClass('dropdown-toggle');
 }
-$class = (count($class)) ? ' class="' . implode(' ', $class) . '"' : null;
+
+$liClass = (count($liClass)) ? ' class="' . implode(' ', $liClass) . '"' : null;
+$aClass  = (count($aClass))  ? ' class="' . implode(' ', $aClass)  . '"' : null;
 ?>
 
-<li<?php echo $class; ?>>
-    <?php echo $this->navigation()->menu()->htmlify($this->page); ?>
+<li<?php echo $liClass; ?>>
+    <a href="<?php echo $aHref; ?>"<?php echo $aClass; ?>><?php echo $aLabel; ?><?php echo $aExtra; ?></a>
     <?php if($this->page->hasChildren()): ?>
         <?php echo $this->partial('_menu.phtml', array('page' => $this->page, 'class' => 'dropdown-menu')); ?>
     <?php endif; ?>

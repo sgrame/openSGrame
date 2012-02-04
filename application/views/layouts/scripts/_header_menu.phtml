@@ -4,12 +4,18 @@ $primary = $this->navigation()->findById('primary-navigation');
 $account = $this->navigation()->findById('secondary-navigation');
 ?>
 
-<div class="topbar-wrapper" style="z-index: 5;">
-    <div class="topbar" id="topbar" data-dropdown="dropdown"><div class="topbar-inner">
-        <div class="container-fluid">
-            <h3><a href="/">Project Name</a></h3>
+<div class="navbar navbar-fixed-top" id="navbar" data-dropdown="dropdown"><div class="navbar-inner">
+    <div class="container-fluid">
+      
+        <a class="brand" href="/">openSGrame</a>
+        
+        <div class="nav-collapse">
             <?php echo $this->partial('_menu.phtml', array('page' => $primary, 'class' => 'nav primary-nav')); ?>
-            <?php echo $this->partial('_menu.phtml', array('page' => $account, 'class' => 'nav secondary-nav')); ?>
+            <?php echo $this->partial('_menu.phtml', array('page' => $account, 'class' => 'nav secondary-nav pull-right')); ?>
         </div>
-    </div></div>
-</div>
+        
+    </div>
+</div></div>
+
+
+

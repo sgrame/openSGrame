@@ -5,7 +5,7 @@
 ;jQuery(document).ready(function($) {
   
   // Make the dropdowns work
-  $('#topbar').dropdown();
+  $('.dropdown-toggle').dropdown();
   
   // alert close
   $(".alert-message").alert();
