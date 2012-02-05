@@ -98,12 +98,12 @@ class Demo_Form_Demo extends SG_Form
             array('email', 'name', 'radio', 'multi', 'select', 'captcha'),
             'users'
         );
+        $this->getDisplayGroup('users')->setLegend('Add User');
+        
         $this->addButtonGroup(
             array('submit', 'cancel', 'test'),
             'submit'
         );
-        
-        $this->getDisplayGroup('users')->setLegend('Add User');
     }
 
     /**

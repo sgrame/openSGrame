@@ -37,17 +37,14 @@ class User_Form_Login extends SG_Form
 
         // add display group
         $this->addDisplayGroup(
-            array('username', 'password', 'submit', 'forgotPassword'),
+            array('username', 'password'),
             'login'
         );
         $this->getDisplayGroup('login')->setLegend('Login');
-
-        // set decorators
-        TB_Form_Decorator::setFormDecorator(
-            $this, 
-            TB_Form_Decorator::BOOTSTRAP, 
-            'submit',
-            'forgotPassword'
+        
+        $this->addButtonGroup(
+            array('submit', 'forgotPassword'),
+            'submit'
         );
     }
 
