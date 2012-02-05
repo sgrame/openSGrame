@@ -25,7 +25,7 @@ class Demo_Form_Demo extends SG_Form
         $captcha     = new Zend_Form_Element_Captcha('captcha', array('captcha' => 'Figlet'));
         
         
-        $submit      = new Zend_Form_Element_Button('submit');
+        $submit      = new Zend_Form_Element_Submit('submit');
         $cancel      = new Zend_Form_Element_Reset('cancel');
         $test        = new Zend_Form_Element_Button('test');
 

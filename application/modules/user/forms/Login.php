@@ -15,8 +15,8 @@ class User_Form_Login extends SG_Form
         // create elements
         $username       = new Zend_Form_Element_Text('username');
         $password       = new Zend_Form_Element_Password('password');
-        $submit         = new Zend_Form_Element_Button('submit');
-        $forgotPassword = new Zend_Form_Element_Button('forgotPassword');
+        $submit         = new Zend_Form_Element_Submit('submit');
+        $forgotPassword = new Zend_Form_Element_Submit('forgotPassword');
 
         $username->setLabel('Username:')
                  ->setRequired(true);

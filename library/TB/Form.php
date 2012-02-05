@@ -65,15 +65,22 @@ class TB_Form extends Zend_Form
     }
     
     /**
-     * Render form
+     * Proxy to Zend_Form::loadDefaultDecorators
+     * 
+     * Adds the TB_Form_Decorator decorators
      *
-     * @param  Zend_View_Interface $view
-     * @return string
+     * @return Zend_Form
      */
-    public function render(Zend_View_Interface $view = null)
+    public function loadDefaultDecorators()
     {
+        if ($this->loadDefaultDecoratorsIsDisabled()) {
+            return $this;
+        }
+
+        parent::loadDefaultDecorators();
         TB_Form_Decorator::setFormDecorator($this, TB_Form_Decorator::BOOTSTRAP);
-        return parent::render($view);
+        
+        return $this;
     }
     
     /**
