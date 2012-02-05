@@ -27,25 +27,6 @@
 class TB_Form extends Zend_Form
 {
     /**
-     * Sets the Twitter Bootstrap decorator as default for all form elements
-     */
-    public function __construct($options = null) {
-        // add the Form decorator
-        $this->addElementPrefixPath(
-                 'TB_Form_Decorator',
-                 'TB/Form/Decorator/',
-                 Zend_Form_Element::DECORATOR
-             );
-             
-        // set form type to default horizontal
-        if(!isset($_options['attribs']['class'])) {
-            $this->setAttrib('class', 'form-horizontal');
-        }
-             
-        parent::__construct($options);
-    }
-  
-    /**
      * Proxy to Zend_Form::isValid()
      * calls buildErrorDecorators for parent::isValid() returning false
      *
@@ -81,5 +62,52 @@ class TB_Form extends Zend_Form
             $class = $htmlTagDecorator->getOption('class');
             $htmlTagDecorator->setOption('class', $class . ' error');
         }
+    }
+    
+    /**
+     * Render form
+     *
+     * @param  Zend_View_Interface $view
+     * @return string
+     */
+    public function render(Zend_View_Interface $view = null)
+    {
+        TB_Form_Decorator::setFormDecorator($this, TB_Form_Decorator::BOOTSTRAP);
+        return parent::render($view);
+    }
+    
+    /**
+     * Add a button group
+     *
+     * Groups named elements for display purposes.
+     * It will group them in a div to group form action buttons
+     *
+     * If a referenced element does not yet exist in the form, it is omitted.
+     *
+     * @param  array $elements
+     * @param  string $primaryButton
+     * @param  array|Zend_Config $options
+     * @return Zend_Form
+     * @throws Zend_Form_Exception if no valid elements provided
+     */
+    public function addButtonGroup(array $elements, $primaryButton, $options = null)
+    {
+        // set the class
+        $options['attribs']['class'] = array('form-actions');
+        
+        // set the primary class
+        $primary = $this->getElement($primaryButton);
+        if($primary) {
+            $class = $primary->getAttrib('class');
+            if(!$class) {
+                $class = array();
+            }
+            $primary->setAttrib(
+                'class', 
+                array_unique(array_merge(array('btn-primary'), $class))
+            );
+        }
+        
+        $this->addDisplayGroup($elements, 'actions', $options);
     }
 }

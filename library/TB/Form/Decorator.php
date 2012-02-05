@@ -74,7 +74,6 @@ class TB_Form_Decorator
                 'Label',
                 array(
                     'tag' => 'td',
-                    'class' => 'control-label',
                 )
             ),
             array(
@@ -115,15 +114,14 @@ class TB_Form_Decorator
                 'ViewHelper'
             ),
             array(
-                'Description',
-                array(
-                    'tag'   => 'span',
-                    'class' => 'help-inline',
-                    'style' => 'color: #BFBFBF;'
-                )
+                'BootstrapErrors',
             ),
             array(
-                'BootstrapErrors'
+                'Description',
+                array(
+                    'tag'   => 'p',
+                    'class' => array('help-block', 'description'),
+                )
             ),
             array(
                 'BootstrapTag',
@@ -134,7 +132,7 @@ class TB_Form_Decorator
             array(
                 'Label',
                 array(
-                    'style' => 'color: #404040;'
+                    'class' => 'control-label'
                 )
             ),
             array(
@@ -201,26 +199,25 @@ class TB_Form_Decorator
         ),
         'bootstrap' => array(
             array(
-                'Description',
-                array(
-                    'tag'   => 'span',
-                    'class' => 'help-inline',
-                    'style' => 'color: #BFBFBF;'
-                )
+                'BootstrapErrors'
             ),
             array(
-                'BootstrapErrors'
+                'Description',
+                array(
+                    'tag'   => 'p',
+                    'class' => array('help-block', 'description'),
+                )
             ),
             array(
                 'BootstrapTag',
                 array(
-                    'class' => 'input'
+                    'class' => 'controls'
                 )
             ),
             array(
                 'Label',
                 array(
-                    'style' => 'color: #404040;'
+                    'class' => 'control-label'
                 )
             ),
             array(
@@ -300,7 +297,7 @@ class TB_Form_Decorator
         ),
         'bootstrap' => array(
             array(
-                'ViewHelper'
+                'ViewHelper',
             ),
             array(
                 'BootstrapErrors'
@@ -308,38 +305,20 @@ class TB_Form_Decorator
             array(
                 'Description',
                 array(
-                    'tag'   => 'span',
-                    'class' => 'help-blocks',
-                    'style' => 'color: #BFBFBF;'
+                    'tag'   => 'p',
+                    'class' => array('help-block', 'description'),
                 )
             ),
-            /*array(
-                array(
-                    'listelement' => 'HtmlTag'
-                ),
-                array(
-                    //'tag'   => 'li',
-                )
-            ),
-            array(
-                array(
-                    'list' => 'HtmlTag'
-                ),
-                array(
-                    'tag'   => 'ul',
-                    'class' => 'inputs-list'
-                )
-            ),*/
             array(
                 'BootstrapTag',
                 array(
-                    'class' => 'input'
+                    'class' => 'controls',
                 )
             ),
             array(
                 'Label',
                 array(
-                    'style' => 'color: #404040;'
+                    'class' => 'control-label',
                 )
             ),
             array(
@@ -431,6 +410,39 @@ class TB_Form_Decorator
                 )
             )
         )
+    );
+    
+    /**
+     * Button decorator
+     * 
+     * @staticvar array
+     */
+    protected static $_ButtonDecorator = array(
+        'table' => array(
+            'ViewHelper', 
+            array(
+                array(
+                    'data' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'td'
+                )
+            ),
+            array(
+                array(
+                    'row' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'tr'
+                )
+            )
+        ),
+        'div' => array(
+            'ViewHelper'
+        ),
+        'bootstrap' => array(
+            'ViewHelper',
+        ),
     );
 
     /**
@@ -524,74 +536,18 @@ class TB_Form_Decorator
                 'TB/Form/Decorator',
                 Zend_Form::DECORATOR
             );
+            
+            // set form type to default horizontal
+            $class = $form->getAttrib('class');
+            if(empty($class)) {
+                $form->setAttrib('class', 'form-horizontal');
+            }
         }
 
         // set form element decorators
         $form->setElementDecorators(self::$_ElementDecorator[$format]);
 
-        // set submit button decorators
-        if ($form->getElement($submit_str)) {
-            $form->getElement($submit_str)->setDecorators(self::$_SubmitDecorator[$format]);
-            if ($format == self::BOOTSTRAP) {
-                $attribs = $form->getElement($submit_str)->getAttrib('class');
-                if (empty($attribs)) {
-                    $attribs = array('btn', 'btn-primary');
-                } else {
-                    if (is_string($attribs)) {
-                        $attribs = array($attribs);
-                    }
-                    $attribs = array_unique(array_merge(array('btn'), $attribs));
-                }
-                $form->getElement($submit_str)
-                    ->setAttrib('class', $attribs)
-                    ->setAttrib('type', 'submit');
-                if ($form->getElement($cancel_str)) {
-                    $form->getElement($submit_str)->getDecorator('HtmlTag')
-                        ->setOption('openOnly', true);
-                }
-            }
-            if ($format == self::TABLE) {
-                if ($form->getElement($cancel_str)) {
-                    $form->getElement($submit_str)->getDecorator('data')
-                        ->setOption('openOnly', true);
-                    $form->getElement($submit_str)->getDecorator('row')
-                        ->setOption('openOnly', true);
-                }
-            }
-        }
-
-        // set cancel button decorators
-        if ($form->getElement($cancel_str)) {
-            $form->getElement($cancel_str)->setDecorators(self::$_ResetDecorator[$format]);
-            if ($format == self::BOOTSTRAP) {
-                $attribs = $form->getElement($cancel_str)->getAttrib('class');
-                if (empty($attribs)) {
-                    $attribs = array('btn');
-                } else {
-                    if (is_string($attribs)) {
-                        $attribs = array($attribs);
-                    }
-                    $attribs = array_unique(array_merge(array('btn'), $attribs));
-                }
-                $form->getElement($cancel_str)
-                    ->setAttrib('class', $attribs)
-                    ->setAttrib('type', 'reset');
-                if ($form->getElement($submit_str)) {
-                    $form->getElement($cancel_str)->getDecorator('HtmlTag')
-                        ->setOption('closeOnly', true);
-                }
-            }
-            if ($format == self::TABLE) {
-                if ($form->getElement($submit_str)) {
-                    $form->getElement($cancel_str)->getDecorator('data')
-                        ->setOption('closeOnly', true);
-                    $form->getElement($cancel_str)->getDecorator('row')
-                        ->setOption('closeOnly', true);
-                }
-            }
-        }
-
-        // set hidden, cpatcha, multi input decorators
+        // set hidden, captcha, multi input decorators
         foreach ($form->getElements() as $e) {
             if ($e->getType() == 'Zend_Form_Element_Hidden') {
                 $e->setDecorators(self::$_HiddenDecorator[$format]);
@@ -600,13 +556,28 @@ class TB_Form_Decorator
                 $e->setDecorators(self::$_CaptchaDecorator[$format]);
             }
             if ($e->getType() == 'Zend_Form_Element_MultiCheckbox') {
-                $e->setDecorators(self::$_MultiDecorator[$format]);
-                //$e->setSeparator('</li><li>');
-                //$e->setAttrib("escape", false);
+                $decorator = self::$_MultiDecorator[$format];
+                $decorator[3][1]['class'] .= ' controls-checkbox';
+                $e->setDecorators($decorator);
+                $e->setSeparator(PHP_EOL);
             }
             if ($e->getType() == 'Zend_Form_Element_Radio') {
-                $e->setDecorators(self::$_MultiDecorator[$format]);
-                //$e->setSeparator('</li><li>');
+                $decorator = self::$_MultiDecorator[$format];
+                $decorator[3][1]['class'] .= ' controls-radio';
+                $e->setDecorators($decorator);
+                $e->setSeparator(PHP_EOL);
+            }
+            
+            if($e instanceof Zend_Form_Element_Submit) {
+                $e->setDecorators(self::$_ButtonDecorator[$format]);
+                if ($format == self::BOOTSTRAP) {
+                    $class = $e->getAttrib('class');
+                    if(!$class) {
+                        $class = array();
+                    }
+                    $class = array_unique(array_merge(array('btn'), $class));
+                    $e->setAttrib('class', $class);
+                }
             }
         }
     }

@@ -1,24 +1,22 @@
 
+/**
+ * Layout
+ *****************************************************************************/
 body {
-  padding-top: 60px;
+    padding-top: 60px;
 }
 
 .container-fluid > .sidebar {
-  position: absolute;
-  top: 0;
-  left: auto;
-  right: 20px;
-  width: 220px;
-  
-  position: relative;
-  top: auto;
-  left: auto;
-  right: auto;
-  float: right;
+    width: 220px;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    float: right;
 }
 .container-fluid > .content {
-  margin-left: 0;
-  margin-right: 240px;
+    margin-left: 0;
+    margin-right: 240px;
 }
 
 
@@ -26,6 +24,29 @@ body {
  * Messages
  */
 .alert-message div.alert-messages {
-  line-height: 18px;
-  margin-top: 0;
+    line-height: 18px;
+    margin-top: 0;
+}
+
+
+
+
+/**
+ * Form & form elements
+ *****************************************************************************/
+.controls-radio > label:first-child, 
+.controls-checkbox > label:first-child {
+    padding-top: 5px;
+}
+.controls-radio label, 
+.controls-checkbox label {
+    padding-left: 18px;
+}
+.controls-radio input.input-radio, 
+.controls-checkbox input.input-checkbox {
+    float: left;
+    margin-left: -18px;
+}
+.control-group.error p.description {
+    color: #999;
 }

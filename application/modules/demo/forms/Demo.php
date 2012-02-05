@@ -21,59 +21,89 @@ class Demo_Form_Demo extends SG_Form
         $name        = new Zend_Form_Element_Text('name');
         $radio       = new Zend_Form_Element_Radio('radio');
         $multi       = new Zend_Form_Element_MultiCheckbox('multi');
-        //$captcha     = new Zend_Form_Element_Captcha('captcha', array('captcha' => 'Figlet'));
+        $select      = new Zend_Form_Element_Select('select');
+        $captcha     = new Zend_Form_Element_Captcha('captcha', array('captcha' => 'Figlet'));
+        
+        
         $submit      = new Zend_Form_Element_Button('submit');
-        $cancel      = new Zend_Form_Element_Button('cancel');
+        $cancel      = new Zend_Form_Element_Reset('cancel');
+        $test        = new Zend_Form_Element_Button('test');
 
         // config elements
         $userId->addValidator('digits');
 
-        $mail->setLabel('Mail:')
+        $mail->setLabel('Mail')
             ->setRequired(true)
-            ->addValidator('emailAddress');
+            ->addValidator('emailAddress')
+            ->setDescription('Add your email address.');
 
-        $name->setLabel('Name:')
-            ->setRequired(true);
+        $name->setLabel('Name')
+            ->setRequired(true)
+            ->setDescription('Add your full name.');
 
-        $radio->setLabel('Radio:')
+        $radio->setLabel('Radio')
             ->setMultiOptions(array(
                 '1' => PHP_EOL . 'test1',
                 '2' => PHP_EOL . 'test2'
             ))
-            ->setRequired(true);
+            ->setRequired(true)
+            ->setDescription('Select the test you prefer.');
 
         $multiOptions = array(
             'view'    => PHP_EOL . 'view',
             'edit'    => PHP_EOL . 'edit',
             'comment' => PHP_EOL . 'comment'
         );
-        $multi->setLabel('Multi:')
+        $multi->setLabel('Multi')
             ->addValidator('Alpha')
             ->setMultiOptions($multiOptions)
-            ->setRequired(true);
-
-        /*$captcha->setLabel('Captcha:')
             ->setRequired(true)
-            ->setDescription("Das ist ein Test");*/
+            ->setDescription('Check the rights');
+
+        $selectOptions = array(
+            null => '-- Select --',
+            'one'   => 'Select One',
+            'two'   => 'Select Two',
+            'three' => 'Select Three',
+        );
+        $select->setLabel('Select')
+            ->setMultiOptions($selectOptions)
+            ->setRequired(true)
+            ->setDescription('Select the role');
+
+        $captcha->setLabel('Captcha:')
+            ->setRequired(true)
+            ->setDescription("Das ist ein Test");
 
         $submit->setLabel('Save');
         $cancel->setLabel('Cancel');
+        $test->setLabel('Test');
 
         // add elements
         $this->addElements(array(
-            $userId, $mail, $name, $radio, $multi, $submit, $cancel
+            $userId, 
+            $mail, 
+            $name, 
+            $radio, 
+            $multi, 
+            $select,
+            $captcha, 
+            $submit, 
+            $cancel,
+            $test,
         ));
 
         // add display group
         $this->addDisplayGroup(
-            array('email', 'name', 'radio', 'multi', 'captcha', 'submit', 'cancel'),
+            array('email', 'name', 'radio', 'multi', 'select', 'captcha'),
             'users'
         );
+        $this->addButtonGroup(
+            array('submit', 'cancel', 'test'),
+            'submit'
+        );
+        
         $this->getDisplayGroup('users')->setLegend('Add User');
-
-        // set decorators
-        TB_Form_Decorator::setFormDecorator($this, TB_Form_Decorator::BOOTSTRAP, 'submit', 'cancel');
-
     }
 
     /**

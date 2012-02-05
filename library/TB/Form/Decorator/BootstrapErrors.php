@@ -49,7 +49,7 @@ class TB_Form_Decorator_BootstrapErrors extends Zend_Form_Decorator_Errors
         $formErrorHelper->setElementStart('<span%s>')
             ->setElementSeparator('<br />')
             ->setElementEnd('</span>');
-        $errors = $formErrorHelper->formErrors($errors, array('class' => 'help-block'));
+        $errors = $formErrorHelper->formErrors($errors, array('class' => 'help-inline'));
 
         switch ($placement) {
             case 'PREPEND':
