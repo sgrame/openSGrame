@@ -42,8 +42,6 @@ class Demo_FormController extends Zend_Controller_Action
 
             // print error
             else {
-                $testForm->buildBootstrapErrorDecorators();
-                
                 $this->_messenger->addError(array(
                     '<strong>Please control your input!</strong>',
                     'Complete or fill in the fields marked in red.'

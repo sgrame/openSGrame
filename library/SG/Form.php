@@ -21,8 +21,13 @@
  *
  * Extends the EasyBib_Form for Twitter Bootstrap integration
  */
-class SG_Form extends EasyBib_Form
+class SG_Form extends TB_Form
 {
+    /**
+     * Optional model stored in the form
+     */
+    protected $model;
+
     /**
      * Constructor
      *
@@ -48,14 +53,37 @@ class SG_Form extends EasyBib_Form
                  'SG_Validate', 
                  'SG/Validate/', 
                  Zend_Form_Element::VALIDATE
-             )
-             ->addElementPrefixPath(
+             );
+             
+         /*    
+         $this->addElementPrefixPath(
                  'SG_Form_Decorator',
                  'SG/Form/Decorator/',
                  Zend_Form_Element::DECORATOR
              );
+         */
+        
+        if(!isset($_options['attribs']['class'])) {
+            //$this->setAttrib('class', 'form-horizontal');
+        }
 
         parent::__construct($_options);
+    }
+    
+    /**
+     * @return $model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param $model
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
     }
 }
 

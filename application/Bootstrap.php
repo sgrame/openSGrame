@@ -110,6 +110,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->getResource('view');
         
+        $view->addHelperPath('TB/View/Helper','TB_View_Helper');
         $view->addHelperPath('SG/View/Helper','SG_View_Helper');
     }
     

@@ -22,7 +22,6 @@ class User_LoginController extends Zend_Controller_Action
 
             // print error
             else {
-                $loginForm->buildBootstrapErrorDecorators();
                 $this->_messenger->addError(
                     '<strong>Please control your username and password</strong>',
                     array('/user/password-reset' => 'Forgot your password?')

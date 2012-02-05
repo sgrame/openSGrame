@@ -72,7 +72,7 @@ class Demo_Form_Demo extends SG_Form
         $this->getDisplayGroup('users')->setLegend('Add User');
 
         // set decorators
-        EasyBib_Form_Decorator::setFormDecorator($this, EasyBib_Form_Decorator::BOOTSTRAP, 'submit', 'cancel');
+        TB_Form_Decorator::setFormDecorator($this, TB_Form_Decorator::BOOTSTRAP, 'submit', 'cancel');
 
     }
 

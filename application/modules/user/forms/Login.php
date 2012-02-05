@@ -43,9 +43,9 @@ class User_Form_Login extends SG_Form
         $this->getDisplayGroup('login')->setLegend('Login');
 
         // set decorators
-        EasyBib_Form_Decorator::setFormDecorator(
+        TB_Form_Decorator::setFormDecorator(
             $this, 
-            EasyBib_Form_Decorator::BOOTSTRAP, 
+            TB_Form_Decorator::BOOTSTRAP, 
             'submit',
             'forgotPassword'
         );
