@@ -1,12 +1,29 @@
 <?php
 /**
- * Demo of Twitter Bootstrap forms
- * 
+ * @category Examples
+ * @package  Controller
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ * @filesource
  */
-class Demo_FormController extends Zend_Controller_Action
+
+
+/**
+ * Examples_FormController
+ *
+ * Examples of the Bootstrap Forms integration
+ *
+ * @category Examples
+ * @package  Controller
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ */
+class Examples_FormController extends Zend_Controller_Action
 {
     /**
-     * @var SG_Controller_Action_Helper_Messenger
+     * @var TB_Controller_Action_Helper_Messenger
      */
     protected $_messenger;
 
@@ -18,7 +35,7 @@ class Demo_FormController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $testForm = new Demo_Form_Demo();
+        $testForm = new Examples_Form_Bootstrap();
         $testForm->setAction($this->view->url());
 
         if ($this->_request->isPost()) {
@@ -29,15 +46,13 @@ class Demo_FormController extends Zend_Controller_Action
                 
                 $this->_messenger->addSuccess(
                   array(
-                      '<strong>You successfully registrated as a new user!</strong>',
-                      'Check your mailbox for the user account details.',
+                      '<strong>You successfully posted the test form</strong>',
+                      'Was it hard to complete?',
                   ),
                   array(
-                      '/user/login' => 'Go to login',
+                      'http://www.google.com' => 'Use the search Luke',
                   )
                 );
-
-                $this->_messenger->addInfo('Only info here.');
             }
 
             // print error
@@ -46,9 +61,6 @@ class Demo_FormController extends Zend_Controller_Action
                     '<strong>Please control your input!</strong>',
                     'Complete or fill in the fields marked in red.'
                 ));
-                $this->_messenger->addWarning('Oh no a warning!');
-              
-                $this->view->messages = array('error', 'Please control your input!'); // extra message on top
             }
         }
         

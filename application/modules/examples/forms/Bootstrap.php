@@ -1,9 +1,26 @@
 <?php
+/**
+ * @category Examples
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ * @filesource
+ */
+
 
 /**
- * Form to test out the Twitter Bootstrap integration
+ * Examples_Form_Bootstrap
+ *
+ * Examples of a Bootstrap Form
+ *
+ * @category Examples
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
-class Demo_Form_Demo extends SG_Form
+class Examples_Form_Bootstrap extends SG_Form
 {
     /**
      * Configure user form.
@@ -13,7 +30,7 @@ class Demo_Form_Demo extends SG_Form
     public function init()
     {
         // form config
-        $this->setAttrib('id', 'demo_form_demo');
+        $this->setAttrib('id', __CLASS__);
 
         // standard elements --------------------------------------------------
         $mail        = new Zend_Form_Element_Text('email');
@@ -67,6 +84,7 @@ class Demo_Form_Demo extends SG_Form
             ->setDescription('Select the test you prefer.');
         $radioInline = clone $radio;
         $radioInline->setName('radioInline')
+            ->setLabel('Radio inline')
             ->setAttrib('label_class', 'inline');
 
         $multiOptions = array(
@@ -81,6 +99,7 @@ class Demo_Form_Demo extends SG_Form
             ->setDescription('Check the rights');
         $multiInline = clone $multiCheckbox;
         $multiInline->setName('multiInline')
+            ->setLabel('Multi Checkbox inline')
             ->setAttrib('label_class', 'inline');
 
         $selectOptions = array(
@@ -201,30 +220,11 @@ class Demo_Form_Demo extends SG_Form
             $test,
         ));
         
+        // Group the form buttons in an action fieldset
         $this->addButtonGroup(
             array('submit', 'cancel', 'test'),
             'submit'
         );
-        
-        
-    }
-
-    /**
-     * Validate the form
-     *
-     * @param  array $data
-     * @return boolean
-     */
-    public function isValid($data)
-    {
-        if (!is_array($data)) {
-            require_once 'Zend/Form/Exception.php';
-            throw new Zend_Form_Exception(__METHOD__ . ' expects an array');
-        }
-        if ($data['name'] == 'xyz') {
-            $this->getElement('name')->addError('Wrong name provided!');
-        }
-        return parent::isValid($data);
     }
 }
 
