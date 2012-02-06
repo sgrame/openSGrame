@@ -1,23 +1,32 @@
 <?php
-/* SVN FILE $Id: DbTable.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
- * Auth adapter with CR support
- *
+ * @category SG_Auth
+ * @package  Adapter
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2009
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Aug 7, 2009
  */
 
 
 /**
- * Auth adapter with CR support
+ * SG_Auth_Adapter_DbTable
+ * 
+ * Database authentication adapter with CR record support
+ *
+ * @category TB
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 {
     /**
-     * getDbSelect() - Return the preauthentication Db Select object for userland select query modification
+     * getDbSelect()
+     * 
+     * Return the preauthentication Db Select object for 
+     * userland select query modification
      *
      * @return Zend_Db_Select
      */

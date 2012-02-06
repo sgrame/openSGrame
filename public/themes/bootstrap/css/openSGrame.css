@@ -30,23 +30,39 @@ body {
 
 
 
+/**
+ * Login form
+ */
+body.login {
+    background-color: #CCCCCC;
+}
+#login {
+    width: 500px;
+    margin: 50px auto 0 auto;
+}
+#login .well {
+    background-color: #FFFFFF;
+    padding: 10px;
+}
+#login .login-remember {
+    display: inline-block;
+    padding-left: 20px;
+}
+#login .login-remember .input-checkbox {
+    margin: 0;
+}
+#login .login-remember label {
+    padding-left: 0;
+}
+#login .login-links {
+    padding-left: 160px;
+}
+
+
 
 /**
  * Form & form elements
  *****************************************************************************/
-.controls-radio > label:first-child, 
-.controls-checkbox > label:first-child {
-    padding-top: 5px;
-}
-.controls-radio label, 
-.controls-checkbox label {
-    padding-left: 18px;
-}
-.controls-radio input.input-radio, 
-.controls-checkbox input.input-checkbox {
-    float: left;
-    margin-left: -18px;
-}
 .control-group.error p.description {
     color: #999;
 }

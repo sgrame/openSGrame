@@ -330,6 +330,97 @@ class TB_Form_Decorator
             )
         )
     );
+    
+    /**
+     * File Decorator
+     *
+     * @staticvar array
+     */
+    protected static $_FileDecorator = array(
+        'table' => array(
+            array('File'),
+            'Errors',
+            array(
+                array(
+                    'data' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'td'
+                )
+            ),
+            array(
+                'Label',
+                array(
+                    'tag' => 'td'
+                )
+            ),
+            array(
+                array(
+                    'row' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'tr'
+                )
+            )
+        ),
+        'div' => array(
+            array('File'),
+            array(
+                'Description',
+                array(
+                    'tag'   => 'span',
+                    'class' => 'hint'
+                )
+            ),
+            array(
+                'Errors'
+            ),
+            array(
+                'Label',
+                array(
+                    'class' => 'checkbox',
+                )
+            ),
+            array(
+                'HtmlTag',
+                array(
+                    'tag' => 'div'
+                )
+            )
+        ),
+        'bootstrap' => array(
+            array('File'),
+            array(
+                'BootstrapErrors'
+            ),
+            array(
+                'Description',
+                array(
+                    'tag'   => 'p',
+                    'class' => array('help-block', 'description'),
+                )
+            ),
+            array(
+                'BootstrapTag',
+                array(
+                    'class' => 'controls',
+                )
+            ),
+            array(
+                'Label',
+                array(
+                    'class' => 'control-label',
+                )
+            ),
+            array(
+                'HtmlTag',
+                array(
+                    'tag'   => 'div',
+                    'class' => 'control-group'
+                )
+            )
+        )
+    );
 
     /**
      * Submit Element Decorator
@@ -444,6 +535,91 @@ class TB_Form_Decorator
             'ViewHelper',
         ),
     );
+    
+    /**
+     * Inline checkbox Decorator
+     *
+     * @staticvar array
+     */
+    protected static $_CheckboxInlineDecorator = array(
+        'table' => array(
+            'ViewHelper',
+            array(
+                'Description',
+                array(
+                    'tag' => '',
+                )
+            ),
+            'Errors',
+            array(
+                array(
+                    'data' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'td'
+                )
+            ),
+            array(
+                'Label',
+                array(
+                    'tag' => 'td',
+                )
+            ),
+            array(
+                array(
+                    'row' => 'HtmlTag'
+                ),
+                array(
+                    'tag' => 'tr'
+                )
+            )
+        ),
+        'div' => array(
+            array(
+                'ViewHelper'
+            ),
+            array(
+                'Description',
+                array(
+                    'tag'   => 'span',
+                    'class' => 'hint'
+                )
+            ),
+            array(
+                'Errors'
+            ),
+            array(
+                'Label'
+            ),
+            array(
+                'HtmlTag',
+                array(
+                    'tag' => 'div'
+                )
+            )
+        ),
+        'bootstrap' => array(
+            array(
+                'ViewHelper'
+            ),
+            array(
+                'BootstrapErrors',
+            ),
+            array(
+                'Description',
+                array(
+                    'tag'   => 'p',
+                    'class' => array('help-block', 'description'),
+                )
+            ),
+            array(
+                'Label',
+                array(
+                    'class' => 'checkbox'
+                )
+            ),
+        )
+    );
 
     /**
      * Hiden Element Decorator
@@ -547,27 +723,31 @@ class TB_Form_Decorator
         // set form element decorators
         $form->setElementDecorators(self::$_ElementDecorator[$format]);
 
-        // set hidden, captcha, multi input decorators
+        // set specific element decorators
         foreach ($form->getElements() as $e) {
-            if ($e->getType() == 'Zend_Form_Element_Hidden') {
+            // hidden elements
+            $hiddenElements = array(
+                'Zend_Form_Element_Hidden', 
+                'Zend_Form_Element_Hash'
+            );
+            if (in_array($e->getType(), $hiddenElements)) {
                 $e->setDecorators(self::$_HiddenDecorator[$format]);
             }
+            
+            // captcha
             if ($e->getType() == 'Zend_Form_Element_Captcha') {
                 $e->setDecorators(self::$_CaptchaDecorator[$format]);
             }
+                
+            // multiCheckbox & radios
             if ($e->getType() == 'Zend_Form_Element_MultiCheckbox') {
-                $decorator = self::$_MultiDecorator[$format];
-                $decorator[3][1]['class'] .= ' controls-checkbox';
-                $e->setDecorators($decorator);
-                $e->setSeparator(PHP_EOL);
+                self::setMultiDecorator($format, $e, 'checkbox');
             }
             if ($e->getType() == 'Zend_Form_Element_Radio') {
-                $decorator = self::$_MultiDecorator[$format];
-                $decorator[3][1]['class'] .= ' controls-radio';
-                $e->setDecorators($decorator);
-                $e->setSeparator(PHP_EOL);
+                self::setMultiDecorator($format, $e, 'radio');
             }
             
+            // buttons
             if($e instanceof Zend_Form_Element_Submit) {
                 $e->setDecorators(self::$_ButtonDecorator[$format]);
                 if ($format == self::BOOTSTRAP) {
@@ -579,6 +759,36 @@ class TB_Form_Decorator
                     $e->setAttrib('class', $class);
                 }
             }
+            
+            // files upload
+            if($e->getType() == 'Zend_Form_Element_File') {
+                $e->setDecorators(self::$_FileDecorator[$format]);
+            }
         }
     }
+
+    /**
+     * Helper to add the multi decorator to multi elements
+     * 
+     * @param string $format
+     * @param Zend_Form_Element_Multi $element
+     * @param string $type multi element type (checkboxes | radio)
+     * 
+     * @return void
+     */
+    protected function setMultiDecorator($format, $element, $type) {
+        $decorator = self::$_MultiDecorator[$format];
+        $element->setDecorators($decorator);
+        $element->setSeparator(PHP_EOL);
+        
+        $labelClass = $element->getAttrib('label_class');
+        if(!$labelClass) {
+            $labelClass = array();
+        }
+        if(!is_array($labelClass)) {
+            $labelClass = array($labelClass);
+        }
+        $labelClass = array_unique(array_merge(array($type), $labelClass));
+        $element->setAttrib('label_class', $labelClass);
+    } 
 }

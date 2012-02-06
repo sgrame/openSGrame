@@ -1,28 +1,26 @@
 <?php
-/* SVN FILE $Id: FormRadio.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
- * Form radio element View helper
- *
+ * @category TB_View
+ * @package  Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2009
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Sep 8, 2009
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
- 
- 
+
 
 /**
+ * TB_View_Helper_FormRadio
+ *
  * Helper to generate a set of radio button elements
  *
- * @category   SG
- * @package    SG_View
- * @subpackage Helper
+ * @category TB_View
+ * @package  Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
-class SG_View_Helper_FormRadio extends Zend_View_Helper_FormRadio
+class TB_View_Helper_FormRadio extends Zend_View_Helper_FormRadio
 {
     /**
      * Generates a set of radio button elements.

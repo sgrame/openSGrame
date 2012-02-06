@@ -1,18 +1,25 @@
 <?php
-/* SVN FILE $Id: Auth.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
- * Authentication helper
- *
+ * @category TB_Controller_Action
+ * @package  Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2009
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Dec 12, 2009
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
 
+
+/**
+ * SG_Controller_Action_Helper_Auth
+ *
+ * Helper to get the currently logged in user
+ *
+ * @category TB
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ */
 class SG_Controller_Action_Helper_Auth extends Zend_Controller_Action_Helper_Abstract
 {
 	/**

@@ -1,1 +1,39 @@
+<?php
+/**
+ * Show the login form box
+ */
+
+if($remember = $this->form->getElement('remember')) {
+    /* @var $remember Zend_Form_Element_Checkbox */
+    //var_dump($remember);
+   
+    $remember->setDecorators(array(
+        array(
+            'ViewHelper'
+        ),
+        array(
+            'Label',
+            array(
+                'class' => 'checkbox inline',
+                'placement' => 'APPEND',
+            )
+        ),
+        array(
+            'HtmlTag',
+            array(
+                'tag'   => 'span',
+                'class' => 'login-remember'
+            )
+        ),
+    ));
+}
+ 
+?>
+
 <?php echo $this->form; ?>
+
+<div class="login-links">
+    <a href="/user/password-reset">Forgot password?</a>
+    &nbsp;|&nbsp;
+    <a href="/user/register">Sign up</a> 
+</div>

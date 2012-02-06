@@ -1,27 +1,26 @@
 <?php
-/* SVN FILE $Id: FormCheckbox.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
- * Form checkbox helper
- *
+ * @category TB_View
+ * @package  Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2009
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Sep 8, 2009
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
 
 
 /**
+ * TB_View_Helper_FormCheckbox
+ *
  * Helper to generate a "checkbox" element
  *
- * @category   SG
- * @package    SG_View
- * @subpackage Helper
+ * @category TB_View
+ * @package  Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
-class SG_View_Helper_FormCheckbox extends Zend_View_Helper_FormCheckbox
+class TB_View_Helper_FormCheckbox extends Zend_View_Helper_FormCheckbox
 {
     /**
      * Generates a 'checkbox' element.
@@ -38,18 +37,15 @@ class SG_View_Helper_FormCheckbox extends Zend_View_Helper_FormCheckbox
     public function formCheckbox($name, $value = null, $attribs = null, array $checkedOptions = null)
     {
         // add the input-checkbox class
-        if(isset($attribs['class']))
-        {
+        if(isset($attribs['class'])) {
             $attribs['class'] .= ' input-checkbox';
         }
-        else
-        {
+        else {
             $attribs['class'] = 'input-checkbox';
         }
         
         // remove the helper attribute
-        if(isset($attribs['helper']))
-        {
+        if(isset($attribs['helper'])) {
             unset($attribs['helper']);
         }
         

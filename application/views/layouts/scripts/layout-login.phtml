@@ -1,0 +1,19 @@
+<?php
+/**
+ * Login page
+ * 
+ * Variables:
+ * - $this->login->content() : The page content.
+ */
+?>
+
+
+<?php echo $this->partial('_html_header.phtml', array('bodyClass' => array('login'))); ?>
+
+<div id="login"><div class="well">
+    <?php echo $this->render('_messages.phtml'); ?>
+    
+    <?php echo $this->layout()->content; ?>   
+</div></div>
+    
+<?php echo $this->partial('_html_footer.phtml'); ?>

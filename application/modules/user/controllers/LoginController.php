@@ -1,10 +1,31 @@
 <?php
+/**
+ * @category User
+ * @package  Controller
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ * @filesource
+ */
 
+
+/**
+ * User_LoginController
+ *
+ * Login controller
+ *
+ * @category User
+ * @package  Controller
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
+ */
 class User_LoginController extends Zend_Controller_Action
 {
 
     public function init()
     {
+        $this->_helper->layout->setLayout('layout-login');
         $this->_messenger = $this->_helper->getHelper('Messenger');
     }
 
