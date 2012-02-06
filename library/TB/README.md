@@ -19,9 +19,9 @@ The library supports the Bootstrap styling for forms.
 See [Form example](https://github.com/sgrame/openSGrame/blob/master/application/modules/examples/forms/Bootstrap.php) for example usage.
 
 
-### Messages
+### Messenger
 
 The library extends the FlashMessenger so that it is easy to add messages of 4
 types (info, ok, warning, error).
 
-See [Message example](https://github.com/sgrame/openSGrame/blob/master/application/modules/examples/controllers/MessengerController.php) for example usage.
+See [Messenger example](https://github.com/sgrame/openSGrame/blob/master/application/modules/examples/controllers/MessengerController.php) for example usage.
