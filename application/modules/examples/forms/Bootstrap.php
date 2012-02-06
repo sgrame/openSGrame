@@ -209,20 +209,23 @@ class Examples_Form_Bootstrap extends SG_Form
         $submit      = new Zend_Form_Element_Submit('submit');
         $cancel      = new Zend_Form_Element_Reset('cancel');
         $test        = new Zend_Form_Element_Button('test');
+        $again       = new Zend_Form_Element_Submit('again');
         
         $submit->setLabel('Save');
         $cancel->setLabel('Cancel');
         $test->setLabel('Test');
+        $again->setLabel('Try again');
         
         $this->addElements(array(
             $submit, 
             $cancel,
             $test,
+            $again,
         ));
         
         // Group the form buttons in an action fieldset
         $this->addButtonGroup(
-            array('submit', 'cancel', 'test'),
+            array('submit', 'cancel', 'test', 'again'),
             'submit'
         );
     }

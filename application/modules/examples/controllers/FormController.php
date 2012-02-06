@@ -37,34 +37,41 @@ class Examples_FormController extends Zend_Controller_Action
     {
         $testForm = new Examples_Form_Bootstrap();
         $testForm->setAction($this->view->url());
-
-        if ($this->_request->isPost()) {
-            if ($testForm->isValid($this->_request->getPost())) {
-
-                // fetch values
-                $values = $testForm->getValues();
-                
-                $this->_messenger->addSuccess(
-                  array(
-                      '<strong>You successfully posted the test form</strong>',
-                      'Was it hard to complete?',
-                  ),
-                  array(
-                      'http://www.google.com' => 'Use the search Luke',
-                  )
-                );
-            }
-
-            // print error
-            else {
-                $this->_messenger->addError(array(
-                    '<strong>Please control your input!</strong>',
-                    'Complete or fill in the fields marked in red.'
-                ));
-            }
+        $this->view->form = $testForm;
+        
+        if (!$this->_request->isPost()) {
+            return;
         }
         
-        $this->view->form = $testForm;
+        if ($testForm->isValid($this->_request->getPost())) {
+            // fetch values
+            $values = $testForm->getValues();
+            
+            $this->_messenger->addSuccess(
+                array(
+                    '<strong>You successfully posted the test form</strong>',
+                    'Was it hard to complete?',
+                ),
+                array(
+                    'http://www.google.com' => 'Use the search Luke',
+                )
+            );
+            
+            return;
+        }
+        
+        // try again?
+        if($testForm->getElement('again')->isChecked()) {
+            $testForm = new Examples_Form_Bootstrap();
+            $this->view->form = $testForm;
+            return;
+        }
+        
+        // form errors
+        $this->_messenger->addError(array(
+            '<strong>Please control your input!</strong>',
+            'Complete or fill in the fields marked in red.'
+        ));
     }
 }
 
