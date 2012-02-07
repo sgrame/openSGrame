@@ -22,37 +22,73 @@
  */
 class User_LoginController extends Zend_Controller_Action
 {
-
+    /**
+     * Redirect after login
+     * 
+     * @var string
+     */
+    protected $_goto = '/';
+    
+    /**
+     * The authentication model
+     * 
+     * @var User_Model_Auth
+     */
+    protected $_model;
+    
+    /**
+     * The messenger
+     * 
+     * @var TB_Controller_Action_Helper_Messenger
+     */
+    protected $_messenger;
+    
+    
+    /**
+     * Initiate the controller
+     */
     public function init()
     {
         $this->_helper->layout->setLayout('layout-login');
         $this->_messenger = $this->_helper->getHelper('Messenger');
+        
+        $this->_model = new User_Model_Auth();
     }
 
     public function indexAction()
     {
-        $loginForm = new User_Form_Login();
+        // check not already logged in
+        if($this->_model->hasAuthenticatedUser()) {
+            $this->_redirect($this->_goto);
+        }
+      
+        // login procedure
+        $loginForm = $this->_model->getAuthForm();
         $loginForm->setAction($this->view->url());
+        $this->view->form = $loginForm;
         
-        if ($this->_request->isPost()) {
-            if ($loginForm->isValid($this->_request->getPost())) {
-                $this->_messenger->addSuccess(
-                    '<strong>You successfully logged in!</strong>'
-                );
-            }
-
-            // print error
-            else {
-                $this->_messenger->addError(
-                    '<strong>Please control your username and password</strong>',
-                    array('/user/password-reset' => 'Forgot your password?')
-                );
-            }
+        if (!$this->_request->isPost()) {
+            return;
         }
         
-        $this->view->form = $loginForm;
+        if(!$loginForm->isValid($this->_request->getPost())
+            || !$this->_model->authenticateForm($loginForm)
+        ) {
+            $this->_messenger->addError(
+                '<strong>Please control your username and password</strong>',
+                array('/user/password-reset' => 'Forgot your password?')
+            );
+            return;
+        }
+        
+        
+        // we are logged in
+        $this->_messenger->addSuccess(
+            '<strong>You successfully logged in!</strong>'
+        );
+        
+        // redirect
+        $this->_redirect($this->_goto);
     }
-
-
 }
 
