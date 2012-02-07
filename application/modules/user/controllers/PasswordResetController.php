@@ -10,9 +10,9 @@
 
 
 /**
- * User_LogoutController
+ * User_PasswordResetController
  *
- * Logout controller
+ * Password recovery controller
  *
  * @category User
  * @package  Controller
@@ -20,15 +20,8 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class User_LogoutController extends Zend_Controller_Action
+class User_PasswordResetController extends Zend_Controller_Action
 {
-    /**
-     * Redirect after login
-     * 
-     * @var string
-     */
-    protected $_goto = '/user/login';
-    
     /**
      * The authentication model
      * 
@@ -49,21 +42,20 @@ class User_LogoutController extends Zend_Controller_Action
      */
     public function init()
     {
+        $this->_helper->layout->setLayout('layout-login');
         $this->_messenger = $this->_helper->getHelper('Messenger');
+        
         $this->_model = new User_Model_Auth();
     }
 
-    /**
-     * Log the user out
-     */
     public function indexAction()
     {
-        $this->_model->unsetAuth();
-        // we are logged in
-        $this->_messenger->addInfo(
-            '<strong>You are now logged out</strong>'
-        );
-        $this->_redirect($this->_goto);
+        $form = new User_Form_PasswordReset();
+        $form->setAction($this->view->url());
+        
+        $this->view->form = $form;
     }
+
+
 }
 
