@@ -5,20 +5,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Init the application constants
      */
-    protected function _initContstants()
+    protected function __initContstants()
     {
-      // Define the public base url
-      $url = array();
-      $url['protocol'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')
-        ? 'https://'
-        : 'http://';
-      $url['domain'] = rtrim($_SERVER['HTTP_HOST'], '/');
-      
-      defined('APPLICATION_URL')
-      or define(
-        'APPLICATION_URL', 
-        $url['protocol'] . $url['domain']
-      );
+        // Define the public base url
+        $url = array();
+        $url['protocol'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')
+          ? 'https://'
+          : 'http://';
+        $url['domain'] = rtrim($_SERVER['HTTP_HOST'], '/');
+        
+        defined('APPLICATION_URL')
+        or define(
+          'APPLICATION_URL', 
+          $url['protocol'] . $url['domain']
+        );
     }
     
     /**

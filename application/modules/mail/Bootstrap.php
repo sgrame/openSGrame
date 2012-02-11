@@ -1,6 +1,6 @@
 <?php
 /**
- * @category User
+ * @category Mail
  * @author   Peter Decuyper <sgrame@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
@@ -9,17 +9,17 @@
 
 
 /**
- * User_Bootstrap
+ * Mail_Bootstrap
  *
  * Bootstrap class
  *
- * @category User
+ * @category Mail
  * @author   Peter Decuyper <sgrame@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class User_Bootstrap extends Zend_Application_Module_Bootstrap
+class Mail_Bootstrap extends Zend_Application_Module_Bootstrap
 {
-
+	
 }
 

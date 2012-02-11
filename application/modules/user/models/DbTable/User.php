@@ -39,6 +39,19 @@ class User_Model_DbTable_User extends SG_Db_Table
     }
     
     /**
+     * Get a user by its email
+     * 
+     * @param string $_email
+     * @return  Zend_Db_Table_Rowset
+     */
+    public function findByEmail($_email)
+    {
+        $select = $this->select();
+        $select->where('email = ?', $_email);
+        return $this->fetchAll($select);
+    }
+    
+    /**
      * Get a user by his primary keys (id or username)
      * 
      * @param string | id

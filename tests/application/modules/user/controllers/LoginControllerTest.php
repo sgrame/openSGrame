@@ -21,9 +21,9 @@ class User_LoginControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertController($urlParams['controller']);
         $this->assertAction($urlParams['action']);
         $this->assertQueryContentContains(
-            'div#view-content p',
-            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+            '#fieldset-login legend',
+            'Login'
+        );
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-class Demo_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class Example_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -11,7 +11,7 @@ class Demo_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'Index', 'module' => 'demo');
+        $params = array('action' => 'index', 'controller' => 'Index', 'module' => 'examples');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
@@ -21,9 +21,9 @@ class Demo_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertController($urlParams['controller']);
         $this->assertAction($urlParams['action']);
         $this->assertQueryContentContains(
-            'div#view-content p',
-            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+            'div.page-header h1',
+            'Examples overview'
+        );
     }
 
 
