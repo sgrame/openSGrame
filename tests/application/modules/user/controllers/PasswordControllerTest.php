@@ -1,6 +1,6 @@
 <?php
 
-class User_PasswordResetControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class User_PasswordControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -9,9 +9,9 @@ class User_PasswordResetControllerTest extends Zend_Test_PHPUnit_ControllerTestC
         parent::setUp();
     }
 
-    public function testIndexAction()
+    public function testResetAction()
     {
-        $params = array('action' => 'index', 'controller' => 'PasswordReset', 'module' => 'user');
+        $params = array('action' => 'reset', 'controller' => 'Password', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
         $this->dispatch($url);
