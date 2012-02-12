@@ -103,7 +103,7 @@ class User_Model_User
         $dateExpire = new Zend_Date();
             $dateExpire->add(24, Zend_Date::HOUR);
       
-        // create the action record
+        // create the action record ------------------------------------
         $actionMapper = new User_Model_DbTable_UserAction();
         $action = $actionMapper->fetchNew();
             $action->user_id = $user->id;
@@ -111,9 +111,30 @@ class User_Model_User
             $action->setDateExpire($dateExpire);
         $action->save();
         
-        // send out the mail
+        // send out the mail -------------------------------------------
+        $templates = new Mail_Model_DbTable_Template();
+        $template = $templates->findByRealm('user:password_recovery')->current();
+        /* @var $template Mail_Model_Row_Template */
         
+        // get the full URL
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+        $siteUrl = $request->getScheme() . '://' . $request->getHttpHost();
         
+        // !TODO: Add variables sitename
+        $args = array(
+            'site:name'          => '!TODO: ADD SITENAME',
+            'user:name'          => $user->username,
+            'url:one-time-login' => $siteUrl . '/user/password/action/uuid/' . $action->token,
+            'url:login'          => $siteUrl . '/user/login',
+        );
+        
+        $mail = new Zend_Mail();
+        $mail->addTo($user->email, $user->username);
+        $mail->setSubject($template->getSubjectFilled($args));
+        $mail->setBodyText($template->getBodyFilled($args));
+        $mail->send();
+        
+        return true;
     }
 }
 

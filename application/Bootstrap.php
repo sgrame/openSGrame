@@ -81,7 +81,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Init the db metadata caching
      */
-    protected function __initDbMetaCache()
+    protected function _initDbMetaCache()
     {
         // make sure the db bootstrap is done
         $this->bootstrap('db');
