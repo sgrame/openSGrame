@@ -9,7 +9,7 @@ class Default_ErrorController extends Zend_Controller_Action
      * Set the default layout for error handler
      */
     public function init() {
-        //$this->_helper->layout->setLayout('layout-basic');
+        $this->_helper->layout->setLayout('layout-well');
     }
     
     /**
@@ -40,6 +40,20 @@ class Default_ErrorController extends Zend_Controller_Action
                 $this->getResponse()->setHttpResponseCode(500);
                 $priority = Zend_Log::CRIT;
                 $this->view->message = 'Application error';
+                break;
+        }
+        
+        // check for specific exceptions
+        switch(get_class($errors->exception)) {
+            case 'SG_Controller_Action_NotAuthorized_Exception':
+                $this->getResponse()->setHttpResponseCode(403);
+                $priority = Zend_Log::NOTICE;
+                $this->view->message = 'No access';
+                break;
+            case 'SG_Controller_Action_NotFound_Exception':
+                $this->getResponse()->setHttpResponseCode(404);
+                $priority = Zend_Log::NOTICE;
+                $this->view->message = 'Page not found';
                 break;
         }
         

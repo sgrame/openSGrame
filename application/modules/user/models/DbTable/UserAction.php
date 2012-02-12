@@ -38,5 +38,21 @@ class User_Model_DbTable_UserAction extends SG_Db_Table
         
         return $this->fetchAll($select);
     }
+    
+    /**
+     * Get an user action by its Universal Unique ID (UUID)
+     * 
+     * @param string
+     * 
+     * @return User_Model_Row_UserAction
+     */
+    public function findByUuid($uuid)
+    {
+        $select = $this->select();
+        /* @var $q Zend_Db_Table_Select */
+        $select->where('uuid = ?', $uuid);
+        
+        return $this->fetchAll($select);
+    }
 }
 

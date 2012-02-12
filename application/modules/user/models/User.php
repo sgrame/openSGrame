@@ -124,7 +124,7 @@ class User_Model_User
         $args = array(
             'site:name'          => '!TODO: ADD SITENAME',
             'user:name'          => $user->username,
-            'url:one-time-login' => $siteUrl . '/user/password/action/uuid/' . $action->token,
+            'url:one-time-login' => $siteUrl . '/user/password/action/uuid/' . $action->uuid,
             'url:login'          => $siteUrl . '/user/login',
         );
         
@@ -135,6 +135,39 @@ class User_Model_User
         $mail->send();
         
         return true;
+    }
+
+    /**
+     * Change a users password by the given value
+     * 
+     * @param User_Model_Row_User
+     * @param string
+     *     The new password
+     * 
+     * @return bool
+     *     Success
+     */
+    public function changeUserPassword(User_Model_Row_User $user, $password)
+    {
+        $user = $this->findById($user->id);
+        $user->password = $password;
+        return $user->save();
+    }
+
+    /**
+     * Get an action for a user by its uuid
+     * 
+     * @param string
+     *     The action UUID
+     * 
+     * @return User_Model_Row_UserAction
+     */
+    public function getUserActionByUuid($uuid)
+    {
+        $actions = new User_Model_DbTable_UserAction();
+        $action = $actions->findByUuid($uuid)->current();
+        
+        return $action;
     }
 }
 

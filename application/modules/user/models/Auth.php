@@ -25,8 +25,9 @@ class User_Model_Auth
     /**
      * Get the authentication object
      * 
-     * @param    void
-     * @return    Zend_Auth
+     * @param void
+     * 
+     * @return Zend_Auth
      */
     public function getAuthObject()
     {
@@ -36,8 +37,9 @@ class User_Model_Auth
     /**
      * Get the login form
      * 
-     * @param    array    data
-     * @return    User_Form_Auth
+     * @param array
+     * 
+     * @return User_Form_Auth
      */
     public function getAuthForm($_data = array())
     {
@@ -54,8 +56,9 @@ class User_Model_Auth
     /**
      * Is there an authenticated user
      * 
-     * @param    void
-     * @return    bool
+     * @param void
+     * 
+     * @return bool
      */
     public function hasAuthenticatedUser()
     {
@@ -64,10 +67,28 @@ class User_Model_Auth
     }
     
     /**
+     * Get the current user
+     * 
+     * @param void
+     * 
+     * @return User_Model_User_Row
+     */
+    public function getAuthenticatedUser()
+    {
+        if(!$this->hasAuthenticatedUser()) {
+            return false;
+        }
+        
+        return $this->getAuthObject()->getIdentity();
+    }
+    
+    /**
      * Authenticate user
      * 
-     * @param    User_Form_Auth
-     * @return    bool    success
+     * @param User_Form_Auth
+     * 
+     * @return bool
+     *     success
      */
     public function authenticateForm(Zend_Form $_form)
     {
@@ -76,31 +97,42 @@ class User_Model_Auth
         /* @var $user User_Model_User */
         
         // check if user is found
-        if(!$user)
-        {
+        if(!$user) {
             return false;
         }
         
         // check the password
-        if(!$user->checkPassword($_form->getValue('password')))
-        {
+        if(!$user->checkPassword($_form->getValue('password'))) {
             return false;
         }
         
         // check if not locked
-        if($user->isLocked())
-        {
+        if($user->isLocked()) {
             return false;
         }
         
         // check if not blocked
-        if($user->isBlocked())
-        {
+        if($user->isBlocked()) {
             return false;
         }
         
-        // Login successfull
         // store the authenticated user
+        $this->authenticateUser($user);
+        
+        // authenticated
+        return true;
+    }
+    
+    /**
+     * Authenticate given user
+     * 
+     * @param User_Model_Row_User
+     * 
+     * @return bool
+     *     Success
+     */
+    public function authenticateUser(User_Model_Row_User $user)
+    {
         $auth = $this->getAuthObject();
         $auth->getStorage()->write($user);
         

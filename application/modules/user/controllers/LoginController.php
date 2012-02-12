@@ -49,7 +49,7 @@ class User_LoginController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_helper->layout->setLayout('layout-login');
+        $this->_helper->layout->setLayout('layout-well');
         $this->_messenger = $this->_helper->getHelper('Messenger');
         
         $this->_model = new User_Model_Auth();
@@ -76,7 +76,7 @@ class User_LoginController extends Zend_Controller_Action
         ) {
             $this->_messenger->addError(
                 '<strong>Please control your username and password</strong>',
-                array('/user/password-reset' => 'Forgot your password?')
+                array('/user/password/reset' => 'Forgot your password?')
             );
             return;
         }

@@ -34,12 +34,36 @@ class User_Model_Row_UserAction extends Zend_Db_Table_Row_Abstract
      * 
      * @param Zend_Date
      * 
-     * @return self 
+     * @return this 
      */
     public function setDateExpire(Zend_Date $date)
     {
         $this->date_expire = $date->get('YYYY-MM-dd HH:mm:ss');
         return $this;
+    }
+    
+    /**
+     * Set the userAction flag as used
+     * 
+     * @param void
+     * 
+     * @return this
+     */
+    public function setUsed()
+    {
+        $this->used = 1;
+        return $this;
+    }
+    
+    /**
+     * Check if the userAction is already used
+     *
+     * @param void
+     * 
+     * @return bool
+     */
+    public function isUsed() {
+        return (bool)$this->used;
     }
 
     /**
@@ -50,8 +74,8 @@ class User_Model_Row_UserAction extends Zend_Db_Table_Row_Abstract
      */
     protected function _insert()
     {
-        if(empty($this->token)) {
-            $this->token  = SG_Token::uuid();
+        if(empty($this->uuid)) {
+            $this->uuid  = SG_Token::uuid();
         }
     } 
 }

@@ -77,18 +77,18 @@ class User_Model_Row_UserActionTest extends PHPUnit_Framework_TestCase
     /**
      * Testing auto token (during insert)
      */
-    public function testAutoTokenOnInsert()
+    public function testAutoUuidOnInsert()
     {
         $model = new User_Model_DbTable_UserAction();
         $userAction = $model->fetchNew();
-        $this->assertEmpty($userAction->token);
+        $this->assertEmpty($userAction->uuid);
         
         $userAction->action  = __FUNCTION__;
         $userAction->user_id = self::USER_ID;
         $userAction->save();
-        $this->assertNotEmpty($userAction->token);
+        $this->assertNotEmpty($userAction->uuid);
         
         $savedAction = $model->findByUserId(self::USER_ID)->current();
-        $this->assertEquals($userAction->token, $savedAction->token);
+        $this->assertEquals($userAction->uuid, $savedAction->uuid);
     }
 }
