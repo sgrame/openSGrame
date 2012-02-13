@@ -88,7 +88,7 @@ class User_PasswordController extends Zend_Controller_Action
         $this->_model->changeUserPassword($user, $form->getValue('new_pwd'));
         
         // remove the namespace (if any)
-        if($ns || $userAction) {
+        if($ns || isset($userAction)) {
             Zend_Session::namespaceUnset(self::NS_PASSWORD_RESET);
             $userAction->setUsed();
             $userAction->save();
