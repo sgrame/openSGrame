@@ -31,13 +31,6 @@ class Examples_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-        
-        $vars = SG_Variables::getInstance();
-        $vars->set('site_name', 'openSGrame');
-        $vars->set('site_email', 'info@sgrame.com');
-        
-        $vars->set('user_signup', false);
-        $vars->set('user_login_max_tries', 0);
     }
 
 
