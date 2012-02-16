@@ -1,0 +1,45 @@
+<?php
+/**
+ * Language switcher (if more then one language)
+ * 
+ * If only one other language => direct link to other language
+ * If multiple languages      => Dropdown 
+ */
+$languages = $this->languageSwitch();
+
+if(!$languages) {
+    return;
+}
+
+$class = (!empty($this->class)) ? ' class="' . $this->class . '"' : null;
+$multiple = (count($languages['languages']) > 1);
+
+?>
+
+<ul<?php echo $class; ?>>
+
+<?php if($multiple): ?>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <?php echo $this->t('Change language'); ?>
+            <b class="caret"></b>
+        </a>
+        
+        <ul class="dropdown-menu">
+<?php endif; ?>
+  
+    <?php foreach($languages['languages'] AS $key => $label): ?>
+        <li>
+            <a href="<?php echo $this->url(array('language' => $key)); ?>">
+                <?php echo $label; ?>
+            </a>
+        </li> 
+    <?php endforeach; ?>
+        
+<?php if($multiple): ?>
+        </ul>
+    </li>
+<?php endif; ?>
+
+</ul>
+
