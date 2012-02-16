@@ -8,6 +8,11 @@
  *     The page to render
  */
 
+// add the current language to the page
+$this->page->setParams(array(
+    'language' => Zend_Controller_Front::getInstance()->getRequest()->getParam('language')
+));
+ 
 // "preprocess"
 $liClass = array();
 $aClass  = array();

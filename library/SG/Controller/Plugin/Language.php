@@ -83,5 +83,9 @@ class SG_Controller_Plugin_Language extends Zend_Controller_Plugin_Abstract{
         $translate = Zend_Registry::getInstance()->Zend_Translate;
         $translate->getAdapter()->setLocale(Zend_Registry::getInstance()->Zend_Locale);
         Zend_Controller_Router_Route::setDefaultTranslator($translate);
+        
+        $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
+        $navigationHelper = $view->getHelper('navigation');
+        $navigationHelper->setTranslator($translate);
     }
 }

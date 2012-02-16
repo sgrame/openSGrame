@@ -130,7 +130,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/navigation.ini');
         
         // add the main navigation 
-        $navigation = new Zend_Navigation($config); 
+        $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
     }
 
