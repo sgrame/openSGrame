@@ -27,7 +27,7 @@ class User_LogoutController extends Zend_Controller_Action
      * 
      * @var string
      */
-    protected $_goto = '/user/login';
+    protected $_goto;
     
     /**
      * The authentication model
@@ -49,6 +49,10 @@ class User_LogoutController extends Zend_Controller_Action
      */
     public function init()
     {
+        $this->_goto = $this->view->url(array(
+          'controller' => 'login',
+        ));
+      
         $this->_messenger = $this->_helper->getHelper('Messenger');
         $this->_model = new User_Model_Auth();
     }

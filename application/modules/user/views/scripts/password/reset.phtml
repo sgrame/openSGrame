@@ -1,6 +1,19 @@
+<?php
+/**
+ * Password reset form
+ * 
+ * Available variables:
+ * 
+ * $this->form
+ *    The password reset form
+ * 
+ * $this->urlLogin
+ *    The link to the login form
+ */
+?>
 
 <?php echo $this->form; ?>
 
 <div class="login-links">
-    <a href="/user/login">Login</a>
+    <a href="<?php echo $this->urlLogin; ?>"><?php echo $this->t('Login'); ?></a>
 </div>

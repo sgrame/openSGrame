@@ -4,13 +4,13 @@
  * Shorter translate function
  *
  * @filesource
- * @copyright		Serial Graphics Copyright 2009
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Dec 15, 2009
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
+ * @copyright        Serial Graphics Copyright 2009
+ * @author            Serial Graphics <info@serial-graphics.be>
+ * @link            http://www.serial-graphics.be
+ * @since            Dec 15, 2009
+ * @version            $Revision: 2 $
+ * @modifiedby        $LastChangedBy: SerialGraphics $
+ * @lastmodified    $Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
 
 /**
@@ -19,7 +19,6 @@
  */
 class SG_View_Helper_T extends Zend_View_Helper_Translate 
 {
-    
     /**
      * Translate a message
      * You can give multiple params or an array of params.
@@ -30,13 +29,13 @@ class SG_View_Helper_T extends Zend_View_Helper_Translate
      * @param  string $messageid Id of the message to be translated
      * @return string Translated message
      */
-	public function t($messageid = null)
+    public function t($messageid = null)
     {
-    	$args = func_get_args();
-    	
-    	//remove first argument ($messageId)
-    	array_shift($args);
+        $args = func_get_args();
+        
+        //remove first argument ($messageId)
+        array_shift($args);
 
-    	return $this->translate($messageid, $args);
+        return $this->translate($messageid, $args);
     }
 }

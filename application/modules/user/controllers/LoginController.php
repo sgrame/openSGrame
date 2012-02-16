@@ -27,7 +27,7 @@ class User_LoginController extends Zend_Controller_Action
      * 
      * @var string
      */
-    protected $_goto = '/';
+    protected $_goto;
     
     /**
      * The authentication model
@@ -49,6 +49,11 @@ class User_LoginController extends Zend_Controller_Action
      */
     public function init()
     {
+        $this->_goto = $this->view->url(array(
+            'module'     => 'default',
+            'controller' => 'index',
+        ));
+      
         $this->_helper->layout->setLayout('layout-well');
         $this->_messenger = $this->_helper->getHelper('Messenger');
         
@@ -74,9 +79,13 @@ class User_LoginController extends Zend_Controller_Action
         if(!$loginForm->isValid($this->_request->getPost())
             || !$this->_model->authenticateForm($loginForm)
         ) {
+            $reset_url = $this->view->url(array(
+                'controller' => 'password', 
+                'action'     => 'reset'
+            ));
             $this->_messenger->addError(
                 '<strong>Please control your username and password</strong>',
-                array('/user/password/reset' => 'Forgot your password?')
+                array($reset_url => 'Forgot your password?')
             );
             return;
         }

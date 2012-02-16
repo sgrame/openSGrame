@@ -22,7 +22,7 @@ class User_LogoutControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertAction($urlParams['action']);
         
         $this->assertResponseCode(302);
-        $this->assertRedirectTo('/user/login');
+        $this->assertRedirectTo('/en/user/login');
     }
 
 

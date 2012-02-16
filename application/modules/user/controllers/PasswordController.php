@@ -50,8 +50,13 @@ class User_PasswordController extends Zend_Controller_Action
     public function init()
     {
         $this->_messenger = $this->_helper->getHelper('Messenger');
-        
         $this->_model = new User_Model_User();
+        
+        // View vars
+        $this->view->urlLogin = $this->view->url(array(
+            'controller' => 'login',
+            'action'     => null,
+        ));
     }
     
     /**
@@ -98,7 +103,7 @@ class User_PasswordController extends Zend_Controller_Action
             '<strong>Password is changed</strong>'
         );
        
-        $this->_redirect('/user/password');
+        $this->_redirect($this->view->url());
     }
 
     /**
@@ -109,7 +114,9 @@ class User_PasswordController extends Zend_Controller_Action
         // check not authenticated
         $auth = new User_Model_Auth();
         if($auth->hasAuthenticatedUser()) {
-            $this->_redirect('/user/password');
+            $this->_redirect($this->view->url(array(
+                'action' => 'password',
+            )));
         }
       
         // show form
@@ -155,6 +162,9 @@ class User_PasswordController extends Zend_Controller_Action
                 'Check your mail.'
             )
         );
+        
+        // redirect to avoid reload form posts
+        $this->_redirect($this->view->url());
     }
 
     /**
@@ -206,7 +216,9 @@ class User_PasswordController extends Zend_Controller_Action
                 $auth->authenticateUser($user);
                 
                 // redirect to the change password form
-                $this->_redirect('/user/password');
+                $this->_redirect($this->view->url(array(
+                    'action' => 'password',
+                )));
                 break;
         }
         

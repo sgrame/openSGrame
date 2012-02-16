@@ -27,11 +27,16 @@ if($remember = $this->form->getElement('remember')) {
         ),
     ));
 }
+
+$urlPasswordReset = $this->url(array(
+  'controller' => 'password',
+  'action'     => 'reset',
+));
  
 ?>
 
 <?php echo $this->form; ?>
 
 <div class="login-links">
-    <a href="/user/password/reset">Forgot password?</a>
+    <a href="<?php echo $urlPasswordReset; ?>"><?php echo $this->t('Forgot password?'); ?></a>
 </div>
