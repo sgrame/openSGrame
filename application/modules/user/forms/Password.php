@@ -48,7 +48,7 @@ class User_Form_Password extends SG_Form
             'validators' => array($validator),
         ));
         $this->addElement('password', 'new_pwd_confirm', array(
-            'label'      => 'Repeat paswoord',
+            'label'      => 'Repeat password',
             'required'   => true,
             'maxlength'     => 128,
             'description'=> 'Password must contain at least 6 characters.',
