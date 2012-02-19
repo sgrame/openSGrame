@@ -1,25 +1,29 @@
 <?php
 /**
- * Extended version of the Zend Form
- *
+ * @category SG
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright       Serial Graphics Copyright 2008
- * @author          Serial Graphics <info@serial-graphics.be>
- * @link            http://www.serial-graphics.be
- * @since           Jun 19, 2009
- * @package         SG
- * @subpackage      Form
  */
 
+
 /**
- * Default SG form class
- * 
+ * SG_Form
+ *
  * This adds the prefix paths for 
  * - SG_Filter
  * - SG_Validate
  * - SG_Decorator
  *
  * Extends the EasyBib_Form for Twitter Bootstrap integration
+ *
+ * @category SG
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Form extends TB_Form
 {

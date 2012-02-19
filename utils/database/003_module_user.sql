@@ -187,10 +187,12 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
 
 
 -- Dumping data for table `user_roles`
-INSERT INTO `user_roles` 
-	(`id`, `user_id`, `role_id`, `ci`, `cd`, `cr`) 
+INSERT INTO `user_role` 
+	(`id`, `name`, `ci`, `cd`, `cr`)
 VALUES
-	(1, 1, 1, 0, '1974-07-28 12:00:00', NULL);
+	(1, 'everyone', 0, '1974-07-28 12:00:00', NULL),
+	(2, 'user', 0, '1974-07-28 12:00:00', NULL),
+	(3, 'admin', 0, '1974-07-28 12:00:00', NULL);
 
 
 -- --------------------------------------------------------

@@ -6,6 +6,9 @@
 return array(
   // Menu
   'Profile' => 'Profiel',
+  'View Profile'    => 'Profiel bekijken',
+  'Change password' => 'Paswoord aanpassen',
+  'Logout'          => 'Uitloggen',
   
   // Password form
   'Change password' => 'Paswoord aanpassen',

@@ -18,7 +18,7 @@ $liClass = array();
 $aClass  = array();
 $aExtra  = NULL;
 $aHref   = $this->page->getHref();
-$aLabel  = $this->page->getLabel();
+$aLabel  = $this->t($this->page->getLabel());
 
 if($this->page->isActive()) {
   $liClass[] = 'active';

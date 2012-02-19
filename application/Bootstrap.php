@@ -124,6 +124,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initNavigation()
     {
         $this->bootstrap('layout');
+        $this->bootstrap('translate');
+        
         $layout = $this->getResource('layout');
         $view = $layout->getView();
         
