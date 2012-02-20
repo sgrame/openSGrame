@@ -135,6 +135,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
     }
-
 }
 

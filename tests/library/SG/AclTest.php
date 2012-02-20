@@ -81,8 +81,8 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
      */
     public function testUser()
     {
-        $userName = $this->_users[1]['username'];
-        $user1 = $this->_userMapper->findByUsername($userName)->current();
+        $userName1 = $this->_users[1]['username'];
+        $user1 = $this->_userMapper->findByUsername($userName1)->current();
         
         $acl = new SG_Acl($user1);
         
@@ -92,6 +92,14 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module1', 'edit'));
         $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module1', 'delete'));
         $this->assertFalse($acl->isUserAllowed('SG_AclTest_Module2'));
+        
+        // test other user
+        $userName2 = $this->_users[2]['username'];
+        $user2 = $this->_userMapper->findByUsername($userName2)->current();
+        $this->assertFalse($acl->isUserAllowed('SG_AclTest_Module1', null, $user2));
+        $this->assertFalse($acl->isUserAllowed('SG_AclTest_Module1', 'view', $user2));
+        $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module2', null, $user2));
+        $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module2', 'view', $user2));
     }
     
     

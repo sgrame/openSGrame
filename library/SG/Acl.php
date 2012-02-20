@@ -30,13 +30,6 @@ class SG_Acl extends Zend_Acl {
     const ROLE_EVERYONE = 'everyone';
     
     /**
-     * The default permission for a given resource
-     * 
-     * @var string
-     */
-    const PERMISSION_DEFAULT = 'view';
- 
-    /**
      * Database adapter
      * 
      * @var Zend_Db_Adapter_Abstract
@@ -96,11 +89,18 @@ class SG_Acl extends Zend_Acl {
         // get the roles with their resources
         $dbRoles = $this->_getDbRoles();
         $roles = array();
+        $resources = array();
         foreach($dbRoles AS $role) {
             $roleId = $role['id'];
+            
             if(!isset($roles[$roleId])) {
                 $roles[$roleId] = new Zend_Acl_Role($role['name']);
                 $this->addRole($roles[$roleId]);
+            }
+            
+            if(!in_array($role['resource'], $resources)) {
+                $this->allow($role['name'], $role['resource']);
+                $resources[] = $role['resource'];
             }
             
             if(!empty($role['resource'])) {
@@ -115,19 +115,7 @@ class SG_Acl extends Zend_Acl {
         $this->allow($adminRoleName);
         
         // create a "user" role that inherit from his roles
-        if(!empty($this->_user) && 1 !== (int)$this->_user->id) {
-            $userRoles = array(self::ROLE_EVERYONE);
-            $userDbRoles = $this->_getDbUserRoles();
-            
-            foreach($userDbRoles AS $role) {
-                $userRoles[] = $role['name'];
-            }
-            
-            $this->addRole(
-                new Zend_Acl_Role($this->_getUserRoleName()), 
-                $userRoles
-            );
-        }
+        $this->_initUser($this->_user);
     }
 
     /**
@@ -137,22 +125,82 @@ class SG_Acl extends Zend_Acl {
      *     Resource (module name)
      * @param string
      *     Permission
+     * @param User_Model_Row_User
      * 
      * @return bool
      */
-    public function isUserAllowed(
-        $resource = null, 
-        $permission = self::PERMISSION_DEFAULT
-    )
+    public function isUserAllowed($resource = null, $permission = null, $user = null)
     {
+        $role = $this->_getUserRoleName();
+        
+        if($userRoleName = $this->_initUser($user)) {
+            $role = $userRoleName;
+        }
+      
         return $this->isAllowed(
-            $this->_getUserRoleName(), 
+            $role, 
             $resource, 
             $permission
         );
     }
     
+    /**
+     * Get the current main user role
+     * 
+     * @param void
+     * 
+     * @return string
+     */
+    public function getCurrentUserRole()
+    {
+        $role = ($this->_user)
+            ? $this->_getUserRoleName()
+            : self::ROLE_EVERYONE;
+        return $role;
+    }
     
+    
+    /**
+     * Init the acl for a given user
+     * 
+     * @param User_Model_Row_User
+     * 
+     * @return string
+     *     The user specific role name (user::[username])
+     */
+    protected function _initUser($user) {
+        if(empty($user)) {
+            return;
+        }
+        
+        if(!($user instanceof User_Model_Row_User)) {
+            return;
+        }
+        
+        // admin is added to the ACL by default
+        if(1 === (int)$user->id) {
+            return;
+        }
+      
+        // check not already registered
+        $userRoleName = $this->_getUserRoleName($user->username);
+        if(in_array($userRoleName, $this->getRoles())) {
+            return $userRoleName;
+        }
+      
+        $userRoles = array(self::ROLE_EVERYONE);
+        $userDbRoles = $this->_getDbUserRoles($user);
+            
+        foreach($userDbRoles AS $role) {
+            $userRoles[] = $role['name'];
+        }
+        $this->addRole(
+            new Zend_Acl_Role($userRoleName), 
+            $userRoles
+        );
+        
+        return $userRoleName;
+    }
     
     /**
      * Get the string representing the user role name
@@ -263,7 +311,7 @@ class SG_Acl extends Zend_Acl {
      * 
      * @return Zend_Db_Statement
      */
-    protected function _getDbUserRoles()
+    protected function _getDbUserRoles($user)
     {
         $q = $this->_db->select();
         $q->from(
@@ -277,7 +325,7 @@ class SG_Acl extends Zend_Acl {
           );
         $q->where('ur.cr IS NULL')
           ->where('r.cr IS NULL')
-          ->where('ur.user_id = ?', $this->_user->id);
+          ->where('ur.user_id = ?', (int)$user->id);
         $q->order('r.name');
         
         $roles = $this->_db->query($q)->fetchAll();
