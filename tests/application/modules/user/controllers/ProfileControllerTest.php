@@ -1,6 +1,6 @@
 <?php
 
-class User_ProfileControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class User_ProfileControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -11,9 +11,17 @@ class User_ProfileControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'Profile', 'module' => 'user');
+        $params = array('action' => 'index', 'controller' => 'profile', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
+        
+        // Not logged in
+        $this->dispatch($url);
+        $this->assertResponseCode(403);
+
+        // Logged in        
+        $acl = $this->setUpAcl(array('user:profile' => array('view')));
+        $this->resetResponse();
         $this->dispatch($url);
         
         // assertions
@@ -22,8 +30,8 @@ class User_ProfileControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertAction($urlParams['action']);
         $this->assertQueryContentContains(
             'div#view-content p',
-            'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+            'View script for controller <b>' . ucfirst($params['controller']) . '</b> and script/action name <b>' . $params['action'] . '</b>'
+        );
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-class User_PasswordControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class User_PasswordControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -9,21 +9,33 @@ class User_PasswordControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         parent::setUp();
     }
 
-    public function testResetAction()
+    public function testIndexAction()
     {
-        $params = array('action' => 'reset', 'controller' => 'Password', 'module' => 'user');
+        $params = array('action' => 'index', 'controller' => 'password', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
+        
+        // not logged in
         $this->dispatch($url);
         
         // assertions
-        $this->assertModule($urlParams['module']);
-        $this->assertController($urlParams['controller']);
-        $this->assertAction($urlParams['action']);
-        $this->assertQueryContentContains(
-            '#fieldset-reset legend',
-            'Reset password'
-        );
+        $this->assertModule('default');
+        $this->assertController('error');
+        $this->assertAction('error');
+        
+        // assert error
+        $this->assertResponseCode(403);
+        
+        $acl = $this->setUpAcl(array('user:password' => array('view')));
+        // Acl allowed
+        $this->resetResponse();
+        $this->dispatch($url);
+        $this->assertResponseCode(200);
+        
+        // assertions
+        $this->assertModule($params['module']);
+        $this->assertController($params['controller']);
+        $this->assertAction($params['action']);
     }
 
 

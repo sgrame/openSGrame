@@ -1,6 +1,6 @@
 <?php
 
-class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class User_IndexControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -14,6 +14,17 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $params = array('action' => 'index', 'controller' => 'Index', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams);
+        
+        // not logged in
+        $this->dispatch($url);
+        $this->assertResponseCode(302);
+        $this->assertRedirectTo('/en/user/login');
+        
+        // logged in
+        $user = $this->createUser(__CLASS__);
+        $this->loginUser($user);
+        
+        $this->resetResponse();
         $this->dispatch($url);
         
         // assertions
@@ -23,7 +34,7 @@ class User_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertQueryContentContains(
             'div#view-content p',
             'View script for controller <b>' . $params['controller'] . '</b> and script/action name <b>' . $params['action'] . '</b>'
-            );
+        );
     }
 
 

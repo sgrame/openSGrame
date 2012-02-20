@@ -38,9 +38,8 @@ class SG_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract{
             $acl = new SG_Acl();
             Zend_Registry::set('acl', $acl);
         }
-        else {
-            $acl = Zend_Registry::get('acl');
-        }
+        
+        $acl = Zend_Registry::get('acl');
         /* @var $acl SG_Acl */
         
         // set the acl to the navigation
@@ -62,7 +61,9 @@ class SG_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract{
        
         $recources = $acl->getResources();
         
-        $controllerResource = $request->getModuleName() . ':' . $request->getControllerName();
+        $controllerResource = $request->getModuleName() 
+                              . ':' 
+                              . $request->getControllerName();
         if(!in_array($controllerResource, $recources)) {
             return;
         }

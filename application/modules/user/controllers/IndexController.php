@@ -22,10 +22,22 @@
  */
 class User_IndexController extends Zend_Controller_Action
 {
+    /**
+     * Acl container
+     * 
+     * @var SG_Acl
+     */
+    protected $_acl;
 
     public function init()
     {
-        /* Initialize action controller here */
+        $auth = Zend_Auth::getInstance();
+        if(!$auth->hasIdentity()) {
+            $this->_redirect($this->view->url(array(
+                'module'     => 'user',
+                'controller' => 'login',
+            )));
+        }
     }
 
     public function indexAction()
