@@ -75,7 +75,8 @@ class User_Model_User
     public function findByUsernameOrEmail($usernameOrEmail)
     {
         // search by email
-        if(preg_match('/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])*(\.([a-z0-9])([-a-z0-9_-])([a-z0-9])+)*$/i', $usernameOrEmail)) {
+        $validator = new Zend_Validate_EmailAddress();
+        if($validator->isValid($usernameOrEmail)) {
             $result = $this->_mapper->findByEmail($usernameOrEmail);
             if($result->count()) {
                 return $result->current();
@@ -124,7 +125,7 @@ class User_Model_User
         $args = array(
             'site:name'          => '!TODO: ADD SITENAME',
             'user:name'          => $user->username,
-            'url:one-time-login' => $siteUrl . '/user/password/action/uuid/' . $action->uuid,
+            'url:one-time-login' => $siteUrl . '/user/reset/action/uuid/' . $action->uuid,
             'url:login'          => $siteUrl . '/user/login',
         );
         

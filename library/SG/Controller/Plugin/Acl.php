@@ -41,11 +41,36 @@ class SG_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract{
         else {
             $acl = Zend_Registry::get('acl');
         }
+        /* @var $acl SG_Acl */
         
         // set the acl to the navigation
         $view = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getResource('view');
         $view->navigation()->setAcl(Zend_Registry::get('acl'))->setRole(
             $acl->getCurrentUserRole()
         );
+    }
+    
+    /**
+     * Router shutdown
+     * 
+     * @param Zend_Controller_Request_Abstract
+     */
+    public function preDispatch (Zend_Controller_Request_Abstract $request)
+    {
+        $acl = Zend_Registry::get('acl');
+        /* @var $acl SG_Acl */
+       
+        $recources = $acl->getResources();
+        
+        $controllerResource = $request->getModuleName() . ':' . $request->getControllerName();
+        if(!in_array($controllerResource, $recources)) {
+            return;
+        }
+        
+        if(!$acl->isUserAllowed($controllerResource, 'view')) {
+            throw new SG_Controller_Action_NotAuthorized_Exception(
+                'User not allowed to access controller "' . $controllerResource . '"'
+            );
+        }
     }
 }

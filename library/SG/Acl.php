@@ -227,13 +227,15 @@ class SG_Acl extends Zend_Acl {
      */
     protected function _getUserRoleName($username = null)
     {
-        if(is_null($username)) {
-            $username = (empty($this->_user->username))
-                ? 'anomynous'
-                : $this->_user->username;
-        }
+        $role = ($this->_user)
+            ? 'user::' . $this->_user->username
+            : self::ROLE_EVERYONE;
         
-        return 'user::' . $username;
+        if(!is_null($username)) {
+            $role = 'user::' . $username;
+        }
+                
+        return $role;
     }
     
     /**

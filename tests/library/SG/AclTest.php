@@ -77,6 +77,15 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module1'));
         $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module2'));
     }
+
+    /**
+     * Test not logged in
+     */
+    public function _testAnomynous()
+    {
+        $acl = new SG_Acl();
+        $this->assertEquals(SG_Acl::ROLE_EVERYONE, $acl->getCurrentUserRole());
+    }
     
     /**
      * Test users
