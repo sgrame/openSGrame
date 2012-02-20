@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @group SG
+ */
 class SG_AclTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -102,9 +104,34 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($acl->isUserAllowed('SG_AclTest_Module2', 'view', $user2));
     }
     
+    /**
+     * Test the get current username
+     */
+    public function testGetCurrentUserRole() {
+        $userName1 = $this->_users[1]['username'];
+        $user1 = $this->_userMapper->findByUsername($userName1)->current();
+        
+        $acl = new SG_Acl($user1);
+        
+        $this->assertEquals('user::' . $userName1, $acl->getCurrentUserRole());
+    }
     
-    
-    
+    /**
+     * Test changing the current user
+     */
+    public function testSetCurrentUser() {
+        $userName1 = $this->_users[1]['username'];
+        $user1 = $this->_userMapper->findByUsername($userName1)->current();
+        
+        $acl = new SG_Acl($user1);
+        $this->assertEquals('user::' . $userName1, $acl->getCurrentUserRole());
+        
+        // change
+        $userName2 = $this->_users[2]['username'];
+        $user2 = $this->_userMapper->findByUsername($userName2)->current();
+        $acl->setCurrentUser($user2);
+        $this->assertEquals('user::' . $userName2, $acl->getCurrentUserRole());
+    }
     
     
     

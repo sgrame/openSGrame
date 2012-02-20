@@ -67,7 +67,7 @@ class SG_Acl extends Zend_Acl {
             : Zend_Db_Table::getDefaultAdapter();
         
         // init the roles and permissions
-        $this->init();
+        $this->_init();
     }
 
     /**
@@ -77,7 +77,7 @@ class SG_Acl extends Zend_Acl {
      * - roles
      * - permissions
      */
-    public function init()
+    protected function _init()
     {
         // get && add the resources
         $dbResources = $this->_getDbResources();
@@ -157,6 +157,19 @@ class SG_Acl extends Zend_Acl {
             ? $this->_getUserRoleName()
             : self::ROLE_EVERYONE;
         return $role;
+    }
+    
+    /**
+     * Change the currently logged in user
+     * 
+     * @param User_Model_Row_User
+     * 
+     * @return void
+     */
+    public function setCurrentUser(User_Model_Row_user $user)
+    {
+        $this->_user = $user;
+        $this->_initUser($this->_user);
     }
     
     
