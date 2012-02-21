@@ -26,7 +26,20 @@ body {
  */
 #navbar .secondary-nav .account .dropdown-toggle strong {
     color: #FFF;
-} 
+}
+
+/**
+ * Menu
+ */
+.navbar ul.admin-nav > li.dropdown > a.dropdown-toggle {
+    background: transparent url('../img/glyphicons-48-white.png') no-repeat -300px -772px;
+    text-indent: -10000px;
+}
+.navbar ul.admin-nav > li.dropdown > a.dropdown-toggle:hover,
+.navbar ul.admin-nav > li.active > a.dropdown-toggle,
+.navbar ul.admin-nav > li.open > a.dropdown-toggle {
+    background-position: -779px -772px;
+}
 
 
 /**

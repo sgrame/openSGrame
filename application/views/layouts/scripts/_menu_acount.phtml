@@ -43,8 +43,27 @@ if(empty($this->page) || !$this->page->hasChildren()) {
 }
 
 
-// set the current username as account menu label
-$username = $this->escape($this->user()->username);
-$this->page->setLabel($username);
 
-echo $this->partial('_menu.phtml', array('page' => $this->page, 'class' => $this->class));
+$username = $this->escape($this->user()->username);
+
+// @TODO $this->page->current() not working :(
+foreach($this->page AS $page) {
+    break;
+}
+
+?>
+
+<ul<?php echo $class; ?>>
+    <li class="account dropdown">
+        <a href="#" class="dropdown-toggle">
+            <?php echo $username; ?><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <span class="icon account"></span>
+            <?php
+                foreach($page AS $child) {
+                    echo $this->partial('_menu_item.phtml', array('page' => $child));
+                }
+            ?>  
+            </ul>
+    </li>
+</ul>
