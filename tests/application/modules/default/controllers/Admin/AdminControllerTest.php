@@ -1,6 +1,6 @@
 <?php
 
-class Default_Admin_IndexControllerTest extends SG_Test_PHPUnit_ControllerTestCase
+class Default_Admin_AdminControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -11,7 +11,7 @@ class Default_Admin_IndexControllerTest extends SG_Test_PHPUnit_ControllerTestCa
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'index', 'module' => 'default');
+        $params = array('action' => 'index', 'controller' => 'admin', 'module' => 'default');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams, 'admin');
         
@@ -20,7 +20,7 @@ class Default_Admin_IndexControllerTest extends SG_Test_PHPUnit_ControllerTestCa
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('default:admin:index' => array('view')));
+        $acl = $this->setUpAcl(array('default:admin:admin' => array('view')));
         
         // Acl allowed
         $this->resetRequest();
