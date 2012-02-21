@@ -53,6 +53,34 @@ class SG_View_Helper_Variables extends Zend_View_Helper_Abstract
      */
     public function variables($key, $default = null)
     {
+        return $this->get($key, $default);
+    }
+    
+    /**
+     * Wrapper around the SG_Variables::get() method
+     * 
+     * @param string 
+     *     Variable key
+     * @param mixed
+     *     (optional) the default value if the variable does not exists
+     * 
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
         return $this->_variables->get($key, $default);
+    }
+    
+    /**
+     * Wrapper around the SG_Variables::exists() method
+     * 
+     * @param string 
+     *     Variable key
+     * 
+     * @return bool
+     */
+    public function exists($key)
+    {
+        return $this->_variables->exists($key);
     }
 }
