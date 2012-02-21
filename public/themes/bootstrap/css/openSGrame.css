@@ -55,7 +55,7 @@ body {
 /**
  * Login form
  */
-body.login {
+body.layout-well {
     background-color: #CCCCCC;
 }
 #login {
