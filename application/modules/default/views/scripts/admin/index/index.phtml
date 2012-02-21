@@ -1,0 +1,17 @@
+
+<div id="view-content">
+  <p>View script for controller <b>Admin_Index</b> and script/action name <b>index</b></p>
+</div>
+
+<div id="urlself">
+  <?php echo $this->url(); ?>
+</div>
+
+<div id="urluser">
+  <?php echo $this->url(array(
+      'module' => 'user',
+      'controller' => 'users',
+      'action' => 'edit',
+      'id' => 123,
+  )); ?>
+</div>

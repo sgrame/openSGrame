@@ -61,9 +61,14 @@ class SG_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract{
        
         $recources = $acl->getResources();
         
-        $controllerResource = $request->getModuleName() 
-                              . ':' 
-                              . $request->getControllerName();
+        $controllerResource = array();
+        $controllerResource[] = $request->getModuleName();
+        if((bool)$request->getParam('isAdmin')) {
+            $controllerResource[] = 'admin';
+        }
+        $controllerResource[] = $request->getControllerName();
+        $controllerResource = implode(':', $controllerResource);
+        
         if(!in_array($controllerResource, $recources)) {
             return;
         }

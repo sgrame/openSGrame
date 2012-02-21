@@ -23,12 +23,8 @@
 class User_IndexController extends Zend_Controller_Action
 {
     /**
-     * Acl container
-     * 
-     * @var SG_Acl
+     * Redirect to login if no access
      */
-    protected $_acl;
-
     public function init()
     {
         $auth = Zend_Auth::getInstance();

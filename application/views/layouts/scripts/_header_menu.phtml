@@ -7,7 +7,7 @@ $account = $this->navigation()->findById('secondary-navigation');
 <div class="navbar navbar-fixed-top" id="navbar" data-dropdown="dropdown"><div class="navbar-inner">
     <div class="container-fluid">
       
-        <a class="brand" href="/">openSGrame</a>
+        <a class="brand" href="/"><?php echo $this->variables('site_name', 'openSGrame'); ?></a>
         
         <div class="nav-collapse">
             <?php echo $this->partial('_menu.phtml', array('page' => $primary, 'class' => 'nav primary-nav')); ?>

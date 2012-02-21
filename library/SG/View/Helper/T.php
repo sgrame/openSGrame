@@ -1,21 +1,24 @@
 <?php
-/* SVN FILE $Id: T.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
- * Shorter translate function
- *
+ * @category SG
+ * @package  View
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright        Serial Graphics Copyright 2009
- * @author            Serial Graphics <info@serial-graphics.be>
- * @link            http://www.serial-graphics.be
- * @since            Dec 15, 2009
- * @version            $Revision: 2 $
- * @modifiedby        $LastChangedBy: SerialGraphics $
- * @lastmodified    $Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
 
+
 /**
- * Translate view helper
+ * SG_View_Helper_T
  *
+ * Translate helper (shorter version of $view->translate)
+ *
+ * @category SG
+ * @package  View
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_View_Helper_T extends Zend_View_Helper_Translate 
 {
