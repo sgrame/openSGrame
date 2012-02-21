@@ -2,12 +2,21 @@
 -- openSGrame::core
 --
 
+CREATE TABLE IF NOT EXISTS `session` (
+  `id` char(32) NOT NULL DEFAULT '',
+  `modified` int(11) DEFAULT NULL,
+  `lifetime` int(11) DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- Table structure for table `variable`
 CREATE TABLE IF NOT EXISTS `variable` (
     `name` varchar(128) NOT NULL COMMENT 'The variable key name',
     `value` longblob NOT NULL COMMENT 'The variable value (serialized data)',
     PRIMARY KEY (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- Dumping data for table `variable`

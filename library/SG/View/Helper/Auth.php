@@ -10,9 +10,9 @@
 
 
 /**
- * SG_View_Helper_User
+ * SG_View_Helper_Auth
  *
- * Helper to access the currently logged in user
+ * Helper to access the Zend_Auth storage
  *
  * @category SG
  * @package  View
@@ -20,17 +20,14 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_View_Helper_User extends Zend_View_Helper_Abstract 
+class SG_View_Helper_Auth extends Zend_View_Helper_Abstract 
 {
     /**
-     * User
+     * Authentication container
      * 
-     * Will be a dummy user if not authenticated
-     * 
-     * @var User_Model_Row_User
+     * @var Zend_Auth
      */
-    protected $_user;
-    
+    protected $_auth;
     
     /**
      * Constructor
@@ -41,24 +38,18 @@ class SG_View_Helper_User extends Zend_View_Helper_Abstract
      */
     public function __construct()
     {
-        $auth = Zend_Auth::getInstance();
-        $this->_user = $auth->getIdentity();
-        
-        if(!$auth->hasIdentity()) {
-            $users = new User_Model_DbTable_User();
-            $this->_user = $users->createRow(array(
-                'username' => 'Guest',
-            ));
-        }
+        $this->_auth = Zend_Auth::getInstance();
     }
   
     /**
-     * Get the user object
+     * Get the auth object
      *
+     * @param void
+     * 
      * @return User_Model_Row_User
      */
-    public function user()
+    public function auth()
     {
-        return $this->_user;
+        return $this->_auth;
     }
 }

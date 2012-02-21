@@ -27,7 +27,6 @@ class SG_View_Helper_UserTest extends PHPUnit_Framework_TestCase
         
         $this->assertInstanceOf('User_Model_Row_User', $helper->user());
         $this->assertEquals('Guest', $helper->user()->username);
-        $this->assertFalse($helper->isAuthenticated());
     }
     
     /**
@@ -45,6 +44,5 @@ class SG_View_Helper_UserTest extends PHPUnit_Framework_TestCase
         
         $this->assertInstanceOf('User_Model_Row_User', $helper->user());
         $this->assertEquals(__CLASS__, $helper->user()->username);
-        $this->assertTrue($helper->isAuthenticated());
     }
 }

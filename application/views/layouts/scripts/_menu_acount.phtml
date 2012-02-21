@@ -10,13 +10,38 @@
  *     Optional class for the menu
  */
 
-// do we need to show something
+// menu class
+$class = (!empty($this->class)) ? ' class="' . $this->class . '"' : null;
+$urlLogin = $this->url(array(
+    'module'     => 'user',
+    'controller' => 'login',
+    'action'     => 'index',
+), 'default');
+
+ 
+// this menu is only for authenticated users
+if(!$this->auth()->hasIdentity()):
+?>
+
+<ul<?php echo $class; ?>>
+    <li>
+        <a href="<?php echo $urlLogin; ?>">
+            <?php echo $this->t('Login'); ?>
+        </a>
+    </li>
+</ul>
+
+<?php
+return;
+endif;
+
+
+ 
+// Are there items in the menu
 if(empty($this->page) || !$this->page->hasChildren()) {
     return;
 }
 
-
-$class = (!empty($this->class)) ? ' class="' . $this->class . '"' : null;
 $items = $this->page->current();
 
 $urlLogout = $this->url(array(
