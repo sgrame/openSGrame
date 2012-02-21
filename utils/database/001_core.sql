@@ -2,6 +2,24 @@
 -- openSGrame::core
 --
 
+-- Table structure for table `log`
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `priority` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `message` text,
+  `uri` varchar(256) DEFAULT NULL,
+  `module` varchar(64) DEFAULT NULL,
+  `controller` varchar(64) DEFAULT NULL,
+  `action` varchar(64) DEFAULT NULL,
+  `ci` int(11) unsigned NOT NULL DEFAULT '0',
+  `cd` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `priority` (`priority`),
+  KEY `cd` (`cd`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+-- Table structure for table `session`
 CREATE TABLE IF NOT EXISTS `session` (
   `id` char(32) NOT NULL DEFAULT '',
   `modified` int(11) DEFAULT NULL,
@@ -9,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `data` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 -- Table structure for table `variable`

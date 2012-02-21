@@ -3,29 +3,10 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     /**
-     * Init the application constants
-     */
-    protected function __initContstants()
-    {
-        // Define the public base url
-        $url = array();
-        $url['protocol'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')
-          ? 'https://'
-          : 'http://';
-        $url['domain'] = rtrim($_SERVER['HTTP_HOST'], '/');
-        
-        defined('APPLICATION_URL')
-        or define(
-          'APPLICATION_URL', 
-          $url['protocol'] . $url['domain']
-        );
-    }
-    
-    /**
      * Loads and stores the config in the registry
      * 
      */
-    protected function __initConfigs()
+    protected function _initConfigs()
     {
         $registry = Zend_Registry::getInstance();
       
@@ -38,36 +19,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             );
             $registry->set('config.' . $name, $config);
         }
-      
     }
     
     /**
-     * Init the translation
+     * Init the database
      * 
+     * Combines the application.ini & config.ini database settings
      */
-    protected function __initTranslation()
+    protected function _initDb()
     {
-        // load the language
-        $translate = new Zend_Translate(
-          'array', APPLICATION_PATH .'/../languages/nl.php', 'nl'
-        );
-        Zend_Registry::set('Zend_Translate', $translate);
-    }
-    
-    /**
-     * Init the locals
-     */
-    protected function __initLocals()
-    {
-        date_default_timezone_set('Europe/Brussels');
-        $locale = new Zend_Locale('nl_BE'); 
-        Zend_Registry::set('Zend_Locale', $locale); 
+        $this->bootstrap('configs');
+        
+        // combine application.ini & config.ini database settings
+        $options = $this->getOptions();
+        $dbSettings = $options['resources']['db'];
+        $dbParams = Zend_Registry::get('config.config')->db->toArray();
+        $dbSettings['params'] = array_merge($dbSettings['params'], $dbParams);
+        
+        $db = Zend_Db::factory($dbSettings['adapter'], $dbSettings['params']);
+        if(!empty($dbSettings['isDefaultTableAdapter'])
+            && (bool)$dbSettings['isDefaultTableAdapter']
+        ) {
+            Zend_Db_Table::setDefaultAdapter($db);
+        }
     }
     
     /**
      * Init the log to database
      */
-    protected function __initLog()
+    protected function _initLog()
     {
         // make sure the db bootstrap is done
         $this->bootstrap('db');
@@ -129,9 +109,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $layout = $this->getResource('layout');
         $view = $layout->getView();
         
+        // get the platform navigation
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/navigation.ini');
         
-        // add the main navigation 
+        // get the application specific navigation
+        $appSpecificNavFile = APPLICATION_PATH . '/configs/navigation-app.ini';
+        if(file_exists($appSpecificNavFile)) {
+            $appNav = new Zend_Config_Ini($appSpecificNavFile);
+            $config = new Zend_Config(array_merge_recursive(
+                $config->toArray(), $appNav->toArray()
+            ));
+        }
+        
+        // add the navigation to the View 
         $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
     }

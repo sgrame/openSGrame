@@ -1,22 +1,24 @@
 <?php
-/* SVN FILE $Id: Db.php 15 2010-06-24 22:43:40Z SerialGraphics $ */
 /**
+ * @category SG
+ * @package  Log
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2010
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Jun 23, 2010
  */
 
+
 /**
- * Log writer to database.
- * 
- * This logger writes the log data by default to the log table.
- * It adds auto the current logged in user and the date-time to the log.
- * 
- * @category   SG
- * @package    SG_Log
- * @subpackage Writer
+ * SG_Log_Writer_Db
+ *
+ * Log writer
+ *
+ * @category SG
+ * @package  Log
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Log_Writer_Db extends Zend_Log_Writer_Db
 {
@@ -48,16 +50,16 @@ class SG_Log_Writer_Db extends Zend_Log_Writer_Db
      */
     public function __construct($db = null, $table = 'log', $columnMap = null)
     {
-    	$this->_db = (is_null($db))
-    		? SG_Db_Table::getDefaultAdapter()
-    		: $db;
-    		
-        $this->_columnMap = $columnMap;	
+        $this->_db = (is_null($db))
+            ? SG_Db_Table::getDefaultAdapter()
+            : $db;
+            
+        $this->_columnMap = $columnMap;    
         
         // Init the table mapper
         $this->_table = new SG_Db_Table(array(
-        	'db' => $db, 
-        	'name' => $table
+            'db' => $db, 
+            'name' => $table
         ));
     }
 
@@ -71,15 +73,15 @@ class SG_Log_Writer_Db extends Zend_Log_Writer_Db
     {
         if ($this->_db === null) {
             require_once 'Zend/Log/Exception.php';
-            throw new Zend_Log_Exception('Database adapter is null');
+            throw new Zend_Log_Exception('Database adapter is not set');
         }
         
         // add the controller, action and the parameters to the event data
         $request = Zend_Controller_Front::getInstance()->getRequest();
-        $event['uri']			= $request->getRequestUri();
-        $event['module'] 		= $request->getModuleName();
-        $event['controller'] 	= $request->getControllerName();
-        $event['action'] 		= $request->getActionName();
+        $event['uri']            = $request->getRequestUri();
+        $event['module']         = $request->getModuleName();
+        $event['controller']     = $request->getControllerName();
+        $event['action']         = $request->getActionName();
         
         // map the data
         if ($this->_columnMap === null) {

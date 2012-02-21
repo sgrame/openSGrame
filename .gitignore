@@ -11,3 +11,7 @@ data/session/*
 
 data/cache/*
 !.gitignore
+
+application/configs/config.ini
+
+application/configs/navigation-app.ini
