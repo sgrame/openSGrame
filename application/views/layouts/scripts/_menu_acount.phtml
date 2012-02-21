@@ -42,27 +42,9 @@ if(empty($this->page) || !$this->page->hasChildren()) {
     return;
 }
 
-$items = $this->page->current();
 
-$urlLogout = $this->url(array(
-    'module'     => 'user',
-    'controller' => 'logout',
-    'action'     => 'index',
-), 'default');
+// set the current username as account menu label
 $username = $this->escape($this->user()->username);
+$this->page->setLabel($username);
 
-?>
-
-<ul<?php echo $class; ?>>
-    <li class="account dropdown">
-        <a href="#" class="dropdown-toggle">
-            <?php echo $this->t('Logged in as <strong>%s</strong>', $username); ?><b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            <?php
-                foreach($items AS $child) {
-                    echo $this->partial('_menu_item.phtml', array('page' => $child));
-                }
-            ?>  
-            </ul>
-    </li>
-</ul>
+echo $this->partial('_menu.phtml', array('page' => $this->page, 'class' => $this->class));
