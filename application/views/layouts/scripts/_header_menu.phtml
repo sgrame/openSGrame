@@ -12,8 +12,8 @@ $account = $this->navigation()->findById('secondary-navigation');
         <div class="nav-collapse">
             <?php echo $this->partial('_menu.phtml', array('page' => $primary, 'class' => 'nav primary-nav')); ?>
             
+            <?php echo $this->partial('_menu_acount.phtml', array('page' => $account, 'class' => 'nav secondary-nav pull-right')); ?>
             <?php echo $this->partial('_language_switch.phtml', array('class' => 'nav language-nav pull-right')); ?>
-            <?php echo $this->partial('_menu.phtml', array('page' => $account, 'class' => 'nav secondary-nav pull-right')); ?>
         </div>
         
     </div>

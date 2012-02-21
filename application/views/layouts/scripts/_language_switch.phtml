@@ -31,7 +31,7 @@ $multiple = (count($languages['languages']) > 1);
     <?php foreach($languages['languages'] AS $key => $label): ?>
         <li>
             <a href="<?php echo $this->url(array('language' => $key)); ?>">
-                <?php echo $label; ?>
+                <?php echo ucfirst($label); ?>
             </a>
         </li> 
     <?php endforeach; ?>

@@ -20,6 +20,15 @@ body {
 }
 
 
+
+/**
+ * Header
+ */
+#navbar .secondary-nav .account .dropdown-toggle strong {
+    color: #FFF;
+} 
+
+
 /**
  * Messages
  */

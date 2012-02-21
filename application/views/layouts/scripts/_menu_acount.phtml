@@ -1,0 +1,43 @@
+<?php
+/**
+ * Renders a menu
+ * 
+ * Variables:
+ * 
+ * $this->page (Zend_Navigation_Page)
+ *     The page to render
+ * $this->class (string)
+ *     Optional class for the menu
+ */
+
+// do we need to show something
+if(empty($this->page) || !$this->page->hasChildren()) {
+    return;
+}
+
+
+$class = (!empty($this->class)) ? ' class="' . $this->class . '"' : null;
+$items = $this->page->current();
+
+$urlLogout = $this->url(array(
+    'module'     => 'user',
+    'controller' => 'logout',
+    'action'     => 'index',
+), 'default');
+$username = $this->escape($this->user()->username);
+
+?>
+
+<ul<?php echo $class; ?>>
+    <li class="account dropdown">
+        <a href="#" class="dropdown-toggle">
+            <?php echo $this->t('Logged in as <strong>%s</strong>', $username); ?><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <?php
+                foreach($items AS $child) {
+                    echo $this->partial('_menu_item.phtml', array('page' => $child));
+                }
+            ?>  
+            </ul>
+    </li>
+</ul>
