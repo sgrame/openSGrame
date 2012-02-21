@@ -1,0 +1,27 @@
+<?php
+// Extract the menus
+$primary = $this->navigation()->menu()->findById('primary-navigation');
+$account = $this->navigation()->menu()->findById('secondary-navigation');
+$admin   = $this->navigation()->menu()->findById('admin-navigation');
+$admin   = $this->navigation()->findById('admin-navigation');
+
+
+?>
+
+<div class="navbar navbar-fixed-top" id="navbar" data-dropdown="dropdown"><div class="navbar-inner">
+    <div class="container-fluid">
+      
+        <a class="brand" href="/"><?php echo $this->variables('site_name', 'openSGrame'); ?></a>
+        
+        <div class="nav-collapse">
+            <?php echo $this->partial('_menu.phtml', array('page' => $primary, 'class' => 'nav primary-nav')); ?>
+            
+            <?php echo $this->partial('_menu.phtml', array('page' => $admin, 'class' => 'nav admin-nav pull-right')); ?>
+            <?php echo $this->partial('_menu_acount.phtml', array('page' => $account, 'class' => 'nav secondary-nav pull-right')); ?>
+            <?php echo $this->partial('_language_switch.phtml', array('class' => 'nav language-nav pull-right')); ?>
+        </div>
+        
+    </div>
+</div></div>
+
+
