@@ -55,6 +55,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // add the logger
         $writer = new SG_Log_Writer_Db();
         $logger = new Zend_Log($writer);
+        $logger->registerErrorHandler();
         Zend_Registry::set('SG_Logger', $logger);
     }
     

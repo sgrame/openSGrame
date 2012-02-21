@@ -776,7 +776,7 @@ class TB_Form_Decorator
      * 
      * @return void
      */
-    protected function setMultiDecorator($format, $element, $type) {
+    protected static function setMultiDecorator($format, $element, $type) {
         $decorator = self::$_MultiDecorator[$format];
         $element->setDecorators($decorator);
         $element->setSeparator(PHP_EOL);

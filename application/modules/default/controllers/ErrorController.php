@@ -34,14 +34,14 @@ class Default_ErrorController extends Zend_Controller_Action
                 $this->getResponse()->setHttpResponseCode(404);
                 $priority = Zend_Log::NOTICE;
                 $this->view->message = 'Page not found';
-                SG_Log::log($errors->exception->getMessage(), SG_Log::WARN);
+                SG_Log::log($errors->exception->getMessage(), SG_Log::WARNING);
                 break;
             default:
                 // application error
                 $this->getResponse()->setHttpResponseCode(500);
                 $priority = Zend_Log::CRIT;
                 $this->view->message = 'Application error';
-                SG_Log::log($errors->exception->getMessage(), SG_Log::CRIT);
+                SG_Log::log($errors->exception->getMessage(), SG_Log::CRITICAL);
                 break;
         }
         
@@ -51,13 +51,13 @@ class Default_ErrorController extends Zend_Controller_Action
                 $this->getResponse()->setHttpResponseCode(403);
                 $priority = Zend_Log::NOTICE;
                 $this->view->message = 'No access';
-                SG_Log::log($errors->exception->getMessage(), SG_Log::WARN);
+                SG_Log::log($errors->exception->getMessage(), SG_Log::WARNING);
                 break;
             case 'SG_Controller_Action_NotFound_Exception':
                 $this->getResponse()->setHttpResponseCode(404);
                 $priority = Zend_Log::NOTICE;
                 $this->view->message = 'Page not found';
-                SG_Log::log($errors->exception->getMessage(), SG_Log::WARN);
+                SG_Log::log($errors->exception->getMessage(), SG_Log::WARNING);
                 break;
         }
         
