@@ -6,6 +6,8 @@
 .settings
 
 # Ignore variable files
+data/Zend*
+
 data/session/*
 !.gitignore
 
