@@ -17,6 +17,24 @@ class User_Model_DbTable_Role extends SG_Db_Table
     protected $_rowClass = 'User_Model_Row_Role';
     
     /**
+     * Get all the roles EXLUSIVE the system roles
+     * 
+     * @param void
+     * 
+     * @return Zend_Db_Table_Rowset
+     */
+    public function fetchAllNonSystem($select = null) {
+        if (!($select instanceof Zend_Db_Table_Select)) {
+            $select = $this->select();
+        }
+        
+        $select->where($this->_name . '.cr IS NULL');
+        $select->where($this->_name . '.id > 2');
+        
+        return $this->fetchAll($select);
+    }
+    
+    /**
      * Fetch all roles for a given user
      * 
      * @param mixed $user

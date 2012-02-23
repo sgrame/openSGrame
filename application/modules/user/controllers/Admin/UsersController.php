@@ -41,12 +41,44 @@ class User_Admin_UsersController extends Zend_Controller_Action
        $this->view->layout()->subnavId = 'sub-user-admin';
     }
 
+    /**
+     * Users overview
+     */
     public function indexAction()
     {
         $users = $this->_model->getUsers();
         $this->view->users = $users;
     }
 
-
+    /**
+     * Add a new user
+     */
+    public function addAction()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        $this->view->layout()->title = $this->view->t('Add user');
+        
+        // get the form
+        $form = new User_Form_User();
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
+        
+    }
+    
+    
+    /**
+     * Check is user administrator
+     */
+    protected function _checkIsUserManager()
+    {
+        $acl = Zend_Registry::get('acl');
+        if(!$acl->isUserAllowed('user:admin:users', 'administer')) {
+            throw new SG_Controller_Action_NotAuthorized_Exception(
+                'User is not an user administrator'
+            );
+        }
+    }
 }
 

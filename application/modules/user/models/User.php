@@ -120,13 +120,16 @@ class User_Model_User
         // get the full URL
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $siteUrl = $request->getScheme() . '://' . $request->getHttpHost();
+
+        $vars = SG_Variables::getInstance();        
         
         // !TODO: Add variables sitename
         $args = array(
-            'site:name'          => '!TODO: ADD SITENAME',
+            'site:name'          => $vars->get('site_name'),
             'user:name'          => $user->username,
             'url:one-time-login' => $siteUrl . '/user/reset/action/uuid/' . $action->uuid,
             'url:login'          => $siteUrl . '/user/login',
+            'url:site'           => $siteUrl,
         );
         
         $mail = new Zend_Mail();
