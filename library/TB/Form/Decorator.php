@@ -735,15 +735,15 @@ class TB_Form_Decorator
             }
             
             // captcha
-            if ($e->getType() == 'Zend_Form_Element_Captcha') {
+            if ($e instanceof Zend_Form_Element_Captcha) {
                 $e->setDecorators(self::$_CaptchaDecorator[$format]);
             }
                 
             // multiCheckbox & radios
-            if ($e->getType() == 'Zend_Form_Element_MultiCheckbox') {
+            if ($e instanceof Zend_Form_Element_MultiCheckbox) {
                 self::setMultiDecorator($format, $e, 'checkbox');
             }
-            if ($e->getType() == 'Zend_Form_Element_Radio') {
+            if ($e instanceof Zend_Form_Element_Radio) {
                 self::setMultiDecorator($format, $e, 'radio');
             }
             
