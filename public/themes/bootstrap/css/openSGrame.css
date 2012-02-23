@@ -5,8 +5,8 @@
 body {
     padding-top: 60px;
 }
-/*
-.container-fluid > .sidebar {
+
+.container-sidebar > .sidebar {
     width: 220px;
     position: relative;
     top: auto;
@@ -14,11 +14,11 @@ body {
     right: auto;
     float: right;
 }
-.container-fluid > .content {
+.container-sidebar > .content {
     margin-left: 0;
     margin-right: 240px;
 }
-*/
+
 
 body.layout-well {
     background-color: #CCCCCC;
