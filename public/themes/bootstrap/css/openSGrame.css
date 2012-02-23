@@ -3,8 +3,11 @@
  * Layout
  *****************************************************************************/
 body {
-    padding-top: 60px;
+    padding-top: 60px;        
+    padding-bottom: 40px;      
 }
+
+   
 
 .container-sidebar > .sidebar {
     width: 220px;
@@ -107,3 +110,25 @@ body.layout-well .well {
     color: #999;
 }
 
+
+
+/**
+ * Responsive
+ */
+@media (max-width: 979px) {
+   body {
+       padding-top: 0;
+   }
+   #navbar ul.nav > li > a {
+     color: #FFF;
+   } 
+   #navbar ul.admin-nav > li.dropdown > a.dropdown-toggle {
+       background: none;
+       text-indent: 0;
+   }
+   #navbar b.caret {
+       display: none;
+   }
+}
+
+} 

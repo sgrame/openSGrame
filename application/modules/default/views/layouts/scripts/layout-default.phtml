@@ -6,9 +6,11 @@
  */
 
 $sidebar = $this->placeholder('layout-sidebar');
-$containerClass = ($sidebar)
-    ? 'container-fluid container-sidebar'
-    : 'container-fluid';
+$sidebarContent = $sidebar->getValue();
+
+$contentClass = (!empty($sidebarContent))
+    ? ' class="span9"'
+    : null;
 
 ?>
 
@@ -25,15 +27,9 @@ $containerClass = ($sidebar)
 
 
 <!-- CONTENT -->
-  <div class="<?php echo $containerClass; ?>">
+  <div class="container-fluid"><div class="row-fluid">
     
-    <?php if($sidebar): ?>
-      <div class="sidebar">
-        <?php echo $sidebar; ?>
-      </div>
-    <?php endif; ?>
-    
-    <div class="content">
+    <div<?php echo $contentClass; ?>><div class="content">
         <section id="main">
         <?php echo $this->render('_messages.phtml'); ?>
           
@@ -42,9 +38,15 @@ $containerClass = ($sidebar)
             <?php echo $this->layout()->content; ?> 
             
         </section>  
-    </div>
+    </div></div>
     
-  </div>
+    <?php if($sidebar): ?>
+      <div class="span3"><div class="sidebar">
+        <?php echo $sidebar; ?>
+      </div></div>
+    <?php endif; ?>
+    
+  </div></div>
 <!-- /CONTENT -->
 
 
