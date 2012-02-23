@@ -10,14 +10,18 @@
 
 <?php echo $this->partial('_html_header.phtml', array('bodyClass' => array('layout-well'))); ?>
 
-<div class="container-centered"><div id="logo">
-    <a class="brand" href="/"><?php echo $this->variables('site_name', 'openSGrame'); ?></a>  
+<div class="container"><div class="row">
+  <div class="span6 offset3"><div id="logo">
+      <a class="brand" href="/"><?php echo $this->variables('site_name', 'openSGrame'); ?></a>  
+  </div></div>
 </div></div>
 
-<div class="container-centered"><div class="well">
-    <?php echo $this->render('_messages.phtml'); ?>
-    
-    <?php echo $this->layout()->content; ?>   
+<div class="container"><div class="row">
+  <div class="span6 offset3"><div class="well">
+      <?php echo $this->render('_messages.phtml'); ?>
+      
+      <?php echo $this->layout()->content; ?>   
+  </div></div>
 </div></div>
     
 <?php echo $this->partial('_html_footer.phtml'); ?>
