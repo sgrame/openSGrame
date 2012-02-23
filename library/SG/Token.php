@@ -120,7 +120,7 @@ class SG_Token
      * You can provide the format by:
      * 
      * any number: the number of chars
-     * the format: see SG_Token::generate 
+     * the format: see SG_Token::generate()
      * 
      * Example:
      * 1-8 => wil generate a <1 alphaNum>-<8 alphaNum> token
@@ -211,7 +211,7 @@ class SG_Token
             }
             else 
             {
-                $token[] = SG_Token::generate(
+                $token[] = $this->generate(
                     (int)$part['length'], 
                     $part['value']
                 );
@@ -230,7 +230,7 @@ class SG_Token
      */
     public function guid()
     {
-        return SG_Token::generateFormat('8H-4H-4H-4H-12H');
+        return $this->generateFormat('8H-4H-4H-4H-12H');
     }
     
     /**
@@ -243,7 +243,7 @@ class SG_Token
      */
     public function uuid()
     {
-        return SG_Token::generate(32, 'AN');
+        return $this->generate(32, 'AN');
     }
     
     /**
@@ -292,7 +292,7 @@ class SG_Token
         $i = 0;
         while($i < $_amount)
         {
-            $token = SG_Token::$method($_format);
+            $token = $this->{$method}($_format);
             if(!in_array($token, $list))
             {
                 $list[] = $token;
