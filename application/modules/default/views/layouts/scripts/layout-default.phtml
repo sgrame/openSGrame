@@ -11,13 +11,17 @@
 
 <?php echo $this->render('_header_menu.phtml'); ?>
 
+<div class="container-fluid">
+  <?php echo $this->render('_header_tabs.phtml'); ?>
+  <?php echo $this->render('_header_title.phtml'); ?>
+</div>
 
 
 
 <!-- CONTENT -->
   <div class="container-fluid">
     
-    <div class="sidebar">
+    <!--div class="sidebar">
       <div class="well">
           <h5>Sidebar</h5>
           <ul>
@@ -41,17 +45,13 @@
             <li><a href="#">Link</a></li>
           </ul>
         </div>
-    </div>
+    </div-->
     
     <div class="content">
         <section id="main">
         <?php echo $this->render('_messages.phtml'); ?>
           
-        <?php if(!empty($this->layout()->title)): ?>
-            <div class="page-header">
-                <h1><?php echo $this->layout()->title; ?></h1>
-            </div>
-        <?php endif; ?>
+        
             
             <?php echo $this->layout()->content; ?> 
             

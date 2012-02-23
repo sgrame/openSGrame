@@ -10,9 +10,9 @@
 
 
 /**
- * User_IndexController
+ * User_Admin_GroupsController
  *
- * Login controller
+ * Users management
  *
  * @category User_Admin
  * @package  Controller
@@ -20,19 +20,29 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class User_Admin_IndexController extends Zend_Controller_Action
+class User_Admin_GroupsController extends Zend_Controller_Action
 {
+    /**
+     * Model
+     * 
+     * @var User_Model_Group
+     */
+    protected $_model;
+  
     /**
      * Redirect to login if no access
      */
     public function init()
     {
-        
+       $this->_model = new User_Model_Group();
+       $this->view->layout()->title = $this->view->t('Manage groups');
+       
+       // set the subnavigation
+       $this->view->layout()->subnavId = 'sub-user-admin';
     }
 
     public function indexAction()
     {
-        // action body
     }
 
 

@@ -5,11 +5,38 @@
 class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
 {
     /**
+     * Store the user groups
+     * 
+     * @var Zend_Db_Table_Rowset
+     */
+    protected $_groups;
+    
+    /**
+     * Store the user roles
+     * 
+     * @var Zend_Db_Table_Rowset
+     */
+    protected $_roles;
+    
+  
+    /**
      * The table class name
      * 
      * @var string
      */
     protected $_tableClass = 'User_Model_DbTable_User';
+    
+    /**
+     * Check if user is not blocked or locked
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
+    public function isActive()
+    {
+        return (!$this->isBlocked() && !$this->isLocked());
+    }
     
     /**
      * Get the locked status
@@ -165,4 +192,80 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
     {
         $this->_preSavePassword();
     }
+    
+    /**
+     * Get the group names as an array
+     * 
+     * @param void
+     * 
+     * @return array
+     */
+    public function getGroupNames()
+    {
+        $groupRecords = $this->getGroups();
+        
+        $groups = array();
+        foreach($groupRecords AS $group) {
+            $groups[$group->id] = $group->name;
+        }
+        
+        return $groups;
+    }
+    
+    /**
+     * Get the user groups
+     * 
+     * @param void
+     * 
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getGroups()
+    {
+        if(!$this->_groups) {
+            $table = new User_Model_DbTable_Group();
+            $this->_groups = $table->getAllByUser($this);
+        }
+        
+        return $this->_groups;
+    }  
+    
+    /**
+     * Get the role names as an array
+     * 
+     * Array contains:
+     *   roleId => roleName
+     * 
+     * @param void
+     * 
+     * @return array
+     */
+    public function getRoleNames()
+    {
+        $roleRecords = $this->getRoles();
+        
+        $roles = array();
+        foreach($roleRecords AS $role) {
+            $roles[$role->id] = $role->name;
+        }
+        
+        return $roles;
+    }
+    
+    /**
+     * Get the user roles
+     * 
+     * @param void
+     * 
+     * @return Zend_Db_Table_Rowset
+     */
+    public function getRoles()
+    {
+        if(!$this->_roles) {
+            $table = new User_Model_DbTable_Role();
+            $this->_roles = $table->getAllByUser($this);
+        }
+        
+        return $this->_roles;
+    }  
 }
+

@@ -63,8 +63,8 @@ class User_Model_User
     {
         $result = $this->_mapper->find($userId);
         return $result->current();
-    } 
-  
+    }
+    
     /**
      * Find user by its username or email address
      * 
@@ -169,6 +169,49 @@ class User_Model_User
         $action = $actions->findByUuid($uuid)->current();
         
         return $action;
+    }
+    
+    
+    /**
+     * Get (all) the users
+     * 
+     * @param bool $paged
+     *     Should the result be an paged result set
+     * @param string $order
+     *     Order by
+     * @param array $search
+     *     Array of search params
+     * 
+     * @return User_Model_DbTable_User
+     */
+    public function getUsers($paged = false, $order = null, $search = null)
+    {
+        $users = $this->_mapper->fetchAll();
+        return $users;
+    }
+    
+    
+    /**
+     * Get the user id from the user ID or user object
+     * 
+     * @param mixed $user
+     *     The user id or user object
+     * 
+     * @return int
+     */
+    public static function extractUserId($user)
+    {
+        if(is_numeric($user)) {
+            return (int)$user;
+        }
+        
+        if($user instanceof User_Model_Row_User) {
+            return (int)$user->id;
+        }
+        
+        throw new Zend_Db_Table_Row_Exception(
+            'No valid user ID or user object'
+        );
     }
 }
 

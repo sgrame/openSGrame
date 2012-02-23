@@ -75,7 +75,8 @@ class User_Model_Row_UserAction extends Zend_Db_Table_Row_Abstract
     protected function _insert()
     {
         if(empty($this->uuid)) {
-            $this->uuid  = SG_Token::uuid();
+            $tokenGen = new SG_Token();
+            $this->uuid  = $tokenGen->uuid();
         }
     } 
 }

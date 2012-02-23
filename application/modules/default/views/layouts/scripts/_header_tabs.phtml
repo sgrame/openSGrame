@@ -1,0 +1,21 @@
+<?php
+/**
+ * Shows the page subnavigation
+ */
+
+$subnavId = $this->layout()->subnavId;
+
+if(empty($subnavId)) {
+    return;
+}
+
+$subnav = $this->navigation()->menu()->findById('sub-navigation');
+$subnav = $subnav->findById($subnavId);
+
+if(empty($subnav)) {
+    return;
+}
+?>
+
+<?php echo $this->partial('_menu.phtml', array('page' => $subnav, 'class' => 'nav nav-pills pull-right')); ?>
+

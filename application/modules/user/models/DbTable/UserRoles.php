@@ -15,5 +15,8 @@ class User_Model_DbTable_UserRoles extends SG_Db_Table
      * @var string
      */
     protected $_rowClass = 'User_Model_Row_UserRoles';
+    
+    
+    
 }
 

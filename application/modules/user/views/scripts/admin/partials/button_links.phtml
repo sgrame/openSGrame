@@ -1,0 +1,37 @@
+<?php
+$links = array();
+
+$controllers = array(
+    'users'  => $this->t('Manage users'), 
+    'groups' => $this->t('Manage groups'), 
+    'roles'  => $this->t('Manage roles'),
+);
+
+foreach($controllers AS $controller => $label) {
+    if(!$this->acl()->isUserAllowed('user:admin:' . $controller, 'view')) {
+        continue;
+    }
+
+    if($this->currentPage === $controller) {
+        continue;
+    }    
+    
+    $links[] = array(
+        'label' => $label,
+        'url'   => $this->url(array('controller' => $controller)),
+    );
+}
+
+if(empty($links)) {
+    return;
+}
+
+?>
+
+<div class="btn-group pull-right">
+  <?php foreach($links AS $link): ?>
+    <a class="btn" href="<?php echo $link['url']; ?>">
+      <?php echo $link['label']; ?>
+    </a>
+  <?php endforeach; ?>
+</div>

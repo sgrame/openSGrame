@@ -5,7 +5,7 @@
 body {
     padding-top: 60px;
 }
-
+/*
 .container-fluid > .sidebar {
     width: 220px;
     position: relative;
@@ -18,7 +18,7 @@ body {
     margin-left: 0;
     margin-right: 240px;
 }
-
+*/
 
 body.layout-well {
     background-color: #CCCCCC;
@@ -60,6 +60,9 @@ body.layout-well .well {
 .navbar ul.admin-nav > li.open > a.dropdown-toggle {
     background-position: -779px -772px;
 }
+.page-header {
+    margin-top: 0;
+}
 
 
 /**
@@ -69,6 +72,15 @@ body.layout-well .well {
     line-height: 18px;
     margin-top: 0;
 }
+
+/**
+ * Labels
+ */
+.label {
+  margin-right: 4px;
+}
+
+
 
 
 
