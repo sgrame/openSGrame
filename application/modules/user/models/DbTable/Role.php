@@ -45,29 +45,5 @@ class User_Model_DbTable_Role extends SG_Db_Table
         return $this->fetchAll($select);
     }
     
-    
-    
-    /**
-     * Helper to get the user id
-     * 
-     * @param mixed $user
-     *     The user id or user object
-     * 
-     * @return int
-     */
-    protected function _extractUserId($user)
-    {
-        if(is_numeric($user)) {
-            return (int)$user;
-        }
-        
-        if($user instanceof User_Model_Row_User) {
-            return (int)$user->id;
-        }
-        
-        throw new Zend_Db_Table_Row_Exception(
-            'No valid user ID or user object'
-        );
-    }
 }
 

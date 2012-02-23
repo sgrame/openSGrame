@@ -1,6 +1,6 @@
 <?php
 
-class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
+class User_Admin_GroupsControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -11,7 +11,7 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'user', 'module' => 'user');
+        $params = array('action' => 'index', 'controller' => 'groups', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams, 'admin');
         
@@ -25,7 +25,7 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('user:admin:user' => array('view')));
+        $acl = $this->setUpAcl(array('user:admin:groups' => array('view')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         
@@ -33,10 +33,10 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertModule($urlParams['module']);
         $this->assertController('admin_' . $urlParams['controller']);
         $this->assertAction($urlParams['action']);
-        $this->assertQueryContentContains(
-            'div#view-content p',
-            'View script for controller <b>User::Admin_Index</b> and script/action name <b>index</b>'
-        );
+        /*$this->assertQueryContentContains(
+            'div.page-header h1',
+            'Manage groups'
+        );*/
     }
 
 
