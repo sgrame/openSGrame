@@ -63,6 +63,21 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
     }
     
     /**
+     * Activate a user
+     * 
+     * @param void
+     * 
+     * @return bool
+     *     success
+     */
+    public function activate()
+    {
+        $this->locked = 0;
+        $this->blocked = 0;
+        return (bool)$this->save();
+    }
+    
+    /**
      * Method to save the user with status locked = 1
      * 
      * @param void

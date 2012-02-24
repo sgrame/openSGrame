@@ -228,6 +228,50 @@ class User_Model_User
         return false;
     }
     
+    /**
+     * User action confirm form proxy
+     * 
+     * @param string $action
+     *     Action to perform
+     * @param User_Model_Row_User $user
+     * 
+     * @return User_Form_Confirm
+     */
+    public function getUserConfirmForm($action, User_Model_Row_User $user)
+    {
+        $form = new User_Form_Confirm();
+        $form->getElement('user_id')->setValue((int)$user->id);
+        
+        $translator = SG_Translator::getInstance();
+        
+        $legendText = null;
+        $noteText   = null;
+        $buttonText = null;
+        
+        switch($action) {
+          case 'delete':
+              $legendText = $translator->t(
+                  'Delete user'
+              );
+              $noteText = $translator->t(
+                  'Are you sure that you want to delete user <em>%s</em>?',
+                  $user->username
+              );
+              break;
+        }
+        
+        if($legendText) {
+            $form->getDisplayGroup('confirm')->setLegend($legendText);
+        }
+        if($noteText) {
+            $form->getElement('note')->setValue($noteText);
+        }
+        if($buttonText) {
+            $form->getElement('submit')->setLabel($buttonText);
+        }
+        
+        return $form;
+    }
     
     
   

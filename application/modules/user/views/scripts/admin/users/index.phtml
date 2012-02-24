@@ -71,7 +71,7 @@ $this->placeholder('layout-sidebar')->captureEnd();
             <?php endif; ?>
             <?php if($user->isLocked()): ?>
               <?php if($administer): ?>
-                <a class="label label-important" href="<?php echo $this->url(array('action' => 'activate', 'id' => $user->id)); ?>" title="<?php echo $this->t('Unlock user'); ?>">
+                <a class="label label-important" href="<?php echo $this->url(array('action' => 'unlock', 'id' => $user->id)); ?>" title="<?php echo $this->t('Unlock user'); ?>">
                   <?php echo $this->t('Locked'); ?>
                 </a>
               <?php else: ?>

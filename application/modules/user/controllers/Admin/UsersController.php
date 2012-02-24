@@ -168,9 +168,9 @@ class User_Admin_UsersController extends Zend_Controller_Action
     }
 
     /**
-     * Block a user
+     * Delete user
      */
-    public function blockUser()
+    public function deleteAction()
     {
         // check access first
         $this->_checkIsUserManager();
@@ -179,13 +179,91 @@ class User_Admin_UsersController extends Zend_Controller_Action
         $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
                 
         $this->view->layout()->title = $this->view->t(
-            'Block user <em>%s</em>', $user->username
+            'Delete user <em>%s</em>', $user->username
         );
         
         // get the form
-        $form = $this->_model->getUserConfirmForm('block', $user);
+        $form = $this->_model->getUserConfirmForm('delete', $user);
         $form->setAction($this->view->url());
         $this->view->form = $form;
+        $this->_helper->viewRenderer->setRender('confirm'); 
+        
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('submit')->isChecked()) {
+            $username = $user->username;
+            $user->delete();
+            $this->_messenger->addSuccess($this->view->t(
+                'User <strong>%s</strong> deleted',
+                $username
+            ));
+        }
+        
+        $this->_goToOverview();
+    }
+    
+    /**
+     * Activate user
+     */
+    public function activateAction()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        // try to get the user
+        $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
+        
+        $user->activate();
+        $this->_messenger->addSuccess($this->view->t(
+            'User <strong>%s</strong> is activated.', $user->username
+        ));
+        
+        $this->_goToOverview();
+    }
+    
+    /**
+     * Block user
+     */
+    public function blockAction()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        // try to get the user
+        $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
+        
+        $user->block();
+        $this->_messenger->addSuccess($this->view->t(
+            'User <strong>%s</strong> is blocked.', $user->username
+        ));
+        
+        $this->_goToOverview();
+    }
+    
+    /**
+     * Unlock user
+     */
+    public function unlockAction()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        // try to get the user
+        $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
+        
+        $user->unlock();
+        $this->_messenger->addSuccess($this->view->t(
+            'User <strong>%s</strong> is unlocked.', $user->username
+        ));
+        
+        $this->_goToOverview();
     }
     
     
