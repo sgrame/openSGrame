@@ -50,13 +50,33 @@ class User_Admin_UsersController extends Zend_Controller_Action
        // set the subnavigation
        $this->view->layout()->subnavId = 'sub-user-admin';
     }
+    
+    public function __dummyAction()
+    {
+        $prefix = 'user' . rand(1000, 9999);
+        $users = new User_Model_DbTable_User();
+        for($i = 0; $i < 50; $i++) {
+            $user = $users->createRow(array(
+                'username' => $prefix . $i,
+                'email'    => $prefix . $i . '@test.be'
+            ));
+            $user->save();
+        }
+        
+        $this->_goToOverview();
+    }
 
     /**
      * Users overview
      */
     public function indexAction()
     {
-        $users = $this->_model->getUsers();
+        $users = $this->_model->getUsers(
+            $this->_request->getParam('page', 0),
+            $this->_request->getParam('order', 'created'),
+            $this->_request->getParam('direction', 'desc'),
+            $this->_request->getParams()
+        );
         $this->view->users = $users;
     }
 

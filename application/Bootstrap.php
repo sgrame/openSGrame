@@ -91,8 +91,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->getResource('view');
         
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+        
         $view->addHelperPath('TB/View/Helper','TB_View_Helper');
         $view->addHelperPath('SG/View/Helper','SG_View_Helper');
+
+        Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        Zend_View_Helper_PaginationControl::setDefaultViewPartial(array(
+          '/partials/pagination_control.phtml',
+          'default'
+        ));
     }
     
     /**

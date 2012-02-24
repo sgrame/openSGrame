@@ -370,10 +370,14 @@ class User_Model_User
      * 
      * @return User_Model_DbTable_User
      */
-    public function getUsers($paged = false, $order = null, $search = null)
+    public function getUsers(
+        $page = 0, $order = 'created', $direction = 'desc', $search = array()
+    )
     {
         $users = $this->_mapper->fetchAll();
-        return $users;
+        $paged = Zend_Paginator::factory($users);
+        $paged->setCurrentPageNumber((int)$page);
+        return $paged;
     }
     
     

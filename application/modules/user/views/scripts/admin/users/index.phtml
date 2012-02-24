@@ -121,4 +121,6 @@ $this->placeholder('layout-sidebar')->captureEnd();
     </tbody>
   </table>
   
+  <?php echo $this->paginationControl($this->users, 'Sliding'); ?>
+  
 <?php endif; ?>
