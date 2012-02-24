@@ -17,6 +17,9 @@ $this->placeholder('layout-sidebar')->captureEnd();
         </a>
       </div>
   
+      <p class="pull-right">
+        <?php echo $this->paginationCount($this->users); ?>
+      </p>
   </div>
 <?php endif; ?>
     
