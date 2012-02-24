@@ -91,13 +91,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('view');
         $view = $this->getResource('view');
         
-        $this->bootstrap('layout');
-        $layout = $this->getResource('layout');
+        $this->bootstrap('db');
+        $vars = SG_Variables::getInstance();
         
         $view->addHelperPath('TB/View/Helper','TB_View_Helper');
         $view->addHelperPath('SG/View/Helper','SG_View_Helper');
 
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
+        Zend_Paginator::setDefaultItemCountPerPage($vars->get('site_pager_items_default', 10));
         Zend_View_Helper_PaginationControl::setDefaultViewPartial(array(
           '/partials/pagination_control.phtml',
           'default'
