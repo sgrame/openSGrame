@@ -51,14 +51,18 @@ class TB_Form extends Zend_Form
      * @return void
      */
     public function buildErrorDecorators() {
-        foreach ($this->getErrors() AS $key=>$errors) {
-            $htmlTagDecorator = $this->getElement($key)->getDecorator('HtmlTag');
+        foreach($this->getElements() AS $element) {
+            $htmlTagDecorator = $element->getDecorator('HtmlTag');
+          
             if (empty($htmlTagDecorator)) {
                 continue;
             }
-            if (empty($errors)) {
+            
+            /* @var $element Zend_Form_Element */
+            if(!$element->hasErrors()) {
                 continue;
             }
+            
             $class = $htmlTagDecorator->getOption('class');
             $htmlTagDecorator->setOption('class', $class . ' error');
         }
