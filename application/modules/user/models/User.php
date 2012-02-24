@@ -91,6 +91,145 @@ class User_Model_User
         
         return false;
     }
+    
+    
+    /**
+     * User form
+     * 
+     * @param mixed
+     *     Null or User_Model_Row_User
+     * 
+     * @return User_Form_User
+     */
+    public function getUserForm($user = null)
+    {
+        $form = new User_Form_User();
+        if($user instanceof User_Model_Row_User) {
+            $data = array(
+                'username' => $user->username,
+                'email'    => $user->email,
+                'roles'    => array(),
+                'groups'   => NULL,
+                'status'   => (int)$user->isActive(),
+                'user_id'  => $user->id,
+            );
+            
+            $roles = $user->getRoles();
+            foreach($roles AS $role) {
+                $data['roles'][] = $role->id;
+            }
+            
+            $groups = $user->getGroups();
+            foreach($groups AS $group) {
+                $data['groups'] = $group->id;
+                // @TODO: Make the platform support multiple groups (configuration)!
+                break;
+            }
+            
+            $form->populate($data);
+            $form->getElement('user_password')->setRequired(false);
+            $form->getElement('user_password_confirm')->setRequired(false);
+        }
+        
+        return $form;
+    }
+    
+    /**
+     * Save a user from its User form
+     * 
+     * @param User_Form_User $form 
+     * 
+     * @return User_Model_Row_user
+     */
+    public function saveUserForm(User_Form_User $form)
+    {
+        $db = $this->_mapper->getAdapter();
+        $db->beginTransaction();
+      
+        try {
+            $user     = $this->_mapper->createRow();
+            $values   = $form->getValues();
+            
+            // update?
+            if(!empty($values['user_id'])) {
+                $user = $this->findById($values['user_id']);
+                if(!$user) {
+                    return false;
+                }
+            }
+            
+            // User -----------------------------------------------------------
+            $user->username = $values['username'];
+            $user->email    = $values['email'];
+            if(!empty($user->password)) {
+                $user->password = $values['user_password'];
+            }
+            $user->blocked = ((int)$values['status'] === 1)
+                ? 0
+                : 1;
+            $user->save();
+            
+            // Groups ---------------------------------------------------------
+            if(empty($values['groups'])) {
+                $values['groups'] = array();
+            }
+            if(!is_array($values['groups'])) {
+                $values['groups'] = array($values['groups']);
+            }
+            
+            // get existing user groups
+            $userGroups = new User_Model_DbTable_UserGroups();
+            $currentGroups = $user->getGroups();
+            foreach($currentGroups AS $group) {
+                if(in_array($group->id, $values['groups'])) {
+                    $arrayKey = array_search($group->id, $values['groups']);
+                    unset($values['groups'][$arrayKey]);
+                    continue;
+                }
+                
+                $userGroups->deleteByGroup($group);
+            }
+            foreach($values['groups'] AS $groupId) {
+                $userGroups->createByUserAndGroup($user, $groupId);
+            }
+            
+            // Roles ----------------------------------------------------------
+            if(empty($values['roles'])) {
+                $values['roles'] = array();
+            }
+            if(!is_array($values['roles'])) {
+                $values['roles'] = array($values['roles']);
+            }
+            
+            // get existing user roles
+            $userRoles = new User_Model_DbTable_UserRoles();
+            $currentRoles = $user->getRoles();
+            foreach($currentRoles AS $role) {
+                if(in_array($role->id, $values['roles'])) {
+                    $arrayKey = array_search($role->id, $values['roles']);
+                    unset($values['roles'][$arrayKey]);
+                    continue;
+                }
+                
+                $userRoles->deleteByRole($role);
+            }
+            foreach($values['roles'] AS $roleId) {
+                $userRoles->createByUserAndRole($user, $roleId);
+            }
+            
+            $db->commit();
+            return $user;
+        }
+        catch(Exception $e) {
+            $db->rollBack();
+            SG_Log::log($e->getMessage(), SG_Log::CRIT);
+        }
+        
+        return false;
+    }
+    
+    
+    
   
     /**
      * Recover password by an user row object

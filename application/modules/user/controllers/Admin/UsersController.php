@@ -28,13 +28,23 @@ class User_Admin_UsersController extends Zend_Controller_Action
      * @var User_Model_User
      */
     protected $_model;
+    
+    /**
+     * Messenger
+     * 
+     * @var TB_Controller_Action_Helper_Messenger
+     */
+    protected $_messenger;
+    
   
     /**
-     * Redirect to login if no access
+     * Init the controller
      */
     public function init()
     {
        $this->_model = new User_Model_User();
+       $this->_messenger = $this->_helper->getHelper('Messenger');
+       
        $this->view->layout()->title = $this->view->t('Manage users');
        
        // set the subnavigation
@@ -61,10 +71,121 @@ class User_Admin_UsersController extends Zend_Controller_Action
         $this->view->layout()->title = $this->view->t('Add user');
         
         // get the form
-        $form = new User_Form_User();
+        $form = $this->_model->getUserForm();
         $form->setAction($this->view->url());
         $this->view->form = $form;
         
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('cancel')->isChecked()) {
+            $this->_goToOverview();
+            return;
+        }
+        
+        // Has errors?
+        if(!$isValid) {
+            return;
+        }
+        
+        // create the user in the DB
+        $user = $this->_model->saveUserForm($form);
+        if(!$user) {
+            $this->_messenger->addError($this->view->t(
+                'There was a problem saving the user data, try again or contact platform administrator.'
+            ));
+            return;
+        }
+            
+        // we created the user
+        $this->_messenger->addSuccess($this->view->t(
+            'User <strong>%s</strong> created', $user->username
+        ));
+        
+        $this->_goToOverview();
+    }
+
+    /**
+     * Edit an existing user
+     */
+    public function editAction()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        // try to get the user
+        $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
+                
+        $this->view->layout()->title = $this->view->t(
+            'Edit user <em>%s</em>', $user->username
+        );
+        
+        // get the form
+        $form = $this->_model->getUserForm($user);
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
+        
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('cancel')->isChecked()) {
+            $this->_goToOverview();
+            return;
+        }
+        
+        // Has errors?
+        if(!$isValid) {
+            return;
+        }
+        
+        // update the user in the DB
+        $user = $this->_model->saveUserForm($form);
+        if(!$user) {
+            $this->_messenger->addError($this->view->t(
+                'There was a problem saving the user data, try again or contact platform administrator.'
+            ));
+            return;
+        }
+            
+        // we created the user
+        $this->_messenger->addSuccess($this->view->t(
+            'User <strong>%s</strong> updated', $user->username
+        ));
+        
+        $this->_goToOverview();
+    }
+
+    /**
+     * Block a user
+     */
+    public function blockUser()
+    {
+        // check access first
+        $this->_checkIsUserManager();
+        
+        // try to get the user
+        $user = $this->_checkUserExists($this->getRequest()->getParam('id'));
+                
+        $this->view->layout()->title = $this->view->t(
+            'Block user <em>%s</em>', $user->username
+        );
+        
+        // get the form
+        $form = $this->_model->getUserConfirmForm('block', $user);
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
     }
     
     
@@ -79,6 +200,44 @@ class User_Admin_UsersController extends Zend_Controller_Action
                 'User is not an user administrator'
             );
         }
+    }
+    
+    
+    
+    /**
+     * Helper to redirect to the users overview page
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    protected function _goToOverview()
+    {
+        $this->_redirect($this->view->url(array(
+            'module'     => 'user',
+            'controller' => 'users',
+            'action'     => 'index',
+        ), 'admin'));
+    }
+    
+    /**
+     * Helper to get a user by its id, if none found => redirect to overview
+     * 
+     * @param $userId
+     * 
+     * @return User_Model_Row_User
+     */
+    protected function _checkUserExists($userId)
+    {
+        $user = $this->_model->findById($userId);
+        if(!$user) {
+            $this->_messenger->addWarning($this->view->t(
+                'User not found'
+            ));
+            $this->_goToOverview();
+        }
+        
+        return $user;
     }
 }
 

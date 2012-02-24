@@ -132,66 +132,7 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
         return $this->password === $this->_encryptPassword($_password);
     }
     
-    /**
-     * Method to create the salted and encrypted password
-     * 
-     * @param string
-     * 
-     * @return string
-     */
-    protected function _encryptPassword($_password)
-    {
-        return md5(
-            $_password
-            . $this->password_salt
-        );
-    }
     
-    /**
-     * Method to create the salted and encrypted password
-     * This will only be done if the password field is modfied
-     * 
-     * @param string
-     * 
-     * @return string
-     */
-    protected function _preSavePassword()
-    {
-        // check if the current password is modified
-        if(!isset($this->_modifiedFields['password'])) {
-            return;
-        }
-        
-        // create new password salt
-        $token = new SG_Token();
-        $this->password_salt = $token->uuid();
-        
-        $this->password = $this->_encryptPassword($this->password);
-    }
-    
-    /**
-     * Pre insert logic
-     * This will check if the password needs to be encrypted
-     * 
-     * @param void
-     * @return void
-     */
-    protected function _insert()
-    {
-        $this->_preSavePassword();
-    }
-    
-    /**
-     * Pre update logic
-     * This will check if the password needs to be encrypted
-     * 
-     * @param void
-     * @return void
-     */
-    protected function _update()
-    {
-        $this->_preSavePassword();
-    }
     
     /**
      * Get the group names as an array
@@ -266,6 +207,134 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
         }
         
         return $this->_roles;
-    }  
+    }
+
+
+    /**
+     * Pre save the username
+     * 
+     * Check if the given username doesn't already exists for another user
+     * 
+     * @param void
+     * 
+     * @return void
+     * @throws Zend_Db_Table_Row_Exception
+     */
+    protected function _preSaveUsername()
+    {
+        if(!isset($this->_modifiedFields['username']) 
+            || !$this->_modifiedFields['username']
+        ) {
+            return;
+        }
+        $userId = (empty($this->_cleanData['id']))
+            ? NULL
+            : (int)$this->_cleanData['id'];
+            
+        if($this->_table->usernameExists(
+            $this->_data['username'],
+            $userId
+        )) {
+            throw new Zend_Db_Table_Row_Exception(
+                'Username already exists for other user'
+            );
+        }
+    }
+    
+    /**
+     * Pre save the email address
+     * 
+     * Check if the given email address doesn't already exists for another user
+     * 
+     * @param void
+     * 
+     * @return void
+     * @throws Zend_Db_Table_Row_Exception
+     */
+    protected function _preSaveEmail()
+    {
+        if(!isset($this->_modifiedFields['email']) 
+            || !$this->_modifiedFields['email']
+        ) {
+            return;
+        }
+        $userId = (empty($this->_cleanData['id']))
+            ? NULL
+            : (int)$this->_cleanData['id'];
+            
+        if($this->_table->emailExists(
+            $this->_data['email'],
+            $userId
+        )) {
+            throw new Zend_Db_Table_Row_Exception(
+                'Email address already in use for other user'
+            );
+        }
+    }
+    
+    /**
+     * Method to create the salted and encrypted password
+     * 
+     * @param string
+     * 
+     * @return string
+     */
+    protected function _encryptPassword($_password)
+    {
+        return md5(
+            $_password
+            . $this->password_salt
+        );
+    }
+    
+    /**
+     * Method to create the salted and encrypted password
+     * This will only be done if the password field is modfied
+     * 
+     * @param string
+     * 
+     * @return string
+     */
+    protected function _preSavePassword()
+    {
+        // check if the current password is modified
+        if(!isset($this->_modifiedFields['password'])) {
+            return;
+        }
+        
+        // create new password salt
+        $token = new SG_Token();
+        $this->password_salt = $token->uuid();
+        
+        $this->password = $this->_encryptPassword($this->password);
+    }
+    
+    /**
+     * Pre insert logic
+     * This will check if the password needs to be encrypted
+     * 
+     * @param void
+     * @return void
+     */
+    protected function _insert()
+    {
+        $this->_preSavePassword();
+        $this->_preSaveUsername();
+        $this->_preSaveEmail();
+    }
+    
+    /**
+     * Pre update logic
+     * This will check if the password needs to be encrypted
+     * 
+     * @param void
+     * @return void
+     */
+    protected function _update()
+    {
+        $this->_preSavePassword();
+        $this->_preSaveUsername();
+        $this->_preSaveEmail();
+    }
 }
 

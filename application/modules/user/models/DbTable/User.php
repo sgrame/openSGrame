@@ -87,72 +87,59 @@ class User_Model_DbTable_User extends SG_Db_Table
     /**
      * Check username exists
      * 
-     * @param string  username
+     * @param string $username
+     * @param mixed $excludeUserId
+     *     (optional) User Id to exclude
+     * 
      * @return  bool
      */
-    public function usernameExists($_username)
+    public function usernameExists($username, $excludeUserId = null)
     {
-        $user = $this->findByUsername($_username)->current();
-        return (bool)$user;
+        $users = $this->findByUsername($username);
+        
+        if(!is_null($excludeUserId)) {
+            $excludeUserId = (int)$excludeUserId;
+        }
+        
+        foreach($users AS $user) {
+            if((int)$user->id === $excludeUserId) {
+                continue;
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     
     /**
-     * Check if username already exists before insert
-     *
-     * @param   array Column-value pairs.
-     * @return  mixed The primary key of the row inserted.
-     */
-    public function insert(array $_data)
-    {
-        $this->_checkUsernameExists($_data);
-        return parent::insert($_data);
-    }
-      
-    /**
-     * Check if the username already exists for an other user before insert
+     * Check email address exists
      * 
-     * @param   array Column-value pairs.
-     * @param   array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses
-     * @return  int     The number of rows updated.
-     */
-    public function update(array $_data, $_where)
-    { 
-        $this->_checkUsernameExists($_data);
-        return parent::update($_data, $_where);
-    }
-      
-    /**
-     * Method to check if the username already is used for other user
+     * @param string $email
+     * @param mixed $excludeUserId
+     *     (optional) User Id to exclude
      * 
-     * @param array
-     * @return  void
-     * @throws  Zend_DB_Table_Exception
+     * @return  bool
      */
-    protected function _checkUsernameExists($_data)
+    public function emailExists($email, $excludeUserId = null)
     {
-        if(!isset($_data['username'])) {
-          return;
+        $users = $this->findByEmail($email);
+        
+        if(!is_null($excludeUserId)) {
+            $excludeUserId = (int)$excludeUserId;
         }
         
-        $existing = $this->findByUsername($_data['username'])->current();
-        
-        if(!$existing) {
-            return false;
+        foreach($users AS $user) {
+            if((int)$user->id === $excludeUserId) {
+                continue;
+            }
+            
+            return true;
         }
         
-        if(!isset($_data['id']) || is_null($_data['id'])) {
-            throw new Zend_Db_Table_Exception(
-              'Username already exists for other user'
-            );
-        }
-  
-        if(intval($existing->id) !== intval($_data['id'])) {
-            throw new Zend_Db_Table_Exception(
-              'Username already exists for other user'
-            );
-        }
+        return false;
     }
-  
+    
     /**
      * Fetch all by search
      * 

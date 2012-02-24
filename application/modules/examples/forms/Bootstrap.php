@@ -35,6 +35,7 @@ class Examples_Form_Bootstrap extends SG_Form
         // standard elements --------------------------------------------------
         $mail        = new Zend_Form_Element_Text('email');
         $name        = new Zend_Form_Element_Text('name');
+        $note        = new SG_Form_Element_Note('note');
         $checkbox    = new Zend_Form_Element_Checkbox('checkbox');
         $password    = new Zend_Form_Element_Password('password');
                 
@@ -47,6 +48,10 @@ class Examples_Form_Bootstrap extends SG_Form
             ->setRequired(true)
             ->setDescription('Add your full name.');
             
+        $note->setLabel('Note')
+            ->setValue('Note text displayed here')
+            ->setDescription('Simple note field');
+            
         $password->setLabel('Password')
             ->setRequired(true)
             ->setDescription('Enter your secret password.');
@@ -58,12 +63,13 @@ class Examples_Form_Bootstrap extends SG_Form
         $this->addElements(array(
             $mail, 
             $name,
+            $note,
             $password,
             $checkbox,
         ));
             
         $this->addDisplayGroup(
-            array('name', 'email', 'password', 'checkbox'),
+            array('name', 'email', 'note', 'password', 'checkbox'),
             'standard'
         );
         $this->getDisplayGroup('standard')->setLegend('Standard elements');

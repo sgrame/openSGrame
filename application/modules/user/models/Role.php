@@ -52,5 +52,29 @@ class User_Model_Role
         
         return $this->_rolesArray;
     }
+    
+    
+    /**
+     * Get the role id from the role ID or role object
+     * 
+     * @param mixed $role
+     *     The role id or object
+     * 
+     * @return int
+     */
+    public static function extractRoleId($role)
+    {
+        if(is_numeric($role)) {
+            return (int)$role;
+        }
+        
+        if($role instanceof User_Model_Row_Role) {
+            return (int)$role->id;
+        }
+        
+        throw new Zend_Db_Table_Row_Exception(
+            'No valid role ID or role object'
+        );
+    }
 }
 

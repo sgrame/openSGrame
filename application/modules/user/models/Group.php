@@ -53,5 +53,28 @@ class User_Model_Group
         return $this->_groupsArray;
     }
 
+
+    /**
+     * Get the group id from the group ID or group object
+     * 
+     * @param mixed $group
+     *     The group id or object
+     * 
+     * @return int
+     */
+    public static function extractGroupId($group)
+    {
+        if(is_numeric($group)) {
+            return (int)$group;
+        }
+        
+        if($group instanceof User_Model_Row_Group) {
+            return (int)$group->id;
+        }
+        
+        throw new Zend_Db_Table_Row_Exception(
+            'No valid group ID or group object'
+        );
+    }
 }
 

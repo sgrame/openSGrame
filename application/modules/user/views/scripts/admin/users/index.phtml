@@ -27,6 +27,7 @@ $this->placeholder('layout-sidebar')->captureEnd();
     <thead>
       <tr>
         <th><?php echo $this->t('Username'); ?></th>
+        <th><?php echo $this->t('Email'); ?></th>
         <th><?php echo $this->t('Group(s)'); ?></th>
         <th><?php echo $this->t('Role(s)'); ?></th>
         <th class="span2"><?php echo $this->t('Status'); ?></th>
@@ -38,6 +39,7 @@ $this->placeholder('layout-sidebar')->captureEnd();
       <?php foreach($this->users AS $user): ?>
         <tr>
           <td><?php echo $this->escape($user->username); ?></td>
+          <td><?php echo $this->escape($user->email); ?></td>
           <td>
             <?php echo implode(', ', $user->getGroupNames()); ?>
           </td>
