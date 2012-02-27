@@ -30,6 +30,14 @@ class SG_Acl extends Zend_Acl {
     const ROLE_EVERYONE = 'everyone';
     
     /**
+     * Name of the "logged in" role
+     * 
+     * @var string
+     */
+    const ROLE_REGISTERED = 'registered';
+    
+    
+    /**
      * Database adapter
      * 
      * @var Zend_Db_Adapter_Abstract
@@ -201,7 +209,7 @@ class SG_Acl extends Zend_Acl {
             return $userRoleName;
         }
       
-        $userRoles = array(self::ROLE_EVERYONE);
+        $userRoles = array(self::ROLE_EVERYONE, self::ROLE_REGISTERED);
         $userDbRoles = $this->_getDbUserRoles($user);
             
         foreach($userDbRoles AS $role) {
