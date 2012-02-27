@@ -43,6 +43,13 @@ class User_Admin_GroupsController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $groups = $this->_model->getGroups(
+            $this->_request->getParam('page', 0),
+            $this->_request->getParam('order', 'name'),
+            $this->_request->getParam('direction', 'asc'),
+            $this->_request->getParams()
+        );
+        $this->view->groups = $groups;
     }
 
 

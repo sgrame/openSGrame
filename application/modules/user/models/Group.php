@@ -30,6 +30,31 @@ class User_Model_Group
     }
     
     /**
+     * Get the groups
+     * 
+     * @param $page
+     * @param $order
+     * @param $direction
+     * @param $search
+     * 
+     * @return Zend_Paginator_Adapter_DbSelect
+     */
+    public function getGroups(
+        $page = 0, $order = 'name', $direction = 'asc', $search = array()
+    )
+    {
+        $acl = Zend_Registry::get('acl');
+        if(!$acl->isUserAllowed('user:admin:groups', 'administer system groups')) {
+            $search['excludeSystemGroups'] = true;
+        }
+      
+        $groups = $this->_mapper->findBySearch($search, $order, $direction);
+        $pager  = Zend_Paginator::factory($groups);
+        $pager  ->setCurrentPageNumber($page);
+        return $pager;
+    }
+    
+    /**
      * Get an array with groupID => groupName
      * 
      * @param bool $excludeSystem

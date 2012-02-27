@@ -10,5 +10,18 @@ class User_Model_Row_Group extends Zend_Db_Table_Row_Abstract
      * @var string
      */
     protected $_tableClass = 'User_Model_DbTable_Group';
+    
+    /**
+     * Get the number of users belonging to this group
+     * 
+     * @param void
+     * 
+     * @return int
+     */
+    public function getUserCount()
+    {
+        $mapper = new User_Model_DbTable_UserGroups();
+        return $mapper->countUsersByGroup($this->id);
+    }
 
 }
