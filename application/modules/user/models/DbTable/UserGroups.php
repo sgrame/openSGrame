@@ -16,6 +16,24 @@ class User_Model_DbTable_UserGroups extends SG_Db_Table
      */
     protected $_rowClass = 'User_Model_Row_UserGroups';
     
+    /**
+     * Count the number of users by the group object or group id
+     * 
+     * @param mixed $group
+     *     Group ID or User_Model_Row_Group
+     * 
+     * @return int
+     */
+    public function countUsersByGroup($group)
+    {
+        $groupId = User_Model_Group::extractGroupId($group);
+        $select = $this->_db->select();
+        $select->from($this->_name, array(
+            'count' => new Zend_Db_Expr('COUNT(1)'),
+        ));
+        $select->where('group_id = ?', $groupId);
+        return (int)$select->query()->fetchColumn(0);
+    }
     
     /**
      * Create a record

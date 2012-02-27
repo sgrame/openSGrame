@@ -161,7 +161,7 @@ class User_Model_User
             // User -----------------------------------------------------------
             $user->username = $values['username'];
             $user->email    = $values['email'];
-            if(!empty($user->password)) {
+            if(!empty($values['user_password'])) {
                 $user->password = $values['user_password'];
             }
             $user->blocked = ((int)$values['status'] === 1)
@@ -374,7 +374,25 @@ class User_Model_User
         $page = 0, $order = 'created', $direction = 'desc', $search = array()
     )
     {
-        $users = $this->_mapper->fetchAll();
+        // limit the list by ACL
+        $acl = Zend_Registry::get('acl');
+        if(!$acl->isUserAllowed('user:admin:users', 'administer system users')) {
+            $search['excludeSystemUsers'] = true;
+        }
+        
+        // administer only group users
+        if(!$acl->isUserAllowed('user:admin:users', 'administer all users')) {
+            $auth = new User_Model_Auth();
+            $user = $auth->getAuthenticatedUser();
+            $groups = $user->getGroups();
+            $groupIds = array();
+            foreach($groups AS $group) {
+                $groupIds[] = $group->id;
+            }
+            $search['groups'] = $groupIds;
+        }
+        
+        $users = $this->_mapper->fetchBySearch($search, $order, $direction);
         $paged = Zend_Paginator::factory($users);
         $paged->setCurrentPageNumber((int)$page);
         return $paged;

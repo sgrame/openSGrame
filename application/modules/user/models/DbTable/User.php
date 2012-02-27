@@ -146,36 +146,93 @@ class User_Model_DbTable_User extends SG_Db_Table
      * @param array
      * @return  Zend_Db_Table_Rowset
      */
-    public function fetchBySearch($_search = array())
+    public function fetchBySearch($search = array(), $order = null, $direction = null)
     {
-        $defaultSearch = array(
-            'excludeSystemUsers'  => true,
-        );
-        $search = array_merge($defaultSearch, $_search);
-        
         $select = $this->select();
+        $select->from($this->_name, '*');
         // filter system users
         if(isset($search['excludeSystemUsers']) && $search['excludeSystemUsers']) {
-            $select->where('id > 1');
+            $select->where($this->_name . '.id > 1');
         }
         
         // search username
         if(isset($search['username']) && 0 < strlen($search['username'])) {
             $select->where(
-                'username LIKE ?',
+                $this->_name . '.username LIKE ?',
                 str_replace('*', '%', $search['username'])
             );
         }
         // search email
         if(isset($search['email']) && 0 < strlen($search['email'])) {
             $select->where(
-                'email LIKE ?',
+                $this->_name . '.email LIKE ?',
                 str_replace('*', '%', $search['email'])
             );
+        }
+        
+        // only users from certain groups (id)
+        if(isset($search['groups'])) {
+            if($search['groups'] == 'none') {
+                $select->joinLeft('user_groups', $this->_name . '.id = user_groups.user_id', array());
+                $select->where('user_groups.group_id IS NULL');
+            }
+            else {
+                $groups = $this->_searchToArray($search['groups']);
+                $select->join('user_groups', $this->_name . '.id = user_groups.user_id', array());
+                $select->where('user_groups.group_id IN (?)', $groups);
+            }
+            
+            $select->where('user_groups.cr IS NULL');
+        }
+        
+        // only users with certain roles (id)
+        if(isset($search['roles'])) {
+            if($search['roles'] == 'none') {
+                $select->joinLeft('user_roles', $this->_name . '.id = user_roles.user_id', array());
+                $select->where('user_roles.role_id IS NULL');
+            }
+            else {
+                $roles = $this->_searchToArray($search['roles']);
+                $select->join('user_roles', $this->_name . '.id = user_roles.user_id', array());
+                $select->where('user_roles.role_id IN (?)', $roles);
+            }
+            
+            $select->where('user_roles.cr IS NULL');
+        }
+        
+        // add group by
+        if(isset($search['groups']) || isset($search['roles'])) {
+            $select->group($this->_name . '.id');
         }
         
         return $this->fetchAll($select);
     }
 
+    /**
+     * Transform a search string to an array
+     * 
+     * converts a comma seperated string to an array
+     * 
+     * @param mixed $search
+     * 
+     * @return array
+     */
+    protected function _searchToArray($search)
+    {
+        if(is_array($search)) {
+            return $search;
+        }
+        
+        if(!preg_match('/\,/', $search)) {
+            return array($search);
+        }
+        
+        $search = explode(',', $search);
+        foreach($search AS $key => $value) {
+            $search[$key] = trim($value);
+        }
+        
+        return $search;
+    }
 }
 
