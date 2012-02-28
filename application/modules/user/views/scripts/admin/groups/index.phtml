@@ -40,8 +40,9 @@ $administer = $this->acl()->isUserAllowed('user:admin:groups', 'administer');
         <tr>
           <td><?php echo $this->escape($group->name); ?></td>
           <td>
-            <?php echo $group->getUserCount(); ?>
-            <?php if($this->acl()->isUserAllowed('user:admin:users', 'view')): ?>
+            <?php $count = $group->getUserCount(); ?>
+            <?php echo $count; ?>
+            <?php if($count && $this->acl()->isUserAllowed('user:admin:users', 'view')): ?>
               (<a href="<?php echo $this->url(array('controller' => 'users', 'groups' => $group->id), 'admin'); ?>"><?php echo $this->t('view users'); ?></a>)
             <?php endif; ?>
           </td>

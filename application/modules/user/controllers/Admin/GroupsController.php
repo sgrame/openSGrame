@@ -28,6 +28,13 @@ class User_Admin_GroupsController extends Zend_Controller_Action
      * @var User_Model_Group
      */
     protected $_model;
+    
+    /**
+     * Messenger
+     * 
+     * @var TB_Controller_Action_Helper_Messenger
+     */
+    protected $_messenger;
   
     /**
      * Redirect to login if no access
@@ -35,12 +42,18 @@ class User_Admin_GroupsController extends Zend_Controller_Action
     public function init()
     {
        $this->_model = new User_Model_Group();
+       $this->_messenger = $this->_helper->getHelper('Messenger');
+       
        $this->view->layout()->title = $this->view->t('Manage groups');
        
        // set the subnavigation
        $this->view->layout()->subnavId = 'sub-user-admin';
     }
 
+
+    /**
+     * Show the overview of all groups
+     */
     public function indexAction()
     {
         $groups = $this->_model->getGroups(
@@ -52,6 +65,108 @@ class User_Admin_GroupsController extends Zend_Controller_Action
         $this->view->groups = $groups;
     }
 
-
+    /**
+     * Add a new group
+     */
+    public function addAction()
+    {
+        // check access first
+        $this->_checkIsGroupManager();
+        
+        $this->view->layout()->title = $this->view->t('Add group');
+        
+        $form = $this->_model->getGroupForm();
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
+        
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('cancel')->isChecked()) {
+            $this->_goToOverview();
+            return;
+        }
+        
+        // Has errors?
+        if(!$isValid) {
+            return;
+        }
+        
+        // create the user in the DB
+        $group = $this->_model->saveGroupForm($form);
+        if(!$group) {
+            $this->_messenger->addError($this->view->t(
+                'There was a problem saving the group, try again or contact platform administrator.'
+            ));
+            return;
+        }
+            
+        // we created the user
+        $this->_messenger->addSuccess($this->view->t(
+            'Group <strong>%s</strong> created', $group->name
+        ));
+        
+        $this->_goToOverview();
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * Helper to redirect to the users overview page
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    protected function _goToOverview()
+    {
+        $this->_redirect($this->view->url(array(
+            'module'     => 'user',
+            'controller' => 'groups',
+            'action'     => 'index',
+        ), 'admin', true));
+    }
+    
+    /**
+     * Check is user administrator
+     */
+    protected function _checkIsGroupManager()
+    {
+        $acl = Zend_Registry::get('acl');
+        if(!$acl->isUserAllowed('user:admin:groups', 'administer')) {
+            throw new SG_Controller_Action_NotAuthorized_Exception(
+                'User is not a group administrator'
+            );
+        }
+    }
+    
+    /**
+     * Helper to get a group by its id, if none found => redirect to overview
+     * 
+     * @param $GroupId
+     * 
+     * @return User_Model_Row_Group
+     */
+    protected function _checkGroupExists($groupId)
+    {
+        $user = $this->_model->findById($groupId);
+        if(!$group) {
+            $this->_messenger->addWarning($this->view->t(
+                'Group not found'
+            ));
+            $this->_goToOverview();
+        }
+        
+        return $group;
+    }
 }
 

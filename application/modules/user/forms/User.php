@@ -133,7 +133,7 @@ class User_Form_User extends SG_Form
             'submit'
         );
         
-        $this->addElement('hash', 'login_csrf', array('salt' => 'login-form'));
+        $this->addElement('hash', 'login_csrf', array('salt' => 'user-form'));
         $this->addElement('hidden', 'user_id');
     }
 

@@ -315,7 +315,7 @@ class User_Admin_UsersController extends Zend_Controller_Action
             'module'     => 'user',
             'controller' => 'users',
             'action'     => 'index',
-        ), 'admin'));
+        ), 'admin', true));
     }
     
     /**

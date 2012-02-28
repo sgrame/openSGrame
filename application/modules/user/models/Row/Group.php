@@ -12,6 +12,13 @@ class User_Model_Row_Group extends Zend_Db_Table_Row_Abstract
     protected $_tableClass = 'User_Model_DbTable_Group';
     
     /**
+     * Count the users (cache)
+     * 
+     * @var int
+     */
+    protected $_countUsers = NULL;
+    
+    /**
      * Get the number of users belonging to this group
      * 
      * @param void
@@ -20,8 +27,12 @@ class User_Model_Row_Group extends Zend_Db_Table_Row_Abstract
      */
     public function getUserCount()
     {
-        $mapper = new User_Model_DbTable_UserGroups();
-        return $mapper->countUsersByGroup($this->id);
+        if(is_null($this->_countUsers)) {
+            $mapper = new User_Model_DbTable_UserGroups();
+            $this->_countUsers = $mapper->countUsersByGroup($this->id);
+        }
+        
+        return $this->_countUsers;
     }
 
 }

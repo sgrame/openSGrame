@@ -30,6 +30,68 @@ class User_Model_Group
     }
     
     /**
+     * Get the group form
+     * 
+     * @param $group
+     * 
+     * @return User_Form_Group
+     */
+    public function getGroupForm($group = null)
+    {
+        $form = new User_Form_Group();
+        
+        if($group instanceof User_Model_Row_Group) {
+            $data = array(
+                'name'     => $group->name,
+                'group_id' => $group->id,
+            );
+            
+            $form->populate($data);
+        }
+        
+        return $form;
+    }
+    
+    /**
+     * Save the group form
+     * 
+     * @param User_Form_Group $form
+     * 
+     * @return User_Model_Row_Group
+     */
+    public function saveGroupForm(User_Form_Group $form)
+    {
+        $db = $this->_mapper->getAdapter();
+        $db->beginTransaction();
+      
+        try {
+            $group    = $this->_mapper->createRow();
+            $values   = $form->getValues();
+            
+            // update?
+            if(!empty($values['group_id'])) {
+                $group = $this->findById($values['group_id']);
+                if(!$group) {
+                    return false;
+                }
+            }
+            
+            // Group -----------------------------------------------------------
+            $group->name = $values['name'];
+            $group->save();
+            
+            $db->commit();
+            return $group;
+        }
+        catch(Exception $e) {
+            $db->rollBack();
+            SG_Log::log($e->getMessage(), SG_Log::CRIT);
+        }
+        
+        return false;
+    }
+    
+    /**
      * Get the groups
      * 
      * @param $page

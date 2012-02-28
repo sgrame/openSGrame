@@ -88,6 +88,48 @@ class User_Model_DbTable_Group extends SG_Db_Table
           
         return $this->fetchAll($select);
     }
+    
+    /**
+     * Find a group by its name
+     * 
+     * @param string $name
+     * 
+     * @return Zend_Db_Table_Rowset
+     */
+    public function findByName($name)
+    {
+        $select = $this->select();
+        $select->where('name = ?', $name);
+        
+        return $this->fetchAll($select);
+    }
 
+    /**
+     * Check if a group exists with the given name
+     * 
+     * @param string $name
+     * @param int $excludeGroupId
+     *     Group id to exclude from the possible matches
+     * 
+     * @return bool
+     */
+    public function nameExists($name,  $excludeGroupId = null)
+    {
+        $groups = $this->findByName($name);
+        
+        if(!is_null($excludeGroupId)) {
+            $excludeGroupId = (int)$excludeGroupId;
+        }
+        
+        foreach($groups AS $group) {
+            if((int)$group->id === $excludeGroupId) {
+                continue;
+            }
+            
+            return true;
+        }
+        
+        return false;
+    }
 }
 
