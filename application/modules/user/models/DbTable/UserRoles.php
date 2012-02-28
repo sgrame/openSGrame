@@ -16,6 +16,24 @@ class User_Model_DbTable_UserRoles extends SG_Db_Table
      */
     protected $_rowClass = 'User_Model_Row_UserRoles';
     
+    /**
+     * Get the number of users with a certain role
+     * 
+     * @param int|User_Model_Row_Role
+     * 
+     * @return int
+     */
+    public function countUsersByRole($role)
+    {
+        $roleId = User_Model_Role::extractRoleId($role);
+        $select = $this->_db->select();
+        $select->from($this->_name, array(
+            'count' => new Zend_Db_Expr('COUNT(1)'),
+        ));
+        $select->where('role_id = ?', $roleId)
+               ->where('cr IS NULL');
+        return (int)$select->query()->fetchColumn(0);
+    }
     
     /**
      * Create a record

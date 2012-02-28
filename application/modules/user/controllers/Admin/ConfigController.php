@@ -30,7 +30,7 @@ class User_Admin_ConfigController extends Zend_Controller_Action
     protected $_model;
   
     /**
-     * Redirect to login if no access
+     * Init this controller
      */
     public function init()
     {

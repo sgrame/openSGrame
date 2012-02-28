@@ -31,7 +31,8 @@ class User_Model_DbTable_UserGroups extends SG_Db_Table
         $select->from($this->_name, array(
             'count' => new Zend_Db_Expr('COUNT(1)'),
         ));
-        $select->where('group_id = ?', $groupId);
+        $select->where('group_id = ?', $groupId)
+               ->where('cr IS NULL');
         return (int)$select->query()->fetchColumn(0);
     }
     

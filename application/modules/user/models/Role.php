@@ -29,6 +29,148 @@ class User_Model_Role
             : $mapper;
     }
     
+    
+    /**
+     * Get the role form
+     * 
+     * @param $role
+     * 
+     * @return User_Form_Role
+     */
+    public function getRoleForm($role = null)
+    {
+        $form = new User_Form_Role();
+        
+        if($role instanceof User_Model_Row_Role) {
+            $data = array(
+                'name'     => $role->name,
+                'role_id' => $role->id,
+            );
+            
+            $form->populate($data);
+        }
+        
+        return $form;
+    }
+    
+    /**
+     * Save the role form
+     * 
+     * @param User_Form_Role $form
+     * 
+     * @return User_Model_Row_Role
+     */
+    public function saveRoleForm(User_Form_Role $form)
+    {
+        $db = $this->_mapper->getAdapter();
+        $db->beginTransaction();
+      
+        try {
+            $role     = $this->_mapper->createRow();
+            $values   = $form->getValues();
+            
+            // update?
+            if(!empty($values['role_id'])) {
+                $role = $this->findById($values['role_id']);
+                if(!$role) {
+                    return false;
+                }
+            }
+            
+            // Group -----------------------------------------------------------
+            $role->name = $values['name'];
+            $role->save();
+            
+            $db->commit();
+            return $role;
+        }
+        catch(Exception $e) {
+            $db->rollBack();
+            SG_Log::log($e->getMessage(), SG_Log::CRIT);
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Role action confirm form proxy
+     * 
+     * @param string $action
+     *     Action to perform
+     * @param User_Model_Row_Role $role
+     * 
+     * @return User_Form_Confirm
+     */
+    public function getRoleConfirmForm($action, User_Model_Row_Role $role)
+    {
+        $form = new User_Form_Confirm();
+        $form->getElement('id')->setValue((int)$role->id);
+        
+        $translator = SG_Translator::getInstance();
+        
+        $legendText = null;
+        $noteText   = null;
+        $buttonText = null;
+        
+        switch($action) {
+          case 'delete':
+              $legendText = $translator->t(
+                  'Delete role'
+              );
+              $noteText = $translator->t(
+                  'Are you sure that you want to delete role <strong>%s</strong>?',
+                  $role->name
+              );
+              break;
+        }
+        
+        if($legendText) {
+            $form->getDisplayGroup('confirm')->setLegend($legendText);
+        }
+        if($noteText) {
+            $form->getElement('note')->setValue($noteText);
+        }
+        if($buttonText) {
+            $form->getElement('submit')->setLabel($buttonText);
+        }
+        
+        return $form;
+    }
+    
+    
+    /**
+     * Find a role by its ID
+     * 
+     * @param int $roleId
+     * 
+     * @return User_Model_Row_Role
+     */
+    public function findById($roleId)
+    {
+        $role = $this->_mapper->find((int)$roleId)->current();
+        return $role;
+    }
+    
+    /**
+     * Get the roles
+     * 
+     * @param $page
+     * @param $order
+     * @param $direction
+     * @param $search
+     * 
+     * @return Zend_Paginator_Adapter_DbSelect
+     */
+    public function getRoles(
+        $page = 0, $order = 'name', $direction = 'asc', $search = array()
+    )
+    {
+        $roles  = $this->_mapper->findBySearch($search, $order, $direction);
+        $pager  = Zend_Paginator::factory($roles);
+        $pager  ->setCurrentPageNumber($page);
+        return $pager;
+    }
+    
     /**
      * Get an array with roleID => roleName
      * 

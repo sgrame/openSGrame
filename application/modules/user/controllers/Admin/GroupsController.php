@@ -37,7 +37,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
     protected $_messenger;
   
     /**
-     * Redirect to login if no access
+     * Init the controller
      */
     public function init()
     {
@@ -123,7 +123,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
         // check access first
         $this->_checkIsGroupManager();
         
-        // try to get the user
+        // try to get the group
         $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
                 
         $this->view->layout()->title = $this->view->t(
@@ -163,7 +163,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
             return;
         }
             
-        // we created the user
+        // we created the group
         $this->_messenger->addSuccess($this->view->t(
             'Group <strong>%s</strong> updated', $group->name
         ));
@@ -179,7 +179,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
         // check access first
         $this->_checkIsGroupManager();
         
-        // try to get the user
+        // try to get the group
         $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
                 
         $this->view->layout()->title = $this->view->t(
@@ -250,7 +250,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
     /**
      * Helper to get a group by its id, if none found => redirect to overview
      * 
-     * @param $GroupId
+     * @param $groupId
      * 
      * @return User_Model_Row_Group
      */

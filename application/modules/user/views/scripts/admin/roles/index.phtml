@@ -1,13 +1,86 @@
-
-<div class="btn-toolbar" style="margin-bottom: 9px">
-
-  <div class="btn-group">
-    <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
-      <i class="icon-plus icon-white"></i>
-      <?php echo $this->t('Add role'); ?>
-    </a>
+  <div class="btn-toolbar" style="margin-bottom: 9px">
+    
+      <div class="btn-group">
+        <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
+          <i class="icon-plus icon-white"></i>
+          <?php echo $this->t('Add role'); ?>
+        </a>
+      </div>
+  
+      <p class="pull-right">
+        <?php echo $this->paginationCount($this->roles); ?>
+      </p>
   </div>
-
-</div>
     
  
+<?php if(count($this->roles)): ?>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><?php echo $this->t('Name'); ?></th>
+        <th><?php echo $this->t('Number of users'); ?></th>
+        <?php if($this->acl()->isUserAllowed('user:admin:permissions', 'view')): ?>
+          <th><?php echo $this->t('Permissions'); ?></th>
+        <?php endif; ?>
+        <th class="span2"><?php echo $this->t('Actions'); ?></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <?php foreach($this->roles AS $role): ?>
+        <tr>
+          <td>
+            <?php echo $this->escape($role->name); ?>
+            <?php if($role->isLocked()): ?>
+              <em>(<?php echo $this->t('locked'); ?>)</em>
+            <?php endif; ?>
+          </td>
+          <td>
+            <?php if($role->id > 2): ?>
+              <?php $count = $role->getUserCount(); ?>
+              <?php echo $count; ?>
+              <?php if($count && $this->acl()->isUserAllowed('user:admin:users', 'view')): ?>
+                (<a href="<?php echo $this->url(array('controller' => 'users', 'roles' => $role->id), 'admin'); ?>"><?php echo $this->t('view users'); ?></a>)
+              <?php endif; ?>
+            <?php endif; ?>
+          </td>
+          <?php if($this->acl()->isUserAllowed('user:admin:permissions', 'view')): ?>
+            <td>
+              <div class="btn-group">
+                <a class="btn" href="<?php echo $this->url(array('action' => 'permissions', 'id' => $role->id)); ?>">
+                  <i class="icon-list-alt"></i>
+                  <?php echo $this->t('Edit permissions'); ?>
+                </a>
+              </div>
+            </td>
+          <?php endif; ?>
+          <td>
+            <?php if(!$role->isLocked()): ?>
+              <div class="btn-group">
+                <a class="btn" href="<?php echo $this->url(array('action' => 'edit', 'id' => $role->id)); ?>">
+                  <i class="icon-pencil"></i>
+                  <?php echo $this->t('Edit'); ?>
+                </a>
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $role->id)); ?>">
+                      <i class="icon-trash"></i>
+                      <?php echo $this->t('Delete'); ?>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            <?php endif; ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+  
+  <?php echo $this->paginationControl($this->roles, 'Sliding'); ?>
+  
+<?php endif; ?>
