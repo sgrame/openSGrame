@@ -61,7 +61,7 @@ class User_Form_Confirm extends SG_Form
         );
         
         $this->addElement('hash', 'confirm_csrf', array('salt' => __CLASS__));
-        $this->addElement('hidden', 'user_id');
+        $this->addElement('hidden', 'id');
     }
 
     

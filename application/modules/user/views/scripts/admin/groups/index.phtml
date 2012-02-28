@@ -53,6 +53,17 @@ $administer = $this->acl()->isUserAllowed('user:admin:groups', 'administer');
                   <i class="icon-pencil"></i>
                   <?php echo $this->t('Edit'); ?>
                 </a>
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $group->id)); ?>">
+                      <i class="icon-trash"></i>
+                      <?php echo $this->t('Delete'); ?>
+                    </a>
+                  </li>
+                </ul>
               </div>
             <?php endif; ?>
           </td>

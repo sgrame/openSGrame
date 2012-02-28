@@ -92,6 +92,64 @@ class User_Model_Group
     }
     
     /**
+     * Group action confirm form proxy
+     * 
+     * @param string $action
+     *     Action to perform
+     * @param User_Model_Row_Group $group
+     * 
+     * @return User_Form_Confirm
+     */
+    public function getGroupConfirmForm($action, User_Model_Row_Group $group)
+    {
+        $form = new User_Form_Confirm();
+        $form->getElement('id')->setValue((int)$group->id);
+        
+        $translator = SG_Translator::getInstance();
+        
+        $legendText = null;
+        $noteText   = null;
+        $buttonText = null;
+        
+        switch($action) {
+          case 'delete':
+              $legendText = $translator->t(
+                  'Delete group'
+              );
+              $noteText = $translator->t(
+                  'Are you sure that you want to delete group <strong>%s</strong>?',
+                  $group->name
+              );
+              break;
+        }
+        
+        if($legendText) {
+            $form->getDisplayGroup('confirm')->setLegend($legendText);
+        }
+        if($noteText) {
+            $form->getElement('note')->setValue($noteText);
+        }
+        if($buttonText) {
+            $form->getElement('submit')->setLabel($buttonText);
+        }
+        
+        return $form;
+    }
+    
+    /**
+     * Get one group by its id
+     * 
+     * @param int $groupId
+     * 
+     * @return User_Model_Row_Group
+     */
+    public function findById($groupId)
+    {
+        $group = $this->_mapper->find((int)$groupId)->current();
+        return $group;
+    }
+    
+    /**
      * Get the groups
      * 
      * @param $page

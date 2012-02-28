@@ -114,6 +114,104 @@ class User_Admin_GroupsController extends Zend_Controller_Action
         
         $this->_goToOverview();
     }
+
+    /**
+     * Edit an existing group
+     */
+    public function editAction()
+    {
+        // check access first
+        $this->_checkIsGroupManager();
+        
+        // try to get the user
+        $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
+                
+        $this->view->layout()->title = $this->view->t(
+            'Edit group <em>%s</em>', $group->name
+        );
+        
+        // get the form
+        $form = $this->_model->getGroupForm($group);
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
+        
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('cancel')->isChecked()) {
+            $this->_goToOverview();
+            return;
+        }
+        
+        // Has errors?
+        if(!$isValid) {
+            return;
+        }
+        
+        // update the group in the DB
+        $group = $this->_model->saveGroupForm($form);
+        if(!$group) {
+            $this->_messenger->addError($this->view->t(
+                'There was a problem saving the group, try again or contact platform administrator.'
+            ));
+            return;
+        }
+            
+        // we created the user
+        $this->_messenger->addSuccess($this->view->t(
+            'Group <strong>%s</strong> updated', $group->name
+        ));
+        
+        $this->_goToOverview();
+    }
+
+    /**
+     * Delete group
+     */
+    public function deleteAction()
+    {
+        // check access first
+        $this->_checkIsGroupManager();
+        
+        // try to get the user
+        $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
+                
+        $this->view->layout()->title = $this->view->t(
+            'Delete group <em>%s</em>', $group->name
+        );
+        
+        // get the form
+        $form = $this->_model->getGroupConfirmForm('delete', $group);
+        $form->setAction($this->view->url());
+        $this->view->form = $form;
+        $this->_helper->viewRenderer->setRender('confirm'); 
+        
+        // Post?
+        if (!$this->_request->isPost()) {
+            return;
+        }
+        
+        // Validate the form
+        $isValid = $form->isValid($this->_request->getPost());
+        
+        // Check if cancel not clicked
+        if($form->getElement('submit')->isChecked()) {
+            $name = $group->name;
+            $group->delete();
+            $this->_messenger->addSuccess($this->view->t(
+                'Group <strong>%s</strong> deleted',
+                $name
+            ));
+        }
+        
+        $this->_goToOverview();
+    }
     
     
     
@@ -158,7 +256,7 @@ class User_Admin_GroupsController extends Zend_Controller_Action
      */
     protected function _checkGroupExists($groupId)
     {
-        $user = $this->_model->findById($groupId);
+        $group = $this->_model->findById($groupId);
         if(!$group) {
             $this->_messenger->addWarning($this->view->t(
                 'Group not found'

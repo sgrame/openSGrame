@@ -240,7 +240,7 @@ class User_Model_User
     public function getUserConfirmForm($action, User_Model_Row_User $user)
     {
         $form = new User_Form_Confirm();
-        $form->getElement('user_id')->setValue((int)$user->id);
+        $form->getElement('id')->setValue((int)$user->id);
         
         $translator = SG_Translator::getInstance();
         
@@ -254,7 +254,7 @@ class User_Model_User
                   'Delete user'
               );
               $noteText = $translator->t(
-                  'Are you sure that you want to delete user <em>%s</em>?',
+                  'Are you sure that you want to delete user <strong>%s</strong>?',
                   $user->username
               );
               break;
