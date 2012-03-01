@@ -51,7 +51,7 @@ class User_Form_Permissions extends SG_Form
         ));
         
         // set the table decorator
-        $this->setDisableLoadDefaultDecorators(true);
+        /*$this->setDisableLoadDefaultDecorators(true);
         $this->setDecorators(array(
             'FormElements', 
             array(
@@ -61,7 +61,7 @@ class User_Form_Permissions extends SG_Form
                 )
             ), 
             'Form')
-        );
+        );*/
     }
     
     /**
@@ -74,7 +74,8 @@ class User_Form_Permissions extends SG_Form
     public function setRowHeader($labels)
     {
         $labels = array_merge(array(NULL), $labels);
-        $this->getDecorator('SimpleTable')->setColumns($labels);
+        $group  = $this->getPermissionsGroup();
+        $group->getDecorator('SimpleTable')->setColumns($labels);
     }
     
 
@@ -112,23 +113,57 @@ class User_Form_Permissions extends SG_Form
         // add the elements
         $rowForm->addElements($elements);
         
-        
-        
         $rowForm->setDecorators(array(
-          'FormElements',
-          array('HtmlTag', array('tag' => 'tr'))
+            'FormElements',
+            array('HtmlTag', array('tag' => 'tr'))
         ));
         $rowForm->setElementDecorators(array(
-          'ViewHelper', 
-          array('HtmlTag', array('tag' => 'td'))
+            'ViewHelper', 
+            array('HtmlTag', array('tag' => 'td'))
         ));
         
         // set the index (equal to permission id)
         $rowIndex = 'perm_' . (int)$permissionId;
         $rowForm->setElementsBelongTo($rowIndex);
-        $this->addSubForm($rowForm, $rowIndex);
+        
+        // add to the permissions group
+        $group = $this->getPermissionsGroup();
+        $group->addSubForm($rowForm, $rowIndex);
         
         return $rowForm;
+    }
+
+   /**
+    * Get the permissions subform (create if not yet added)
+    * 
+    * @param void
+    * 
+    * @return Zend_Form
+    */
+    public function getPermissionsGroup()
+    {
+        $name = 'permissions';
+        if(!$this->getSubForm($name)) {
+            $form = new Zend_Form();
+            $form->setDecorators(array(
+                'FormElements', 
+                array(
+                    'SimpleTable', array(
+                        'class'   => 'table table-striped',
+                        'columns' => array()
+                    )
+                ), 
+            ));
+            $form->setElementDecorators(array(
+                'ViewHelper', 
+                array('HtmlTag', array('tag' => 'tr'))
+            ));
+            
+            $form->setElementsBelongTo($name);
+            $this->addSubForm($form, $name);
+        }
+
+        return $this->getSubForm($name);
     }
 }
 
