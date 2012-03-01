@@ -143,7 +143,10 @@ class User_Model_DbTable_User extends SG_Db_Table
     /**
      * Fetch all by search
      * 
-     * @param array
+     * @param array $search
+     * @param string $order
+     * @param string $direction
+     * 
      * @return  Zend_Db_Table_Rowset
      */
     public function fetchBySearch($search = array(), $order = null, $direction = null)

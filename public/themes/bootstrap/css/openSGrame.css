@@ -79,10 +79,40 @@ body.layout-well .well {
  * Labels
  */
 .label {
-  margin-right: 4px;
+    margin-right: 4px;
 }
 
-
+/**
+ * Tables
+ */
+tr.h1 td, tr.h2 td, tr.h3 td, 
+tr.h4 td, tr.h5 td, tr.h6 td {
+    font-weight: bold;
+}
+tr.h4 td, tr.h5 td, tr.h6 td {
+    line-height: 18px;
+}
+tr.h1 td {
+    font-size: 30px;
+    line-height: 36px;
+}
+tr.h2 td {
+    font-size: 24px;
+    line-height: 36px;
+}
+tr.h3 td {
+    line-height: 27px;
+    font-size: 18px;
+}
+tr.h4 td {
+    font-size: 14px;
+}
+tr.h5 td {
+    font-size: 12px;
+}
+tr.h6 td {
+    font-size: 11px;
+}
 
 
 
@@ -130,4 +160,3 @@ body.layout-well .well {
    }
 }
 
-} 

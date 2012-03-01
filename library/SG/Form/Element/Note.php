@@ -23,4 +23,18 @@
 class SG_Form_Element_Note extends Zend_Form_Element_Xhtml 
 { 
     public $helper = 'formNote'; 
+    
+    /**
+     * Validate element value
+     *
+     * A note does not have to be validated.
+     *
+     * @param  mixed $value
+     * @param  mixed $context
+     * @return boolean
+     */
+    public function isValid($value, $context = null)
+    {
+        return true;
+    }
 }

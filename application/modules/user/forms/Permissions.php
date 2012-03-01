@@ -46,7 +46,7 @@ class User_Form_Permissions extends SG_Form
             'submit'
         );
         $this->getDisplayGroup('actions')->setOrder(9999);
-        $this->addElement('hash', 'login_csrf', array(
+        $this->addElement('hash', 'permissions_csrf', array(
           'salt' => 'user-permissions-form'
         ));
         
@@ -73,9 +73,8 @@ class User_Form_Permissions extends SG_Form
      */
     public function setRowHeader($labels)
     {
-        $labels = array_merge(array(NULL), $labels);
-        $group  = $this->getPermissionsGroup();
-        $group->getDecorator('SimpleTable')->setColumns($labels);
+        $group = $this->getPermissionsElement();
+        $group ->getDecorator('SimpleTable')->setColumns($labels);
     }
     
 
@@ -106,7 +105,7 @@ class User_Form_Permissions extends SG_Form
         foreach($roleIds AS $id) {
           $name = 'role_' . $id;
           $role = new Zend_Form_Element_Checkbox($name);
-          $role->setCheckedValue($permissionId);
+          $role->setCheckedValue($id);
           $elements[] = $role;
         }
         
@@ -127,7 +126,7 @@ class User_Form_Permissions extends SG_Form
         $rowForm->setElementsBelongTo($rowIndex);
         
         // add to the permissions group
-        $group = $this->getPermissionsGroup();
+        $group = $this->getPermissionsElement();
         $group->addSubForm($rowForm, $rowIndex);
         
         return $rowForm;
@@ -140,7 +139,7 @@ class User_Form_Permissions extends SG_Form
     * 
     * @return Zend_Form
     */
-    public function getPermissionsGroup()
+    public function getPermissionsElement()
     {
         $name = 'permissions';
         if(!$this->getSubForm($name)) {
@@ -149,7 +148,7 @@ class User_Form_Permissions extends SG_Form
                 'FormElements', 
                 array(
                     'SimpleTable', array(
-                        'class'   => 'table table-striped',
+                        'class'   => 'table table-striped table-bordered table-condensed',
                         'columns' => array()
                     )
                 ), 
@@ -162,8 +161,47 @@ class User_Form_Permissions extends SG_Form
             $form->setElementsBelongTo($name);
             $this->addSubForm($form, $name);
         }
-
+        
         return $this->getSubForm($name);
+    }
+    
+    /**
+     * Add group to the permissions
+     * 
+     * @param string $name
+     * @param string $label
+     * @param int $colspan
+     * @param string $class
+     * 
+     * @return Zend_Form_Element_Note
+     */
+    public function addSeperator(
+        $name, $label, $colspan = 1, $class = null
+    ) 
+    {
+        $note = new SG_Form_Element_Note($name);
+        $note->setValue($label);
+        $this->getPermissionsElement()->addElement($note);
+        
+        //var_dump($note->getDecorators());
+        
+        $rowClass = array('seperator');
+        if($class) {
+            $rowClass[] = $class;
+        }
+        $note->setDecorators(array(
+            'ViewHelper',
+            array(
+                array('elem' => 'HtmlTag'), 
+                array('tag' => 'td', 'colspan'=> $colspan)
+            ),
+            array(
+                array('row' => 'HtmlTag'), 
+                array('tag' => 'tr', 'class' => implode(' ', $rowClass))
+            ),
+        ));
+        
+        return $note;
     }
 }
 

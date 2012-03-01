@@ -52,13 +52,47 @@ class User_Admin_PermissionsController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->view->form = $this->_model->getPermissionsForm();
+        $form = $this->_model->getPermissionsForm();
+        $this->view->form = $form;
         
-        if ($this->_request->isPost()) {
-            //var_dump($this->_request->getPost());
+        if(!$this->_request->isPost()) {
+            return;
         }
+        
+        if (!$form->isValid($this->_request->getPost())) {
+            return;
+        }
+        
+        // save the values
+        if(!$this->_model->savePermissionsForm($form)) {
+            $this->_messenger->addError($this->view->t(
+                'There was a problem saving the permissions data, try again or contact platform administrator.'
+            ));
+            return;
+        }
+        
+        // we updated the permissions
+        $this->_messenger->addSuccess($this->view->t(
+            'Permissions are saved.'
+        ));
+        
+        $this->_goToOverview();
     }
 
-
+    /**
+     * Helper to redirect to the users overview page
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    protected function _goToOverview()
+    {
+        $this->_redirect($this->view->url(array(
+            'module'     => 'user',
+            'controller' => 'permissions',
+            'action'     => 'index',
+        ), 'admin', true));
+    }
 }
 
