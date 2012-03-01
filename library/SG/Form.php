@@ -59,18 +59,17 @@ class SG_Form extends TB_Form
                  Zend_Form_Element::VALIDATE
              );
              
-         /*    
-         $this->addElementPrefixPath(
+        /*$this->addPrefixPath(
+                 'SG_Form_Decorator',
+                 'SG/Form/Decorator/',
+                 Zend_Form_Element::DECORATOR
+             );*/
+        $this->addPrefixPath(
                  'SG_Form_Decorator',
                  'SG/Form/Decorator/',
                  Zend_Form_Element::DECORATOR
              );
-         */
         
-        if(!isset($_options['attribs']['class'])) {
-            //$this->setAttrib('class', 'form-horizontal');
-        }
-
         parent::__construct($_options);
     }
     

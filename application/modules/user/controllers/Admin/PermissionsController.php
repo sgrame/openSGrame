@@ -52,6 +52,11 @@ class User_Admin_PermissionsController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $this->view->form = $this->_model->getPermissionsForm();
+        
+        if ($this->_request->isPost()) {
+            var_dump($this->_request->getPost());
+        }
     }
 
 
