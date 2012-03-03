@@ -106,12 +106,7 @@ class SG_Acl extends Zend_Acl {
                 $this->addRole($roles[$roleId]);
             }
             
-            if(!in_array($role['resource'], $resources)) {
-                $this->allow($role['name'], $role['resource']);
-                $resources[] = $role['resource'];
-            }
-            
-            if(!empty($role['resource'])) {
+            if(!empty($role['resource']) && !empty($role['privilege'])) {
                 $this->allow($role['name'], $role['resource'], $role['privilege']);
             }
         }
@@ -144,7 +139,7 @@ class SG_Acl extends Zend_Acl {
         if($userRoleName = $this->_initUser($user)) {
             $role = $userRoleName;
         }
-      
+        
         return $this->isAllowed(
             $role, 
             $resource, 
@@ -174,11 +169,25 @@ class SG_Acl extends Zend_Acl {
      * 
      * @return void
      */
-    public function setCurrentUser(User_Model_Row_user $user)
+    public function setCurrentUser(User_Model_Row_User $user)
     {
         $this->_user = $user;
         $this->_initUser($this->_user);
     }
+    
+    /**
+     * Unset the currently logged in user
+     * (use only for Unit Testing!)
+     * 
+     * @param void
+     * 
+     * @return void
+     */
+    public function unsetCurrentUser()
+    {
+        $this->_user = null;
+    }
+    
     
     
     /**

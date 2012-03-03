@@ -20,8 +20,14 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class User_PasswordController extends Zend_Controller_Action
+class User_PasswordController extends SG_Controller_Action
 {
+    /**
+     * ACL
+     */
+    protected $_aclResource  = 'user';
+    protected $_aclPrivilege = 'edit profile';
+  
     /**
      * The authentication model
      * 

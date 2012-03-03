@@ -20,8 +20,14 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class User_Admin_PermissionsController extends Zend_Controller_Action
+class User_Admin_PermissionsController extends SG_Controller_Action
 {
+    /**
+     * ACL
+     */
+    protected $_aclResource  = 'user:admin';
+    protected $_aclPrivilege = 'administer permissions';
+    
     /**
      * Model
      * 

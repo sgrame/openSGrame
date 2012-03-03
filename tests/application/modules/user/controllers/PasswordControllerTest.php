@@ -26,8 +26,8 @@ class User_PasswordControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         // assert error
         $this->assertResponseCode(403);
         
-        $acl = $this->setUpAcl(array('user:password' => array('view')));
         // Acl allowed
+        $acl = $this->setUpAcl(array('user' => array('edit profile')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         $this->assertResponseCode(200);

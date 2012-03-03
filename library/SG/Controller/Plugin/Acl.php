@@ -54,7 +54,7 @@ class SG_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract{
      * 
      * @param Zend_Controller_Request_Abstract
      */
-    public function preDispatch (Zend_Controller_Request_Abstract $request)
+    public function __preDispatch (Zend_Controller_Request_Abstract $request)
     {
         $acl = Zend_Registry::get('acl');
         /* @var $acl SG_Acl */

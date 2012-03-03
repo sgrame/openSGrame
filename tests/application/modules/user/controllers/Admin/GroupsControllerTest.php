@@ -25,7 +25,7 @@ class User_Admin_GroupsControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('user:admin:groups' => array('view')));
+        $acl = $this->setUpAcl(array('user:admin' => array('administer groups')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         

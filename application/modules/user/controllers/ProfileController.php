@@ -1,7 +1,12 @@
 <?php
 
-class User_ProfileController extends Zend_Controller_Action
+class User_ProfileController extends SG_Controller_Action
 {
+    /**
+     * ACL
+     */
+    protected $_aclResource  = 'user';
+    protected $_aclPrivilege = 'edit profile';
 
     public function init()
     {

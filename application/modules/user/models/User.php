@@ -376,7 +376,7 @@ class User_Model_User
     {
         // limit the list by ACL
         $acl = Zend_Registry::get('acl');
-        if(!$acl->isUserAllowed('user:admin', 'administer system users')) {
+        if(!$acl->isUserAllowed('user:admin', 'administer users of the system')) {
             $search['excludeSystemUsers'] = true;
         }
         
@@ -384,12 +384,18 @@ class User_Model_User
         if(!$acl->isUserAllowed('user:admin', 'administer all users')) {
             $auth = new User_Model_Auth();
             $user = $auth->getAuthenticatedUser();
-            $groups = $user->getGroups();
-            $groupIds = array();
-            foreach($groups AS $group) {
-                $groupIds[] = $group->id;
+            
+            if(!$user) {
+                $search['groups'] = array('NONE');
             }
-            $search['groups'] = $groupIds;
+            else {
+                $groups = $user->getGroups();
+                $groupIds = array();
+                foreach($groups AS $group) {
+                    $groupIds[] = $group->id;
+                }
+                $search['groups'] = $groupIds;
+            }
         }
         
         $users = $this->_mapper->fetchBySearch($search, $order, $direction);

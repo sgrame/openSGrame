@@ -20,7 +20,7 @@ class Default_Admin_AdminControllerTest extends SG_Test_PHPUnit_ControllerTestCa
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('default:admin:admin' => array('view')));
+        $acl = $this->setUpAcl(array('system:admin' => array('administer')));
         
         // Acl allowed
         $this->resetRequest();

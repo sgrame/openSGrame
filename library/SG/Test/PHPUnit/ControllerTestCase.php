@@ -23,6 +23,15 @@
 class SG_Test_PHPUnit_ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 {
     /**
+     * Logout a possible user before starting a test
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $this->logoutUser();
+    }
+  
+    /**
      * Logout a possible logged in user
      */
     public function tearDown()
@@ -127,6 +136,11 @@ class SG_Test_PHPUnit_ControllerTestCase extends Zend_Test_PHPUnit_ControllerTes
      */
     public function logoutUser()
     {
+        if(Zend_Registry::isRegistered('acl')) {
+            $acl = Zend_Registry::get('acl');
+            $acl->unsetCurrentUser();
+        }
+        
         $auth = new User_Model_Auth();
         $auth->unsetAuth();
     }

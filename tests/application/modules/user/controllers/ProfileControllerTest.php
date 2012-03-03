@@ -20,8 +20,8 @@ class User_ProfileControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
 
         // Logged in        
-        $acl = $this->setUpAcl(array('user:profile' => array('view')));
-        $this->resetResponse();
+        $acl = $this->setUpAcl(array('user' => array('edit profile')));
+        $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         
         // assertions

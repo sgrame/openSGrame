@@ -25,7 +25,7 @@ class User_Admin_RolesControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('user:admin:roles' => array('view')));
+        $acl = $this->setUpAcl(array('user:admin' => array('administer roles')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         

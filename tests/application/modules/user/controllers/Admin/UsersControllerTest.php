@@ -25,7 +25,8 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
         
         // logged in
-        $acl = $this->setUpAcl(array('user:admin:users' => array('view')));
+        //$this->loginUser($this->createUser(__CLASS__));
+        $acl = $this->setUpAcl(array('user:admin' => array('administer users')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         
