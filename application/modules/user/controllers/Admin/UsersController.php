@@ -289,11 +289,13 @@ class User_Admin_UsersController extends Zend_Controller_Action
     
     /**
      * Check is user administrator
+     * 
+     * @TODO: add controls if the logged in user can manage the requested user?
      */
     protected function _checkIsUserManager()
     {
         $acl = Zend_Registry::get('acl');
-        if(!$acl->isUserAllowed('user:admin:users', 'administer')) {
+        if(!$acl->isUserAllowed('user:admin', 'administer users')) {
             throw new SG_Controller_Action_NotAuthorized_Exception(
                 'User is not an user administrator'
             );

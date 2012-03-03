@@ -1,27 +1,22 @@
 <?php
-$administer = $this->acl()->isUserAllowed('user:admin:users', 'administer');
-
 // add sidebar
 $this->placeholder('layout-sidebar')->captureStart();
-echo $this->partial('admin/users/index-sidebar.phtml', array('administer' => $administer));
+echo $this->partial('admin/users/index-sidebar.phtml');
 $this->placeholder('layout-sidebar')->captureEnd();
 ?>
 
-<?php if($administer): ?>
-  <div class="btn-toolbar" style="margin-bottom: 9px">
-    
-      <div class="btn-group">
-        <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
-          <i class="icon-plus icon-white"></i>
-          <?php echo $this->t('Add User'); ?>
-        </a>
-      </div>
-  
-      <p class="pull-right">
-        <?php echo $this->paginationCount($this->users); ?>
-      </p>
-  </div>
-<?php endif; ?>
+<div class="btn-toolbar" style="margin-bottom: 9px">
+    <div class="btn-group">
+      <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
+        <i class="icon-plus icon-white"></i>
+        <?php echo $this->t('Add User'); ?>
+      </a>
+    </div>
+
+    <p class="pull-right">
+      <?php echo $this->paginationCount($this->users); ?>
+    </p>
+</div>
     
  
 <?php if(count($this->users)): ?>
@@ -51,73 +46,53 @@ $this->placeholder('layout-sidebar')->captureEnd();
           </td>
           <td>
             <?php if($user->isActive()): ?>
-              <?php if($administer): ?>
-                <a class="label label-success" href="<?php echo $this->url(array('action' => 'block', 'id' => $user->id)); ?>" title="<?php echo $this->t('Block user'); ?>">
-                  <?php echo $this->t('Active'); ?>
-                </a>
-              <?php else: ?>
-                <span class="label label-success">
-                  <?php echo $this->t('Active'); ?>
-                </span>
-              <?php endif; ?>
+              <a class="label label-success" href="<?php echo $this->url(array('action' => 'block', 'id' => $user->id)); ?>" title="<?php echo $this->t('Block user'); ?>">
+                <?php echo $this->t('Active'); ?>
+              </a>
             <?php endif; ?>
             <?php if($user->isBlocked()): ?>
-              <?php if($administer): ?>
-                <a class="label label-important" href="<?php echo $this->url(array('action' => 'activate', 'id' => $user->id)); ?>" title="<?php echo $this->t('Activate user'); ?>">
-                  <?php echo $this->t('Blocked'); ?>
-                </a>
-              <?php else: ?>
-                <span class="label label-important">
-                  <?php echo $this->t('Blocked'); ?>
-                </span>
-              <?php endif; ?>
+              <a class="label label-important" href="<?php echo $this->url(array('action' => 'activate', 'id' => $user->id)); ?>" title="<?php echo $this->t('Activate user'); ?>">
+                <?php echo $this->t('Blocked'); ?>
+              </a>
             <?php endif; ?>
             <?php if($user->isLocked()): ?>
-              <?php if($administer): ?>
-                <a class="label label-important" href="<?php echo $this->url(array('action' => 'unlock', 'id' => $user->id)); ?>" title="<?php echo $this->t('Unlock user'); ?>">
-                  <?php echo $this->t('Locked'); ?>
-                </a>
-              <?php else: ?>
-                <span class="label label-important">
-                  <?php echo $this->t('Locked'); ?>
-                </span>
-              <?php endif; ?>
+              <a class="label label-important" href="<?php echo $this->url(array('action' => 'unlock', 'id' => $user->id)); ?>" title="<?php echo $this->t('Unlock user'); ?>">
+                <?php echo $this->t('Locked'); ?>
+              </a>
             <?php endif; ?>
           </td>
           <td>
-            <?php if($administer): ?>
-              <div class="btn-group">
-                <a class="btn" href="<?php echo $this->url(array('action' => 'edit', 'id' => $user->id)); ?>">
-                  <i class="icon-pencil"></i>
-                  <?php echo $this->t('Edit'); ?>
-                </a>
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <?php if($user->isBlocked()): ?>
-                      <a href="<?php echo $this->url(array('action' => 'activate', 'id' => $user->id)); ?>">
-                        <i class="icon-ok-circle"></i>
-                        <?php echo $this->t('Activate'); ?>
-                      </a>
-                    <?php else: ?>
-                      <a href="<?php echo $this->url(array('action' => 'block', 'id' => $user->id)); ?>">
-                        <i class="icon-ban-circle"></i>
-                        <?php echo $this->t('Block'); ?>
-                      </a>
-                    <?php endif; ?>
-                  </li>
-                  <li class="divider"></li>
-                  <li>
-                    <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $user->id)); ?>">
-                      <i class="icon-trash"></i>
-                      <?php echo $this->t('Delete'); ?>
+            <div class="btn-group">
+              <a class="btn" href="<?php echo $this->url(array('action' => 'edit', 'id' => $user->id)); ?>">
+                <i class="icon-pencil"></i>
+                <?php echo $this->t('Edit'); ?>
+              </a>
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <?php if($user->isBlocked()): ?>
+                    <a href="<?php echo $this->url(array('action' => 'activate', 'id' => $user->id)); ?>">
+                      <i class="icon-ok-circle"></i>
+                      <?php echo $this->t('Activate'); ?>
                     </a>
-                  </li>
-                </ul>
-              </div>
-            <?php endif; ?>
+                  <?php else: ?>
+                    <a href="<?php echo $this->url(array('action' => 'block', 'id' => $user->id)); ?>">
+                      <i class="icon-ban-circle"></i>
+                      <?php echo $this->t('Block'); ?>
+                    </a>
+                  <?php endif; ?>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $user->id)); ?>">
+                    <i class="icon-trash"></i>
+                    <?php echo $this->t('Delete'); ?>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </td>
         </tr>
       <?php endforeach; ?>

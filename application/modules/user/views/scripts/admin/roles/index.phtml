@@ -20,7 +20,7 @@
       <tr>
         <th><?php echo $this->t('Name'); ?></th>
         <th><?php echo $this->t('Number of users'); ?></th>
-        <?php if($this->acl()->isUserAllowed('user:admin:permissions', 'view')): ?>
+        <?php if($this->acl()->isUserAllowed('user:admin', 'administer permissions')): ?>
           <th><?php echo $this->t('Permissions'); ?></th>
         <?php endif; ?>
         <th class="span2"><?php echo $this->t('Actions'); ?></th>
@@ -40,15 +40,15 @@
             <?php if($role->id > 2): ?>
               <?php $count = $role->getUserCount(); ?>
               <?php echo $count; ?>
-              <?php if($count && $this->acl()->isUserAllowed('user:admin:users', 'view')): ?>
+              <?php if($count && $this->acl()->isUserAllowed('user:admin', 'administer users')): ?>
                 (<a href="<?php echo $this->url(array('controller' => 'users', 'roles' => $role->id), 'admin'); ?>"><?php echo $this->t('view users'); ?></a>)
               <?php endif; ?>
             <?php endif; ?>
           </td>
-          <?php if($this->acl()->isUserAllowed('user:admin:permissions', 'view')): ?>
+          <?php if($this->acl()->isUserAllowed('user:admin', 'administer permissions')): ?>
             <td>
               <div class="btn-group">
-                <a class="btn" href="<?php echo $this->url(array('action' => 'permissions', 'id' => $role->id)); ?>">
+                <a class="btn" href="<?php echo $this->url(array('controller' => 'permissions', 'id' => $role->id)); ?>">
                   <i class="icon-list-alt"></i>
                   <?php echo $this->t('Edit permissions'); ?>
                 </a>

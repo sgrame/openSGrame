@@ -1,28 +1,23 @@
 <?php
-$administer = $this->acl()->isUserAllowed('user:admin:groups', 'administer');
-
 // add sidebar
 //$this->placeholder('layout-sidebar')->captureStart();
 //echo $this->partial('admin/users/index-sidebar.phtml', array('administer' => $administer));
 //$this->placeholder('layout-sidebar')->captureEnd();
 ?>
 
-<?php if($administer): ?>
-  <div class="btn-toolbar" style="margin-bottom: 9px">
-    
-      <div class="btn-group">
-        <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
-          <i class="icon-plus icon-white"></i>
-          <?php echo $this->t('Add Group'); ?>
-        </a>
-      </div>
+<div class="btn-toolbar" style="margin-bottom: 9px">
   
-      <p class="pull-right">
-        <?php echo $this->paginationCount($this->groups); ?>
-      </p>
-  </div>
-<?php endif; ?>
-    
+    <div class="btn-group">
+      <a class="btn btn-inverse" href="<?php echo $this->url(array('action' => 'add')); ?>">
+        <i class="icon-plus icon-white"></i>
+        <?php echo $this->t('Add Group'); ?>
+      </a>
+    </div>
+
+    <p class="pull-right">
+      <?php echo $this->paginationCount($this->groups); ?>
+    </p>
+</div>
  
 <?php if(count($this->groups)): ?>
   
@@ -42,30 +37,28 @@ $administer = $this->acl()->isUserAllowed('user:admin:groups', 'administer');
           <td>
             <?php $count = $group->getUserCount(); ?>
             <?php echo $count; ?>
-            <?php if($count && $this->acl()->isUserAllowed('user:admin:users', 'view')): ?>
+            <?php if($count && $this->acl()->isUserAllowed('user:admin', 'administer users')): ?>
               (<a href="<?php echo $this->url(array('controller' => 'users', 'groups' => $group->id), 'admin'); ?>"><?php echo $this->t('view users'); ?></a>)
             <?php endif; ?>
           </td>
           <td>
-            <?php if($administer): ?>
-              <div class="btn-group">
-                <a class="btn" href="<?php echo $this->url(array('action' => 'edit', 'id' => $group->id)); ?>">
-                  <i class="icon-pencil"></i>
-                  <?php echo $this->t('Edit'); ?>
-                </a>
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $group->id)); ?>">
-                      <i class="icon-trash"></i>
-                      <?php echo $this->t('Delete'); ?>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            <?php endif; ?>
+            <div class="btn-group">
+              <a class="btn" href="<?php echo $this->url(array('action' => 'edit', 'id' => $group->id)); ?>">
+                <i class="icon-pencil"></i>
+                <?php echo $this->t('Edit'); ?>
+              </a>
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="<?php echo $this->url(array('action' => 'delete', 'id' => $group->id)); ?>">
+                    <i class="icon-trash"></i>
+                    <?php echo $this->t('Delete'); ?>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </td>
         </tr>
       <?php endforeach; ?>

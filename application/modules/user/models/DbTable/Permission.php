@@ -20,18 +20,18 @@ class User_Model_DbTable_Permission extends SG_Db_Table
      * Fetch all by search
      * 
      * @param array $search
-     * @param string $order
-     * @param string $direction
+     * @param array $order
+     *     'fieldname' => 'direction' (ASC/DESC)
      * 
      * @return  Zend_Db_Table_Rowset
      */
-    public function fetchBySearch(
-        $search = array(), $order = 'module', $direction = 'asc'
-    )
+    public function fetchBySearch($search = array(), $order = array())
     {
         $select = $this->select();
 
-        $select->order($order . ' ' . strtoupper($direction));
+        foreach($order AS $field => $direction) {
+            $select->order($field . ' ' . strtoupper($direction));
+        }
         
         return $this->fetchAll($select);
     }

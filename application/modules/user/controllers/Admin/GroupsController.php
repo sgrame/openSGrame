@@ -70,9 +70,6 @@ class User_Admin_GroupsController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        // check access first
-        $this->_checkIsGroupManager();
-        
         $this->view->layout()->title = $this->view->t('Add group');
         
         $form = $this->_model->getGroupForm();
@@ -120,9 +117,6 @@ class User_Admin_GroupsController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        // check access first
-        $this->_checkIsGroupManager();
-        
         // try to get the group
         $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
                 
@@ -176,9 +170,6 @@ class User_Admin_GroupsController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        // check access first
-        $this->_checkIsGroupManager();
-        
         // try to get the group
         $group = $this->_checkGroupExists($this->getRequest()->getParam('id'));
                 
@@ -232,19 +223,6 @@ class User_Admin_GroupsController extends Zend_Controller_Action
             'controller' => 'groups',
             'action'     => 'index',
         ), 'admin', true));
-    }
-    
-    /**
-     * Check is user administrator
-     */
-    protected function _checkIsGroupManager()
-    {
-        $acl = Zend_Registry::get('acl');
-        if(!$acl->isUserAllowed('user:admin:groups', 'administer')) {
-            throw new SG_Controller_Action_NotAuthorized_Exception(
-                'User is not a group administrator'
-            );
-        }
     }
     
     /**

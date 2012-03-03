@@ -203,5 +203,47 @@ class User_Form_Permissions extends SG_Form
         
         return $note;
     }
+    
+    /**
+     * Get the permission values
+     * 
+     * @param void
+     * 
+     * @return array
+     */
+    public function getPermissionValues()
+    {
+        $values      = $this->getValues();
+        $permissions = $values['permissions'];
+        
+        foreach($permissions AS $key => $roles) {
+            // only permissions
+            if(!preg_match('/^perm_/', $key)) {
+                unset($permissions[$key]);
+                continue;
+            }
+            
+            foreach($roles AS $roleKey => $value) {
+                // only roles
+                if(!preg_match('/^role_/', $roleKey)) {
+                    unset($permissions[$key][$roleKey]);
+                    continue;
+                }
+            
+                // only roles that are checked
+                if(!$value) {
+                    unset($permissions[$key][$roleKey]);
+                    continue;
+                }
+            }
+            
+            // only permissions with values
+            if(empty($permissions[$key])) {
+                unset($permissions[$key]);
+            }
+        }
+        
+        return $permissions;
+    }
 }
 

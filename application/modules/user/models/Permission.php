@@ -50,8 +50,9 @@ class User_Model_Permission
         $countColumns = count($roles) + 1;
         
         // get the permissions
-        $permissions = $this->_mapper->fetchBySearch();
-      
+        $permissions = $this->_mapper->fetchBySearch(
+            array(), array('module' => 'ASC', 'name' => 'ASC')
+        );
         
         // add the header
         $header = array_merge(array($translator->t('Permission')), array_values($roles));
@@ -60,27 +61,15 @@ class User_Model_Permission
         // add the permissions
         $roleIds = array_keys($roles);
         $lastModule       = null;
-        $lastModuleAction = null;
         foreach($permissions AS $permission) {
-            $parts = explode(':', $permission->module);
-            $moduleName = reset($parts);
-            if($lastModule !== $moduleName) {
+            if($lastModule !== $permission->module) {
                 $form->addSeperator(
-                    'module_' . $moduleName, 
-                    $translator->t('%s module', $moduleName),
-                    $countColumns,
-                    'h3'
-                );
-                $lastModule = $moduleName;
-            }
-            if($lastModuleAction !== $permission->module) {
-                $form->addSeperator(
-                    'action_' . $permission->module, 
+                    'module_' . $permission->module, 
                     $translator->t($permission->module),
                     $countColumns,
                     'h4'
                 );
-                $lastModuleAction = $permission->module;
+                $lastModule = $permission->module;
             }
             $form->addRow($permission->name, $permission->id, $roleIds);
         }
@@ -105,15 +94,38 @@ class User_Model_Permission
         $db = $this->_mapper->getAdapter();
         $db->beginTransaction();
         
+        $rolePermissions = new User_Model_DbTable_RolePermissions();
+        
         try {
             // get the current permissions
-            $prev   = $this->getPermissionsArray();
+            $old = $this->getPermissionsArray();
             
             // get the form values
-            $values = $form->getValues();
-            $new    = $values['permissions'];
+            $new = $form->getPermissionValues();
             
-            var_dump($prev, $new); die;
+            // calculate the diffs
+            $add = $this->_diffpermissions($new, $old);
+            $del = $this->_diffpermissions($old, $new);
+            
+            // Add the new permissions
+            foreach($add AS $perm => $roles) {
+                $permId = (int)preg_replace('/^perm_/', NULL, $perm);
+                foreach($roles AS $roleId) {
+                    $rolePermissions->createByRoleAndPermission(
+                        $roleId, $permId
+                    );
+                }
+            }
+            
+            // delete the removed permissions
+            foreach($del AS $perm => $roles) {
+                $permId = (int)preg_replace('/^perm_/', NULL, $perm);
+                foreach($roles AS $roleId) {
+                    $rolePermissions->deleteByRoleAndPermission(
+                        $roleId, $permId
+                    );
+                }
+            }
             
             $db->commit();
             return true;
@@ -145,13 +157,67 @@ class User_Model_Permission
         foreach($rolePerms AS $rolePerm) {
             $permKey = 'perm_' . $rolePerm->permission_id;
             $roleKey = 'role_' . $rolePerm->role_id;
-            if(isset($permissions[$permKey])) {
+            if(!isset($permissions[$permKey])) {
                 $permissions[$permKey] = array();
             }
             $permissions[$permKey][$roleKey] = $rolePerm->role_id;
         }
         
         return $permissions;
+    }
+    
+    /**
+     * Get the Permission id from the Permission ID or Permission object
+     * 
+     * @param mixed $permission
+     *     The Permission id or Permission object
+     * 
+     * @return int
+     */
+    public static function extractPermissionId($permission)
+    {
+        if(is_numeric($permission)) {
+            return (int)$permission;
+        }
+        
+        if($permission instanceof User_Model_Row_Permission) {
+            return (int)$permission->id;
+        }
+        
+        throw new Zend_Db_Table_Row_Exception(
+            'No valid Permission ID or Permission object'
+        );
+    }
+    
+    /**
+     * Helper to calculate the diff between 2 arrays
+     * 
+     * @param array $arr1
+     * @param array $arr2
+     * 
+     * @return array
+     */
+    protected function _diffpermissions($a1, $a2)
+    {
+        $r = array();
+      
+        foreach($a1 as $k => $v) {
+            //$r[$k] = is_array($v) ? $this->array_diff_key_recursive($a1[$k], $a2[$k]) : array_diff_key($a1, $a2);
+            if (is_array($v)) {
+                $r[$k] = (isset($a2[$k]))
+                    ? $this->_diffpermissions($a1[$k], $a2[$k])
+                    : $a1[$k];
+                    
+                if (is_array($r[$k]) && count($r[$k])==0) {
+                    unset($r[$k]);
+                }
+            }
+            else {
+                $r = array_diff_key($a1, $a2);
+            }
+        }
+        
+        return $r;
     }
 }
 

@@ -164,7 +164,7 @@ class User_Model_Group
     )
     {
         $acl = Zend_Registry::get('acl');
-        if(!$acl->isUserAllowed('user:admin:groups', 'administer system groups')) {
+        if(!$acl->isUserAllowed('user:admin', 'administer system users')) {
             $search['excludeSystemGroups'] = true;
         }
       

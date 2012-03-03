@@ -376,12 +376,12 @@ class User_Model_User
     {
         // limit the list by ACL
         $acl = Zend_Registry::get('acl');
-        if(!$acl->isUserAllowed('user:admin:users', 'administer system users')) {
+        if(!$acl->isUserAllowed('user:admin', 'administer system users')) {
             $search['excludeSystemUsers'] = true;
         }
         
         // administer only group users
-        if(!$acl->isUserAllowed('user:admin:users', 'administer all users')) {
+        if(!$acl->isUserAllowed('user:admin', 'administer all users')) {
             $auth = new User_Model_Auth();
             $user = $auth->getAuthenticatedUser();
             $groups = $user->getGroups();
