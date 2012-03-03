@@ -173,6 +173,25 @@ class User_Model_DbTable_User extends SG_Db_Table
             );
         }
         
+        // status
+        if(isset($search['status']) && 0 < strlen($search['status'])) {
+            switch($search['status']) {
+                case 'active':
+                    $select->where($this->_name . '.blocked = 0');
+                    $select->where($this->_name . '.locked = 0');
+                    break;
+                
+                case 'blocked':
+                    $select->where($this->_name . '.blocked = 1');
+                    break;
+                  
+                case 'locked':
+                    $select->where($this->_name . '.locked = 1');
+                    break;
+            }
+                    
+        }
+        
         // only users from certain groups (id)
         if(isset($search['groups'])) {
             if($search['groups'] == 'none') {

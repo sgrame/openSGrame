@@ -227,6 +227,27 @@ class User_Model_User
         
         return false;
     }
+
+    /**
+     * Get the user search form
+     * 
+     * @param array $search
+     *     Search params
+     * 
+     * @return User_Form_UserSearch
+     */
+    public function getUserSearchForm($search = array())
+    {
+        $form = new User_Form_UserSearch();
+        
+        // @TODO: limit the groups if user can only search in own group!
+        
+        if(!empty($search)) {
+            $form->populate($search);
+        }
+        
+        return $form;
+    }
     
     /**
      * User action confirm form proxy

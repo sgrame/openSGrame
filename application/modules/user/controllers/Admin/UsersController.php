@@ -77,13 +77,58 @@ class User_Admin_UsersController extends SG_Controller_Action
      */
     public function indexAction()
     {
+        $searchForm = $this->_model->getUserSearchForm(
+            $this->_request->getParams()
+        );
+        $searchForm->setAction($this->view->url(
+            array(
+                'module'     => 'user',
+                'controller' => 'users',
+                'action'     => 'search'
+            ),
+            'admin', 
+            true
+        ));
+        $this->view->searchForm = $searchForm;
+      
         $users = $this->_model->getUsers(
             $this->_request->getParam('page', 0),
             $this->_request->getParam('order', 'created'),
             $this->_request->getParam('direction', 'desc'),
             $this->_request->getParams()
         );
+        
         $this->view->users = $users;
+    }
+    
+    /**
+     * Search redirector
+     * 
+     * Generated the search url for the users overview and redirects the 
+     * user to it
+     */
+    public function searchAction()
+    {
+        $form = $this->_model->getUserSearchForm($this->_request->getParams());
+        
+        // check first of not request for all users
+        if($form->getElement('showall')->isChecked()) {
+            $this->_goToOverview();
+            return;
+        }
+        
+        // create the redirect
+        $params = $form->getSearchValues();
+        foreach($params AS $key => $param) {
+            if(empty($param) || $param === 'all') {
+                unset($params[$key]);
+            }
+        }
+        $params['module']     = 'user';
+        $params['controller'] = 'users';
+        $params['action']     = 'index';
+        
+        $this->_redirect($this->view->url($params, 'admin', true));
     }
 
     /**

@@ -3,37 +3,14 @@
  * Sidebar to filter the users
  * 
  * Variables: 
- *   - $this->filter->form    : The search form
- *   - $this->filter->status  : Array of Status name and the number of found users
- *   - $this->filter->groups  : Array of Groups and the number of found users
- *   - $this->filter->roles   : Array of roles and the number of found users
- *   - $this->filter->current : The filters currently in use
+ *   - $this->searchForm
  */
+
+$this->searchForm->setAttrib('class', null);
 ?>
 
 
 
 <div class="well">
-  <h3><?php echo $this->t('Search users'); ?></h3>
-  
-  <h5><?php echo $this->t('Search by username'); ?></h5>
-  <p>FORM TO INCLUDE</p>
-  
-  <h5><?php echo $this->t('By group'); ?></h5>
-  <ul class="nav nav-list">
-    <li><a href="#">System (2)</a></li>
-  </ul>
-  
-  <h5><?php echo $this->t('By Role'); ?></h5>
-  <ul class="nav nav-list">
-    <li><a href="#">Admin (1)</a></li>
-    <li><a href="#">Group admin (1)</a></li>
-  </ul>
-  
-  <h5><?php echo $this->t('By Status'); ?></h5>
-  <ul class="nav nav-list">
-    <li><a href="#"><?php echo $this->t('Active'); ?> (1)</a></li>
-    <li><a href="#"><?php echo $this->t('Blocked'); ?>  (1)</a></li>
-    <li><a href="#"><?php echo $this->t('Locked'); ?> (1)</a></li>
-  </ul>
+  <?php echo $this->searchForm; ?>
 </div>

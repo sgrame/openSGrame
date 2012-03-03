@@ -1,7 +1,7 @@
 <?php
 // add sidebar
 $this->placeholder('layout-sidebar')->captureStart();
-echo $this->partial('admin/users/index-sidebar.phtml');
+echo $this->partial('admin/users/index-sidebar.phtml', array('searchForm' => $this->searchForm));
 $this->placeholder('layout-sidebar')->captureEnd();
 ?>
 

@@ -69,14 +69,6 @@ class User_Form_User extends SG_Form
             )
         ));
         
-        
-        
-        $firstname = new Zend_Form_Element_Text('firstname');
-        $firstname ->setLabel('Firstname');
-         
-        $lastname  = new Zend_Form_Element_Text('lastname');
-        $lastname  ->setLabel('Lastname');
-        
         $groups    = new User_Form_Element_SelectGroups('groups');
         $groups    ->setLabel('Group');
         
