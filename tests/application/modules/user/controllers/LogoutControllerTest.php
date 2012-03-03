@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @group user
+ * @group controller
+ */
 class User_LogoutControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
 

@@ -9,13 +9,13 @@
  * @link            http://www.sgrame.com
  * @license         {@link http://www.sgrame.com/license}
  * @since           Apr 4, 2009
- * @package			SGrame
+ * @package            SGrame
  * @subpackage      Db
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
+ * @version            $Revision: 2 $
+ * @modifiedby        $LastChangedBy: SerialGraphics $
+ * @lastmodified    $Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
  */
-	
+    
 /**
  * Class adding extra functionality to the Zend_Db_Table class:
  *  - Auto CR records
@@ -26,22 +26,22 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * The primary key name is default "id"
      * 
-     * @var 	string
+     * @var     string
      */
     protected $_primary = array(1 => 'id');
   
     /**
-	 * Whether or not this table should use cr records 
-	 * when updating or deleting
-	 * 
-	 * @var 	bool
-	 */
+     * Whether or not this table should use cr records 
+     * when updating or deleting
+     * 
+     * @var     bool
+     */
     protected $_contingency = false;
     
     /**
      * Method to know if the cr is on or of
      * 
-     * @return 	bool
+     * @return     bool
      */
     public function getContingency()
     {
@@ -51,15 +51,15 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Method to set the with cr
      * 
-     * @param 	bool
-     * @return 	SG_Db_Table
+     * @param     bool
+     * @return     SG_Db_Table
      */
     public function setContingency($_contingency)
     {
         if(!$this->hasContingencyField())
         {
             throw new Exception(
-            	'The table ' . $this->_name . ' has no Contignency Field'
+                'The table ' . $this->_name . ' has no Contignency Field'
             );
         }
         $this->_contingency = (bool)$_contingency;
@@ -69,8 +69,8 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Method to know if the table has a contingeny record (cr) field
      * 
-     * @param 	void
-     * @return 	bool 
+     * @param     void
+     * @return     bool 
      */
     public function hasContingencyField()
     {
@@ -81,8 +81,8 @@ class SG_Db_Table extends Zend_Db_Table
      * Add extra data to the insert array
      * This adds Creator Id (ci) and Create Date (cd) to the array
      *
-     * @param 	array	Column-value pairs.
-     * @return 	mixed	The primary key of the row inserted.
+     * @param     array    Column-value pairs.
+     * @return     mixed    The primary key of the row inserted.
      */
     public function insert(array $_data)
     {
@@ -92,9 +92,9 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Check if we need to create a cr record before we update the record
      * 
-     * @param 	array	Column-value pairs.
-     * @param  	array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses
-     * @return	int     The number of rows updated.
+     * @param     array    Column-value pairs.
+     * @param      array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses
+     * @return    int     The number of rows updated.
      */
     public function update(array $_data, $_where)
     { 
@@ -181,10 +181,10 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Create Contingency records based on the where
      * 
-     * @param 	array	Column-value pairs.
-     * @param  	array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses
-     * @param 	string	Query type (update, delete)
-     * @return 	int		the number of cr records created
+     * @param     array    Column-value pairs.
+     * @param      array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses
+     * @param     string    Query type (update, delete)
+     * @return     int        the number of cr records created
      */
     protected function _createContingencyRecords(array $_data, $_where, $_type)
     {
@@ -211,20 +211,20 @@ class SG_Db_Table extends Zend_Db_Table
         {
             // add te data changes to the where statement  
             $wheres = array();
-        	foreach ($_data as $field => $value) 
-        	{
+            foreach ($_data as $field => $value) 
+            {
                 if(!is_null($value)) 
                 {
                     $wheres[] = $this->getAdapter()
-                    	->quoteInto($this->getAdapter()
-                    	->quoteIdentifier($field) . ' != ?', $value);
+                        ->quoteInto($this->getAdapter()
+                        ->quoteIdentifier($field) . ' != ?', $value);
                     $wheres[] = $this->getAdapter()
-                    	->quoteIdentifier($field) . ' is null';
+                        ->quoteIdentifier($field) . ' is null';
                 } 
                 else 
                 {
                     $wheres[] = $this->getAdapter()
-                    	->quoteIdentifier($field) . ' is not null';
+                        ->quoteIdentifier($field) . ' is not null';
                 }
             }
             $select->where(implode(' OR ', $wheres));
@@ -272,20 +272,20 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Method to add creator id and create datetime to the insert/update data
      * 
-     * @param 	array	Column-value pairs.
-     * @return 	array	Column-value pairs.
+     * @param     array    Column-value pairs.
+     * @return     array    Column-value pairs.
      */
     protected function _addCreatorIdAndCreateDateTime(array $_data)
     {
-    	// Set the default Creator ID to the system user
-    	$_data['ci'] = 0;
-    	
-    	// check if there is a logged in user, if so use the user ID
-    	$auth = Zend_Auth::getInstance();
-    	if($auth->hasIdentity())
-    	{
-    		$_data['ci'] = $auth->getIdentity()->id;
-    	}
+        // Set the default Creator ID to the system user
+        $_data['ci'] = 0;
+        
+        // check if there is a logged in user, if so use the user ID
+        $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity())
+        {
+            $_data['ci'] = $auth->getIdentity()->id;
+        }
         
         // Create date
         $_data['cd'] = new Zend_Db_Expr('NOW()');
@@ -303,7 +303,7 @@ class SG_Db_Table extends Zend_Db_Table
         parent::_setupPrimaryKey();
     }
     
-	/**
+    /**
      * This will automatically set table name with prefix from config file
      *
      */

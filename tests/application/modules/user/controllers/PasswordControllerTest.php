@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @group user
+ * @group controller
+ */
 class User_PasswordControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 

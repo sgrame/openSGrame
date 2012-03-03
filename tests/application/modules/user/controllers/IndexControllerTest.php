@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @group user
+ * @group controller
+ */
 class User_IndexControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 

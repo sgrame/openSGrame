@@ -3,7 +3,7 @@
  * @group user
  * @group controller
  */
-class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
+class User_Admin_PermissionsControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()
@@ -14,7 +14,7 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 
     public function testIndexAction()
     {
-        $params = array('action' => 'index', 'controller' => 'users', 'module' => 'user');
+        $params = array('action' => 'index', 'controller' => 'permissions', 'module' => 'user');
         $urlParams = $this->urlizeOptions($params);
         $url = $this->url($urlParams, 'admin');
         
@@ -28,8 +28,7 @@ class User_Admin_UserControllerTest extends SG_Test_PHPUnit_ControllerTestCase
         $this->assertResponseCode(403);
         
         // logged in
-        //$this->loginUser($this->createUser(__CLASS__));
-        $acl = $this->setUpAcl(array('user:admin' => array('administer users')));
+        $acl = $this->setUpAcl(array('user:admin' => array('administer permissions')));
         $this->resetResponse()->resetRequest();
         $this->dispatch($url);
         

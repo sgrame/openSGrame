@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @group user
+ * @group controller
+ */
 class User_Admin_RolesControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
