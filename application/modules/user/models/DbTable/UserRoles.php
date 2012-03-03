@@ -30,8 +30,10 @@ class User_Model_DbTable_UserRoles extends SG_Db_Table
         $select->from($this->_name, array(
             'count' => new Zend_Db_Expr('COUNT(1)'),
         ));
-        $select->where('role_id = ?', $roleId)
-               ->where('cr IS NULL');
+        $select->join('user', $this->_name . '.user_id = user.id', array());
+        $select->where($this->_name . '.role_id = ?', $roleId)
+               ->where($this->_name . '.cr IS NULL')
+               ->where('user.cr IS NULL');
         return (int)$select->query()->fetchColumn(0);
     }
     
