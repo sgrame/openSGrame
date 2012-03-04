@@ -48,7 +48,7 @@
           <?php if($this->acl()->isUserAllowed('user:admin', 'administer permissions')): ?>
             <td>
               <div class="btn-group">
-                <a class="btn" href="<?php echo $this->url(array('controller' => 'permissions', 'id' => $role->id)); ?>">
+                <a class="btn" href="<?php echo $this->url(array('controller' => 'permissions', 'roles' => $role->id)); ?>">
                   <i class="icon-list-alt"></i>
                   <?php echo $this->t('Edit permissions'); ?>
                 </a>

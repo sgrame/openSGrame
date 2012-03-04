@@ -17,6 +17,20 @@ class User_Model_DbTable_RolePermissions extends SG_Db_Table
     protected $_rowClass = 'User_Model_Row_RolePermissions';
     
     /**
+     * Fetch all by given role ids
+     * 
+     * @param array $roles
+     *     (optional) array of role id's
+     * 
+     * @return User_Model_DbTable_RolePermissions
+     */
+    public function fetchAllByRoles($roles) {
+        $select = $this->select();
+        $select->where('role_id IN (?)', $roles);
+        return $this->fetchAll($select);
+    }
+    
+    /**
      * Create a record
      * 
      * @param mixed $role

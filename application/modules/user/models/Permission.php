@@ -28,11 +28,12 @@ class User_Model_Permission
     /**
      * Get the permissions form
      * 
-     * @param void
+     * @param array $roles
+     *     An array (or string) with one ore more role id's
      * 
      * @return User_Model_Permissions
      */
-    public function getPermissionsForm()
+    public function getPermissionsForm($roleFilter = null)
     {
         // prepare
         $translator = SG_Translator::getInstance();
@@ -40,7 +41,13 @@ class User_Model_Permission
         
         // get the roles
         $roleTable  = new User_Model_DbTable_Role();
-        $roleRows   = $roleTable->fetchAll();
+        $roleFilter = $this->_fetchRoleFilterArray($roleFilter);
+        if($roleFilter) {
+            $roleRows   = $roleTable->find($roleFilter);
+        }
+        else {
+            $roleRows   = $roleTable->fetchAll();
+        }
         
         $roles = array();
         $roleIds   = array();
@@ -75,7 +82,7 @@ class User_Model_Permission
         }
         
         // populate the form
-        $values = array('permissions' => $this->getPermissionsArray());
+        $values = array('permissions' => $this->getPermissionsArray($roleFilter));
         $form->populate($values);
                 
         return $form;
@@ -85,20 +92,24 @@ class User_Model_Permission
      * Save the permissions form
      * 
      * @param User_Form_Permissions
+     * @param string $roleFilter
+     *     Filter by given string of possible role id's
      * 
      * @return bool
      *     Success
      */
-    public function savePermissionsForm(User_Form_Permissions $form)
+    public function savePermissionsForm(User_Form_Permissions $form, $roleFilter = null)
     {
         $db = $this->_mapper->getAdapter();
         $db->beginTransaction();
         
         $rolePermissions = new User_Model_DbTable_RolePermissions();
         
+        $roleFilter = $this->_fetchRoleFilterArray($roleFilter);
+        
         try {
             // get the current permissions
-            $old = $this->getPermissionsArray();
+            $old = $this->getPermissionsArray($roleFilter);
             
             // get the form values
             $new = $form->getPermissionValues();
@@ -144,14 +155,17 @@ class User_Model_Permission
      * 
      * This is used to populate the permissions form
      * 
-     * @param void
+     * @param array $roles
+     *     Optional array of role ids for who whe get the permissions
      * 
      * @return array
      */
-    public function getPermissionsArray()
+    public function getPermissionsArray($roles = array())
     {
         $permTable = new User_Model_DbTable_RolePermissions();
-        $rolePerms = $permTable->fetchAll();
+        $rolePerms = (!empty($roles) && is_array($roles))
+            ? $permTable->fetchAllByRoles($roles)
+            : $permTable->fetchAll();
         
         $permissions = array();
         foreach($rolePerms AS $rolePerm) {
@@ -218,6 +232,25 @@ class User_Model_Permission
         }
         
         return $r;
+    }
+    
+    /**
+     * Helper to get the role id's from a given string
+     * 
+     * @param string $roleFilter
+     * 
+     * @return array|null
+     */
+    protected function _fetchRoleFilterArray($roleFilter)
+    {
+        if(empty($roleFilter) || !is_string($roleFilter)) {
+            return null;
+        }
+
+        $roleFilter = explode(',', $roleFilter);
+        array_walk($roleFilter, 'trim');
+        
+        return $roleFilter;
     }
 }
 

@@ -58,8 +58,20 @@ class User_Admin_PermissionsController extends SG_Controller_Action
 
     public function indexAction()
     {
-        $form = $this->_model->getPermissionsForm();
+        $roles = $this->_request->getParam('roles', null);
+        $form = $this->_model->getPermissionsForm($roles);
         $this->view->form = $form;
+        
+        if(!empty($roles)) {
+            $this->_messenger->addInfo(array(
+                $this->view->t('Permissions shown only for specific role(s).'),
+                '<a href="' 
+                    . $this->view->url(array('roles' => null)) 
+                    . '">' 
+                    . $this->view->t('Show permissions for all roles') 
+                    . '</a>.',
+            ));
+        }
         
         if(!$this->_request->isPost()) {
             return;
@@ -70,7 +82,7 @@ class User_Admin_PermissionsController extends SG_Controller_Action
         }
         
         // save the values
-        if(!$this->_model->savePermissionsForm($form)) {
+        if(!$this->_model->savePermissionsForm($form, $roles)) {
             $this->_messenger->addError($this->view->t(
                 'There was a problem saving the permissions data, try again or contact platform administrator.'
             ));
@@ -81,6 +93,11 @@ class User_Admin_PermissionsController extends SG_Controller_Action
         $this->_messenger->addSuccess($this->view->t(
             'Permissions are saved.'
         ));
+        
+        if($roles) {
+            $this->_redirect($this->view->url());
+            return;
+        }
         
         $this->_goToOverview();
     }
