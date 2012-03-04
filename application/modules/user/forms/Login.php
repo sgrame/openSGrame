@@ -36,7 +36,7 @@ class User_Form_Login extends SG_Form
         $username  = new Zend_Form_Element_Text('username');
         $password  = new Zend_Form_Element_Password('password');
         $submit    = new Zend_Form_Element_Submit('submit');
-        $remember  = new Zend_Form_Element_Checkbox('remember');
+        //$remember  = new Zend_Form_Element_Checkbox('remember');
 
         $username->setLabel('Username')
                  ->setRequired(true);
@@ -45,14 +45,14 @@ class User_Form_Login extends SG_Form
                  ->setRequired(true);
 
         $submit->setLabel('Login');
-        $remember->setLabel('Remember me on this computer');
+        //$remember->setLabel('Remember me on this computer');
 
         // add elements
         $this->addElements(array(
             $username, 
             $password, 
             $submit,
-            $remember,
+            //$remember,
         ));
         
         // add display group
@@ -63,7 +63,7 @@ class User_Form_Login extends SG_Form
         $this->getDisplayGroup('login')->setLegend('Login');
         
         $this->addButtonGroup(
-            array('submit', 'remember'),
+            array('submit'),
             'submit'
         );
         

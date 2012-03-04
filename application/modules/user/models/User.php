@@ -359,7 +359,12 @@ class User_Model_User
     {
         $user = $this->findById($user->id);
         $user->password = $password;
-        return $user->save();
+        $user->save();
+        
+        $auth = Zend_Auth::getInstance();
+        $auth->getStorage()->write($user);
+        
+        return $user;
     }
 
     /**

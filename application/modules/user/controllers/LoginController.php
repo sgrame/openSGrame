@@ -80,8 +80,8 @@ class User_LoginController extends Zend_Controller_Action
             || !$this->_model->authenticateForm($loginForm)
         ) {
             $reset_url = $this->view->url(array(
-                'controller' => 'password', 
-                'action'     => 'reset'
+                'controller' => 'reset', 
+                'action'     => 'index'
             ));
             $this->_messenger->addError(
                 '<strong>Please control your username and password</strong>',

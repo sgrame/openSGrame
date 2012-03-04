@@ -68,7 +68,10 @@ class User_PasswordController extends SG_Controller_Action
         $this->view->form = $form;
         
         // check for password reset
-        $ns   = new Zend_Session_Namespace(self::NS_PASSWORD_RESET);
+        $ns = false;
+        if(Zend_Session::namespaceIsset(self::NS_PASSWORD_RESET)) {
+            $ns = new Zend_Session_Namespace(self::NS_PASSWORD_RESET);
+        }
         if($ns && !empty($ns->uuid)) {
             $userAction = $this->_model->getUserActionByUuid($ns->uuid);
             if($userAction) {
@@ -81,9 +84,9 @@ class User_PasswordController extends SG_Controller_Action
         }
         
         if(!$form->isValid($this->_request->getPost())) {
-            $this->_messenger->addError(
+            $this->_messenger->addError($this->view->t(
                 '<strong>Check form values</strong>'
-            );
+            ));
             return;
         }
         
@@ -93,15 +96,15 @@ class User_PasswordController extends SG_Controller_Action
         $this->_model->changeUserPassword($user, $form->getValue('new_pwd'));
         
         // remove the namespace (if any)
-        if($ns || isset($userAction)) {
+        if($ns && !empty($userAction)) {
             Zend_Session::namespaceUnset(self::NS_PASSWORD_RESET);
             $userAction->setUsed();
             $userAction->save();
         }
         
-        $this->_messenger->addSuccess(
+        $this->_messenger->addSuccess($this->view->t(
             '<strong>Password is changed</strong>'
-        );
+        ));
        
         $this->_redirect($this->view->url());
     }
