@@ -1,7 +1,9 @@
-<?php if($this->roleFiltered): ?>
-  <div class="row">
-    <?php echo $this->t('Permissions shown only for specific role(s).'); ?>
-    <a href="<?php echo $this->url(array('roles' => null)); ?>"><?php echo $this->t('Show permissions for all roles'); ?></a>.
+<?php if($this->rolesFilterd): ?>
+  <div class="help">
+    <p>
+      <?php echo $this->t('Permissions shown only for specific role(s).'); ?>
+      <a href="<?php echo $this->url(array('roles' => null)); ?>"><?php echo $this->t('Show permissions for all roles'); ?></a>.
+    </p>
   </div>
 <?php endif; ?>
 

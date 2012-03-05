@@ -56,22 +56,17 @@ class User_Admin_PermissionsController extends SG_Controller_Action
        $this->view->layout()->subnavId = 'sub-user-admin';
     }
 
+
+    /**
+     * Form to manage the permissions for all or selected roles
+     */
     public function indexAction()
     {
         $roles = $this->_request->getParam('roles', null);
         $form = $this->_model->getPermissionsForm($roles);
         $this->view->form = $form;
         
-        if(!empty($roles)) {
-            $this->_messenger->addInfo(array(
-                $this->view->t('Permissions shown only for specific role(s).'),
-                '<a href="' 
-                    . $this->view->url(array('roles' => null)) 
-                    . '">' 
-                    . $this->view->t('Show permissions for all roles') 
-                    . '</a>.',
-            ));
-        }
+        $this->view->rolesFilterd = (!empty($roles));
         
         if(!$this->_request->isPost()) {
             return;
