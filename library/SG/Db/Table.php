@@ -58,7 +58,7 @@ class SG_Db_Table extends Zend_Db_Table
     {
         if(!$this->hasContingencyField())
         {
-            throw new Exception(
+            throw new Zend_Db_Table_Exception(
                 'The table ' . $this->_name . ' has no Contignency Field'
             );
         }
@@ -67,10 +67,11 @@ class SG_Db_Table extends Zend_Db_Table
     }
     
     /**
-     * Method to know if the table has a contingeny record (cr) field
+     * Method to know if the table has a contingency record (cr) field
      * 
-     * @param     void
-     * @return     bool 
+     * @param void
+     * 
+     * @return bool 
      */
     public function hasContingencyField()
     {
@@ -78,15 +79,44 @@ class SG_Db_Table extends Zend_Db_Table
     }
     
     /**
+     * Method to know if the table has a created record (created) field
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
+    public function hasCreatedField()
+    {
+        return array_key_exists('created', $this->info('metadata'));
+    }
+    
+    /**
+     * Method to know if the table has a owner id (owner_id) field
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
+    public function hasOwnerIdField()
+    {
+        return array_key_exists('owner_id', $this->info('metadata'));
+    }
+    
+    /**
      * Add extra data to the insert array
      * This adds Creator Id (ci) and Create Date (cd) to the array
      *
-     * @param     array    Column-value pairs.
-     * @return     mixed    The primary key of the row inserted.
+     * @param array $data
+     *     ColumnName => value pairs.
+     * 
+     * @return mixed
+     *     The primary key of the row inserted.
      */
-    public function insert(array $_data)
+    public function insert(array $data)
     {
-        return parent::insert($this->_addCreatorIdAndCreateDateTime($_data));
+        $data = $this->_addCreatorIdAndCreateDateTime($data);
+        $data = $this->_addOwnerIdAndCreated($data);
+        return parent::insert($this->_addCreatorIdAndCreateDateTime($data));
     }
     
     /**
@@ -122,7 +152,7 @@ class SG_Db_Table extends Zend_Db_Table
     }
     
     /**
-     * Override the delete so contignency records are created on delete
+     * Override the delete so contingency records are created on delete
      * Deletes existing rows.
      *
      * @param  array|string $where SQL WHERE clause(s).
@@ -136,7 +166,7 @@ class SG_Db_Table extends Zend_Db_Table
             return parent::delete($_where);
         }
         
-        // create the contignency records
+        // create the contingency records
         $newWhere = $this->_createContingencyRecords(
             array(), $_where, 'delete'
         );
@@ -203,7 +233,7 @@ class SG_Db_Table extends Zend_Db_Table
                 $select->where($where);
             }
         }
-        // update only non contignency records 
+        // update only non contingency records 
         $select->where('cr IS NULL');
         
         // if it as update query check if the data is changed
@@ -239,7 +269,7 @@ class SG_Db_Table extends Zend_Db_Table
             return false;
         }
         
-        // 2. Loop through the data, create the contignency records
+        // 2. Loop through the data, create the contingency records
         $ids = array();
         while($rows->valid())
         {
@@ -267,6 +297,27 @@ class SG_Db_Table extends Zend_Db_Table
         $where = $primaryKeyName . ' IN (' . implode(',', $ids)  . ')';
         
         return $where;
+    }
+
+    /**
+     * Method to add owner id and created date to the insert data
+     * 
+     * @param array $data
+     *     ColumnName => Value
+     * 
+     * @return array
+     *     extended data array
+     */
+    protected function _addOwnerIdAndCreated(array $data)
+    {
+        if($this->hasOwnerIdField() && empty($data['owner_id'])) {
+            $data['owner_id'] = $this->_getCurrentUserId();
+        }
+        if($this->hasCreatedField() && empty($data['created'])) {
+            $data['created']  = $this->_getCurrentDateTime();
+        }
+        
+        return $data;
     }
     
     /**
@@ -317,6 +368,40 @@ class SG_Db_Table extends Zend_Db_Table
              $this->_name = $adapterConfig['prefix'] . $this->_name;
          }
      }
+     
+    /**
+     * Get the current logged in user id
+     * 
+     * @param void
+     * 
+     * @return int
+     */
+    protected function _getCurrentUserId()
+    {
+        static $userId;
+        
+        if(is_null($userId)) {
+            $userId = 0;
+            $auth = Zend_Auth::getInstance();
+            if($auth->hasIdentity()) {
+                $userId = (int)$auth->getIdentity()->id;
+            }
+         }
+         
+         return $userId;
+    }
+    
+    /**
+     * Get the current timestamp
+     * 
+     * @param void
+     * 
+     * @return string
+     */
+    protected function _getCurrentDateTime()
+    {
+        return new Zend_Db_Expr('NOW()');
+    }
 }
 
 

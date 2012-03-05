@@ -225,6 +225,12 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
         $q = implode(PHP_EOL, $q);
         $db->query($q);
         
+        $q = array();
+        $q[] = 'DELETE FROM user_permission';
+        $q[] = 'WHERE module LIKE "SG_AclTest_Module%";';
+        $q = implode(PHP_EOL, $q);
+        $db->query($q);
+        
         // cleanup roles
         $q = array();
         $q[] = 'DELETE ur.*, uur.*';
@@ -233,6 +239,12 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
         $q[] = '    INNER JOIN user_roles uur ON ur.id = role_id';
         $q[] = 'WHERE';
         $q[] = '    ur.name LIKE "SG_AclTest_Role%";';
+        $q = implode(PHP_EOL, $q);
+        $db->query($q);
+        
+        $q = array();
+        $q[] = 'DELETE FROM user_role';
+        $q[] = 'WHERE name LIKE "SG_AclTest_Role%";';
         $q = implode(PHP_EOL, $q);
         $db->query($q);
         
