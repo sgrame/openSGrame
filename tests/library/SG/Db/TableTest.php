@@ -200,7 +200,22 @@ class SG_Db_TableTest extends SG_Test_PHPUnit_ControllerTestCase
         
         $table->delete('id = ' . $id);
         $this->assertEquals(2, $this->_countTableRecords($this->_tableName));
+        
+        $this->assertNull($table->find($id)->current());
     }
+    
+    /**
+     * Test select with auto where "cr IS NULL"
+     */
+    
+    
+    /**
+     * 
+     */
+    
+    
+    
+    
     
     /**
      * Count the number of records in the given table
