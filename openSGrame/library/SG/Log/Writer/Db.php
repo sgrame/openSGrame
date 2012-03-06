@@ -78,10 +78,12 @@ class SG_Log_Writer_Db extends Zend_Log_Writer_Db
         
         // add the controller, action and the parameters to the event data
         $request = Zend_Controller_Front::getInstance()->getRequest();
-        $event['uri']            = $request->getRequestUri();
-        $event['module']         = $request->getModuleName();
-        $event['controller']     = $request->getControllerName();
-        $event['action']         = $request->getActionName();
+        if($request) {
+            $event['uri']            = $request->getRequestUri();
+            $event['module']         = $request->getModuleName();
+            $event['controller']     = $request->getControllerName();
+            $event['action']         = $request->getActionName();
+        }
         
         // map the data
         if ($this->_columnMap === null) {
