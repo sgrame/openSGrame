@@ -8,7 +8,7 @@
     
     <filter>
         <whitelist>
-            <directory suffix=".php">../library/Zend</directory>
+            <directory suffix=".php">../openSGrame/library/Zend</directory>
         </whitelist>
     </filter>
 </phpunit>
