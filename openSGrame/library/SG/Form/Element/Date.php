@@ -1,20 +1,25 @@
 <?php
 /**
- * Date picker form element
- *
+ * @category SG
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2010
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			May 15, 2010
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
+
 /**
+ * SG_Form_Element_Date
+ *
+ * Date picker form element
  * Form element with an extra class so it is detected as an date field
- * 
+ *
+ * @category SG
+ * @package  Form
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
 {
@@ -27,8 +32,8 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
     /**
      * Element init
      */
-	public function init()
+    public function init()
     {
-    	$this->setAttrib('maxlength', 10);
+        $this->setAttrib('maxlength', 10);
     }
 }

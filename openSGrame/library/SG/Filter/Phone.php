@@ -1,29 +1,28 @@
 <?php
 /**
- * Phone numbre input filter
- *
+ * @category SG
+ * @package  Filter
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2008
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Jun 19, 2009
- * @package			SG
- * @subpackage		Filter
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
+
 /**
+ * SG_Filter_Phone
+ *
+ * Phone number input filter
  * Removes all non numerique values from a phone string
  * 
  * Options:
  *   - allowWhiteSpace: allow whitespaces in the number
- * 
- * @category   Zend
- * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ *
+ * @category SG
+ * @package  Filter
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Filter_Phone extends Zend_Filter_Alnum
 {

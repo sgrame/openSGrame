@@ -1,24 +1,34 @@
 <?php
 /**
- * SG DB Table
- *
+ * @category SG
+ * @package  Db
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright       Serial Graphics Copyright 2009
- * @author          Serial Graphics <info@sgrame.com>
- * @link            http://www.sgrame.com
- * @license         {@link http://www.sgrame.com/license}
- * @since           Apr 4, 2009
- * @package            SGrame
- * @subpackage      Db
- * @version            $Revision: 2 $
- * @modifiedby        $LastChangedBy: SerialGraphics $
- * @lastmodified    $Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
-    
+
+
 /**
- * Class adding extra functionality to the Zend_Db_Table class:
- *  - Auto CR records
- *  - Auto creator ID's
+ * SG_Db_Table
+ *
+ * This extension of the Zend_Db_Table adds "auto fields" to table records:
+ *  - owner_id : The owner of the record (default the currently logged in user)
+ *  - created  : The date the record was entered the forst in the database
+ * 
+ *  - ci       : The user who has written the record (insert/update)
+ *  - cd       : The data the record was written (insert/update)
+ *  - cr       : Contingency record id
+ *               When a record is updated or deleted, a copy of the old row is
+ *               inserted in the same table with a link to the original record
+ *               id. The cr value refers to the original record. The original 
+ *               record has no cr value (NULL).
+ *
+ * @category SG
+ * @package  Db
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Db_Table extends Zend_Db_Table
 {

@@ -1,23 +1,24 @@
 <?php
 /**
- * Form view helper to render an datepicker enabled form field
- *
+ * @category SG
+ * @package  View_Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2010
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			May 15, 2010
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
+
 /**
- * Helper to generate a "date" element
+ * SG_View_Helper_FormDate
  *
- * @category   SG
- * @package    SG_View
- * @subpackage Helper
+ * Form view helper to render an datepicker enabled form field
+ *
+ * @category SG
+ * @package  View_Helper
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_View_Helper_FormDate extends Zend_View_Helper_FormElement
 {
@@ -48,23 +49,22 @@ class SG_View_Helper_FormDate extends Zend_View_Helper_FormElement
             $disabled = ' disabled="disabled"';
         }
         
-        if(!($attribs))
-        {
-        	$attribs = array();
+        if(!($attribs)) {
+            $attribs = array();
         }
         
-        if(!isset($attribs['class']))
-        {
-        	$attribs['class'] = 'datepicker';
+        if(!isset($attribs['class'])) {
+            $attribs['class'] = 'datepicker';
         }
-        else
-        {
-        	$attribs['class'] = 'datepicker ' . $attribs['class'];
+        else {
+            $attribs['class'] = 'datepicker ' . $attribs['class'];
         }
         
         // XHTML or HTML end tag?
         $endTag = ' />';
-        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
+        if (($this->view instanceof Zend_View_Abstract) 
+            && !$this->view->doctype()->isXhtml()
+        ) {
             $endTag= '>';
         }
 

@@ -1,34 +1,38 @@
 <?php
 /**
- * Name filter
- *
+ * @category SG
+ * @package  Filter
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  * @filesource
- * @copyright		Serial Graphics Copyright 2008
- * @author			Serial Graphics <info@serial-graphics.be>
- * @link			http://www.serial-graphics.be
- * @since			Jun 19, 2009
- * @package			SG
- * @subpackage		Filter
- * @version			$Revision: 2 $
- * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
+
 /**
+ * SG_Filter_Name
+ *
+ * Name filter
  * Filters a string with additional support for . - and &
+ *
+ * @category SG
+ * @package  Filter
+ * @author   Peter Decuyper <sgrame@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.html MIT License
+ * @link     https://github.com/sgrame/openSGrame
  */
 class SG_Filter_Name extends Zend_Filter_Alpha 
 {
-	/**
-	 * Constructor
-	 * 
-	 * @param 	bool	allow white space
-	 */
-	public function __construct($allowWhiteSpace = true)
-	{
-		parent::__construct($allowWhiteSpace);
-	}
-	
+    /**
+     * Constructor
+     * 
+     * @param     bool    allow white space
+     */
+    public function __construct($allowWhiteSpace = true)
+    {
+        parent::__construct($allowWhiteSpace);
+    }
+    
     /**
      * Defined by Zend_Filter_Interface
      *
@@ -37,7 +41,7 @@ class SG_Filter_Name extends Zend_Filter_Alpha
      * @param  string $value
      * @return string
      */
-	public function filter($value)
+    public function filter($value)
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
         if (!self::$_unicodeEnabled) {
