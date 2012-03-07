@@ -15,5 +15,5 @@ openSGrame/data/cache/*
 !.gitignore
 
 openSGrame/application/configs/config.ini
-
 openSGrame/application/configs/navigation-app.ini
+
