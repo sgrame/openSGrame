@@ -17,3 +17,9 @@ openSGrame/data/cache/*
 openSGrame/application/configs/config.ini
 openSGrame/application/configs/navigation-app.ini
 
+# Ignore non core modules
+openSGrame/application/modules/*
+!default
+!mail
+!user
+
