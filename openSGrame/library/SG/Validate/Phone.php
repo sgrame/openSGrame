@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE $Id: Phone.php 21 2010-07-01 22:34:24Z SerialGraphics $ */
 /**
  * Phone number validator
  *
@@ -10,9 +9,9 @@
  * @since			Jun 19, 2009
  * @package			SG
  * @subpackage		Validate
- * @version			$Revision: 21 $
+ * @version			$Revision: 2 $
  * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-07-02 00:34:24 +0200 (Fri, 02 Jul 2010) $
+ * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
 /**

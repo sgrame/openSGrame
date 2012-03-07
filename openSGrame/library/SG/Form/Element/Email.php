@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE $Id: Email.php 32 2010-07-25 14:32:17Z SerialGraphics $ */
 /**
  * @filesource
  * @copyright        Serial Graphics Copyright 2010

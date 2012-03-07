@@ -1,5 +1,4 @@
 <?php
-/* SVN FILE $Id: DateNormalizedToLocalized.php 2 2010-06-14 08:04:19Z SerialGraphics $ */
 /**
  * Filter to filter date formats
  *
@@ -10,7 +9,7 @@
  * @since			May 17, 2010
  * @version			$Revision: 2 $
  * @modifiedby		$LastChangedBy: SerialGraphics $
- * @lastmodified	$Date: 2010-06-14 10:04:19 +0200 (Mon, 14 Jun 2010) $
+ * @lastmodified	$Date: 2012-03-06 23:31:33 +0100 (Tue, 06 Mar 2012) $
  */
 
  

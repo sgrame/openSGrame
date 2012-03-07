@@ -71,7 +71,7 @@ class SG_Variables
      */
     protected function __construct($db = null)
     {
-        if(!is_a($db, 'Zend_Db_Adapter_Abstract')) {
+        if(!($db instanceof Zend_Db_Adapter_Abstract)) {
             $db = Zend_Db_Table::getDefaultAdapter();
         }
         
