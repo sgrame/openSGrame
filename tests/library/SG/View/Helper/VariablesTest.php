@@ -1,7 +1,18 @@
 <?php
 
-class SG_View_Helper_VariablesTest extends PHPUnit_Framework_TestCase
+class SG_View_Helper_VariablesTest extends SG_Test_PHPUnit_ControllerTestCase
 {
+    /**
+     * Loads the bootstrap
+     */
+    public function setUp()
+    {
+        $this->bootstrap = new Zend_Application(
+            APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini'
+        );
+        parent::setUp();
+    }   
+  
     /**
      * Test direct
      */

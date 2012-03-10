@@ -1,6 +1,6 @@
 <?php
 
-class Default_ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class Default_ErrorControllerTest extends SG_Test_PHPUnit_ControllerTestCase
 {
 
     public function setUp()

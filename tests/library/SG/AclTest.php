@@ -2,7 +2,7 @@
 /**
  * @group SG
  */
-class SG_AclTest extends PHPUnit_Framework_TestCase
+class SG_AclTest extends SG_Test_PHPUnit_ControllerTestCase
 {
     /**
      * User names & password
@@ -45,12 +45,16 @@ class SG_AclTest extends PHPUnit_Framework_TestCase
      */
     protected $_userMapper;
     
-  
     /**
-     * setUp
+     * Loads the bootstrap
      */
     public function setUp()
     {
+        $this->bootstrap = new Zend_Application(
+            APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini'
+        );
+        parent::setUp();
+        
         $this->_cleanUpUserTables();
         $this->_setUpUserTables();
         $this->_userMapper = new User_Model_DbTable_User();

@@ -1,6 +1,6 @@
 <?php
 
-class SG_VariablesTest extends PHPUnit_Framework_TestCase
+class SG_VariablesTest extends SG_Test_PHPUnit_ControllerTestCase
 {
     /**
      * A non existing test variable
@@ -11,10 +11,14 @@ class SG_VariablesTest extends PHPUnit_Framework_TestCase
     const VARIABLE_VALUE = 'SG_VariablesTest_VariableValue';
     
     /**
-     * setUp
+     * Loads the bootstrap
      */
     public function setUp()
     {
+        $this->bootstrap = new Zend_Application(
+            APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini'
+        );
+        parent::setUp();
         $this->_cleanUpVariableTable();
     }
     
