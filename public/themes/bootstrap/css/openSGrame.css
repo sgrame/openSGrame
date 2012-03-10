@@ -83,6 +83,14 @@ body.layout-well .well {
 }
 
 /**
+ * Pagination
+ */
+.pagination-count {
+    font-size: 14px;
+    color: #999;
+}
+
+/**
  * Tables
  */
 tr.h1 td, tr.h2 td, tr.h3 td, 
