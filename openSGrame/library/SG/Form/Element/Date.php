@@ -52,6 +52,10 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
      */
     public function init()
     {
+        $format = SG_Variables::getInstance()->get('date_default_format');
+        if(!empty($format)) {
+            $this->setDisplayFormat($format);
+        }
         $this->setAttrib('maxlength', 10);
     }
     

@@ -15,7 +15,18 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
             APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini'
         );
         parent::setUp();
+        
+        $this->_revertDefaultDateFormat();
     }
+    
+    /**
+     * Tear down
+     */
+    public function tearDown()
+    {
+        $this->_revertDefaultDateFormat();
+    }
+    
   
     /**
      * Test the default helper
@@ -31,10 +42,21 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
      */
     public function testDisplayFormat()
     {
+        $vars = SG_Variables::getInstance();
+        
+        // check if no variable exists
+        $vars->remove('date_default_format');
         $date = new SG_Form_Element_Date('date');
         $this->assertEquals(Zend_Date::DATE_MEDIUM, $date->getDisplayFormat());
         
+        // check with variable set
+        $format = 'dd/yyyy.MM';
+        $vars->set('date_default_format', $format);
+        $date = new SG_Form_Element_Date('date');
+        $this->assertEquals($format, $date->getDisplayFormat());
+        
         $newFormat = 'dd/mm/yyyy';
+        $date = new SG_Form_Element_Date('date');
         $this->assertInstanceOf('SG_Form_Element_Date', $date->setDisplayFormat($newFormat));
         $this->assertEquals($newFormat, $date->getDisplayFormat());
     }
@@ -128,5 +150,22 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
         }
         
         $this->assertNotEmpty(stripos($date->render(), '"28.07.1974"'));
+    }
+    
+    /**
+     * Helper function to reset the date_default_format value in the variable 
+     * table back to the original state
+     */
+    protected function _revertDefaultDateFormat()
+    {
+        static $format;
+        $vars = SG_Variables::getInstance();
+        
+        if(is_null($format)) {
+            $format = $vars->get('date_default_format');
+        }
+        else {
+            $vars->set('date_default_format', $format);
+        }
     }
 }
