@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @group SG
+ */
 class SG_View_Helper_VariablesTest extends SG_Test_PHPUnit_ControllerTestCase
 {
     /**

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @group SG
+ */
 class SG_View_Helper_AuthTest extends PHPUnit_Framework_TestCase
 {
    /**
