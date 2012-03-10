@@ -27,15 +27,17 @@ class SG_View_Helper_FormDate extends Zend_View_Helper_FormElement
      *
      * @access public
      *
-     * @param string|array $name If a string, the element name.  If an
-     * array, all other parameters are ignored, and the array elements
-     * are used in place of added parameters.
+     * @param string|array $name 
+     *     If a string, the element name. If an array, all other parameters 
+     *     are ignored, and the array elements are used in place of added 
+     *     parameters.
+     * @param mixed $value 
+     *     The element value.
+     * @param array $attribs 
+     *     Attributes for the element tag.
      *
-     * @param mixed $value The element value.
-     *
-     * @param array $attribs Attributes for the element tag.
-     *
-     * @return string The element XHTML.
+     * @return string 
+     *     The element XHTML.
      */
     public function formDate($name, $value = null, $attribs = null)
     {
@@ -67,7 +69,7 @@ class SG_View_Helper_FormDate extends Zend_View_Helper_FormElement
         ) {
             $endTag= '>';
         }
-
+        
         $xhtml = '<input type="text"'
                 . ' name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
