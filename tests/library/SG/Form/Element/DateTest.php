@@ -78,6 +78,10 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
         $dateObject = new Zend_Date($dateString, 'yyyy-MM-dd');
         $this->assertInstanceOf('SG_Form_Element_Date', $date->setValue($dateObject));
         $this->assertEquals($dateString, $date->getValue());
+        
+        $dateFalse = '28-07-1974';
+        $this->assertInstanceOf('SG_Form_Element_Date', $date->setValue($dateFalse));
+        $this->assertEquals($dateFalse, $date->getValue());
     }
     
     /**
@@ -134,6 +138,27 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
      * Test the render function. This should render the date in the 
      * displayFormat.
      */
+    public function testRenderEmptyValue()
+    {
+        $date = new SG_Form_Element_Date('date');
+        $date->setDisplayFormat('dd.MM.yyyy');
+        
+        $decorators = $date->getDecorators();
+        foreach($decorators AS $key => $decorator) {
+            if($key === 'Zend_Form_Decorator_ViewHelper') {
+                continue;
+            }
+        
+            $date->removeDecorator($key);
+        }
+        
+        $this->assertNotEmpty(stripos($date->render(), 'value=""'));
+    }
+    
+    /**
+     * Test the render function. This should render the date in the 
+     * displayFormat.
+     */
     public function testRender()
     {
         $date = new SG_Form_Element_Date('date');
@@ -149,7 +174,7 @@ class SG_Form_Element_DateTest extends SG_Test_PHPUnit_ControllerTestCase
             $date->removeDecorator($key);
         }
         
-        $this->assertNotEmpty(stripos($date->render(), '"28.07.1974"'));
+        $this->assertNotEmpty(stripos($date->render(), 'value="28.07.1974"'));
     }
     
     /**

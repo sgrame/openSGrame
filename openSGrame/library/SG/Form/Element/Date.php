@@ -24,6 +24,11 @@
 class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
 {
     /**
+     * The internal date format
+     */
+    const INTERNAL_DATE_FORMAT = 'yyyy-MM-dd';
+  
+    /**
      * Default form view helper to use for rendering
      * @var string
      */
@@ -105,12 +110,12 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
             return $this;
         }
         
-        $validator = new Zend_Validate_Date();
-        if(!$validator->isValid($value)) {
+        if(!$this->_checkIsInInternalFormat($value)) {
             $this->_value = $value;
+            return $this;
         }
         
-        $date = new Zend_Date($value, 'yyyy-MM-dd');
+        $date = new Zend_Date($value, self::INTERNAL_DATE_FORMAT);
         $this->_value = $date;
         
         return $this;
@@ -127,7 +132,7 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
     public function getValue()
     {
         if($this->_value instanceof Zend_Date) {
-            return $this->_value->get('yyyy-MM-dd');
+            return $this->_value->get(self::INTERNAL_DATE_FORMAT);
         }
 
         return $this->_value;
@@ -162,7 +167,7 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
             }
           
             $date = new Zend_Date($value, $this->getDisplayFormat());
-            $value = $date->get('yyyy-MM-dd');
+            $value = $date->get(self::INTERNAL_DATE_FORMAT);
         }
         
         return parent::isValid($value, $context);
@@ -187,7 +192,9 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
         // we need to have a date element with the date value as the 
         // displayFormat requests
         $value = $this->_value;
-        $this->_value = $this->getDate()->get($this->getDisplayFormat());
+        if($this->getDate() instanceof Zend_Date) {
+            $this->_value = $this->getDate()->get($this->getDisplayFormat());
+        }
         $date = clone $this;
         $this->_value = $value;
 
@@ -210,6 +217,20 @@ class SG_Form_Element_Date extends Zend_Form_Element_Xhtml
     {
         $validator = new Zend_Validate_Date();
         $validator->setFormat($this->getDisplayFormat());
+        return $validator->isValid($value);
+    }
+    
+    /**
+     * Helper to check if given value matches the internal format
+     * 
+     * @param string $value
+     * 
+     * @return matches
+     */
+    protected function _checkIsInInternalFormat($value)
+    {
+        $validator = new Zend_Validate_Date();
+        $validator->setFormat(self::INTERNAL_DATE_FORMAT);
         return $validator->isValid($value);
     }
 }
