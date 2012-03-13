@@ -44,10 +44,11 @@ class Mail_Model_DbTable_Template extends SG_Db_Table
      * @param    realm
      * @return    Zend_Db_Table_Rowset
      */
-    public function findByRealm($_realm)
+    public function findByRealm($realm, $language = 'en')
     {
         $select = $this->select();
-        $select->where('realm = ?', $_realm);
+        $select->where('realm = ?',    $realm);
+        $select->where('language = ?', $language);
         
         return $this->fetchAll($select);
     }
