@@ -14,26 +14,32 @@ if(!$this->navigation()->accept($this->page)) {
 }
 
 // add the current language to the page
-$this->page->setParams(array(
-    'language' => Zend_Controller_Front::getInstance()->getRequest()->getParam('language')
-));
+$params = $this->page->getParams();
+if(!isset($params['language'])) {
+    $params['language'] = Zend_Controller_Front::getInstance()
+                                                 ->getRequest()
+                                                 ->getParam('language');
+    $this->page->setParams($params);
+}
 
 // "preprocess"
-$liClass = array();
-$aClass  = array();
-$aExtra  = NULL;
-$aHref   = $this->page->getHref();
-$aLabel  = $this->t($this->page->getLabel());
+$liClass    = array();
+$aClass     = array();
+$aExtra     = NULL;
+$dataToggle = NULL;
+$aHref      = $this->page->getHref();
+$aLabel     = $this->t($this->page->getLabel());
 
 if($this->page->isActive()) {
   $liClass[] = 'active';
 }
 
 if($this->page->hasChildren()) {
-  $liClass[] = 'dropdown';
-  $aClass[]  = 'dropdown-toggle';
-  $aExtra    = '<b class="caret"></b>';
-  $aHref     = '#';
+  $liClass[]  = 'dropdown';
+  $aClass[]   = 'dropdown-toggle';
+  $dataToggle = ' data-toggle="dropdown"';
+  $aExtra     = '<b class="caret"></b>';
+  $aHref      = '#';
   
   $this->page->setTarget('#');
   $this->page->setClass('dropdown-toggle');
@@ -44,7 +50,7 @@ $aClass  = (count($aClass))  ? ' class="' . implode(' ', $aClass)  . '"' : null;
 ?>
 
 <li<?php echo $liClass; ?>>
-    <a href="<?php echo $aHref; ?>"<?php echo $aClass; ?>><?php echo $aLabel; ?><?php echo $aExtra; ?></a>
+    <a href="<?php echo $aHref; ?>"<?php echo $aClass; ?><?php echo $dataToggle; ?>><?php echo $aLabel; ?><?php echo $aExtra; ?></a>
     <?php if($this->page->hasChildren()): ?>
         <?php echo $this->partial('_menu.phtml', array('page' => $this->page, 'class' => 'dropdown-menu')); ?>
     <?php endif; ?>

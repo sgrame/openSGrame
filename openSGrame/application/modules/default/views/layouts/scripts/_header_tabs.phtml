@@ -3,19 +3,33 @@
  * Shows the page subnavigation
  */
 
+$subnav = null;
 $subnavId = $this->layout()->subnavId;
+if(!empty($subnavId)) {
+    $subnav = $this->navigation()->menu()->findById('sub-navigation');
+    $subnav = $subnav->findById($subnavId);    
+}
 
-if(empty($subnavId)) {
+$extra = null;
+if(!empty($this->layout()->navTabs)) {
+    $extra = $this->layout()->navTabs;
+}
+
+// stop here if no navigation
+if(empty($subnav) && empty($extra)) {
     return;
 }
 
-$subnav = $this->navigation()->menu()->findById('sub-navigation');
-$subnav = $subnav->findById($subnavId);
 
+// Combine subNav and extra's
+if($subnav && !empty($extra)) {
+    $subnav->addPages($extra->getPages());
+}
+
+// Extra's only
 if(empty($subnav)) {
-    return;
+    $subnav = $extra;
 }
 ?>
 
 <?php echo $this->partial('_menu.phtml', array('page' => $subnav, 'class' => 'nav nav-pills pull-right')); ?>
-

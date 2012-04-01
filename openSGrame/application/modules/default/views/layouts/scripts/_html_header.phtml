@@ -10,21 +10,24 @@
 	
     <?php echo $this->headMeta(); ?>
 	
+	  
+	
     <?php 
     	  echo $this->headLink()
             ->prependStylesheet('/themes/bootstrap/css/openSGrame.css', 'all')
+            ->prependStylesheet('/themes/bootstrap/css/jquery-ui.bootstrap.css', 'all')
             ->prependStylesheet('/themes/bootstrap/css/bootstrap-responsive.css', 'all')
             ->prependStylesheet('/themes/bootstrap/css/bootstrap.css', 'all');
-             
     ?>
   
     <?php echo $this->headStyle(); ?>
 	
+	  <?php echo $this->jQuery(); ?>
+	
     <?php 
         echo $this->headScript()
-            ->prependFile('/themes/shared/js/jquery.min.js')
             ->appendFile('/themes/bootstrap/js/bootstrap.min.js')
-            ->appendFile('/themes/bootstrap/js/openSGrame.js'); 
+            ->appendFile('/themes/bootstrap/js/openSGrame.js');  
     ?>
 	
 </head>
