@@ -94,6 +94,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('db');
         $vars = SG_Variables::getInstance();
         
+        ZendX_JQuery::enableView($view);
+        
         $view->addHelperPath('TB/View/Helper','TB_View_Helper');
         $view->addHelperPath('SG/View/Helper','SG_View_Helper');
 
