@@ -121,7 +121,7 @@ class User_ResetController extends Zend_Controller_Action
     }
 
     /**
-     * Token (pasword reset complete) action
+     * Token (password reset complete) action
      */
     public function actionAction()
     {
