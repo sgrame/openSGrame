@@ -120,5 +120,22 @@ class SG_Controller_Action extends Zend_Controller_Action
             );
         }
     }
+    
+    
+    /**
+     * Helper to redirect to a saved destination (session)
+     * 
+     * 
+     */
+    protected function _gotoDestination()
+    {
+        $ns = new Zend_Session_Namespace('SG_DESTINATION');
+        if(empty($ns->destination)) {
+            return;
+        }
+        $url = $ns->destination;
+        $ns->destination = null;
+        $this->_redirect($url);
+    }
 }
 
