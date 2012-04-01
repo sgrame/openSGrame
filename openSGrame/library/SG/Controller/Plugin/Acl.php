@@ -12,8 +12,7 @@
 /**
  * SG_Controller_Plugin_Acl
  *
- * Controller plugin to support multilingual websites
- * Based on @link http://www.m4d3l-network.com/developpement/php/zend-framework/add-language-route-to-your-zend-framework-project/
+ * Controller plugin to validate access to the request by the ACL.
  *
  * @category SG
  * @package  Controller
