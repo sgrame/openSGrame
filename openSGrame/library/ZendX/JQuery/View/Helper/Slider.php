@@ -81,6 +81,13 @@ class ZendX_JQuery_View_Helper_Slider extends ZendX_JQuery_View_Helper_UiWidget
 
         $attribs['id'] .= "-slider";
 
+        if(count($params['values']) === 1) {
+          $params['value'] = array_shift($params['values']);
+          unset($params['values']);
+        }
+
+        // BUG FIX @see http://framework.zend.com/issues/browse/ZF-11969
+        // TODO: commit fix to Jira
         if(count($params) > 0) {
             $params = ZendX_JQuery::encodeJson($params);
         } else {

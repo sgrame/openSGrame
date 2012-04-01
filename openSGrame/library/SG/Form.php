@@ -42,6 +42,8 @@ class SG_Form extends TB_Form
      */
     public function __construct($_options = null)
     {
+        ZendX_JQuery::enableForm($this);
+      
         $this->setMethod('post')
              ->addPrefixPath(
                  'SG_Form_Element', 
