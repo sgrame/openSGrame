@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_ValueTest extends PHPUnit_Framework_TestCase
+class SG_Rule_ParamTest extends PHPUnit_Framework_TestCase
 {
     /**
      * setUp
@@ -26,11 +26,11 @@ class SG_Rule_ValueTest extends PHPUnit_Framework_TestCase
      */
     public function testValue()
     {
-        $value = new SG_Rule_Value();
+        $value = new SG_Rule_Param();
         $this->assertNull($value->getValue());
         
         $test = 123456;
-        $value = new SG_Rule_Value($test);
+        $value = new SG_Rule_Param($test);
         $this->assertEquals($test, $value->getValue());
         
         $test2 = 654321;

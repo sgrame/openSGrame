@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Value
+ * SG_Rule_Param
  *
  * @category SG
  * @package  Rule
@@ -18,7 +18,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Value
+class SG_Rule_Param
 {
     /**
      * The variable key
