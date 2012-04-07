@@ -12,8 +12,6 @@
 /**
  * SG_Rule_Param_Abstract
  * 
- * This base class contains the logic to set and get the variables collection
- *
  * @category SG
  * @package  Rule
  * @author   Peter Decuyper <sgrame@gmail.com>
@@ -25,12 +23,10 @@ abstract class SG_Rule_Param_Abstract
     /**
      * Get the value
      * 
-     * @param void
+     * @param SG_Rule_Variables $variables
      * 
-     * @return SG_Rule_Variables
+     * @return mixed
      */
-    public function getValue()
-    {
-    }
+    abstract public function getValue(SG_Rule_Variables $variables);
 }
 

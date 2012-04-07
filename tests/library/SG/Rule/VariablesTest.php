@@ -6,22 +6,6 @@
 class SG_Rule_VariablesTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * setUp
-     */
-    public function setUp()
-    {
-        
-    }
-    
-    /**
-     * Teardown
-     */
-    public function tearDown()
-    {
-        
-    }
-  
-    /**
      * Test constructor
      */
     public function testVariables()

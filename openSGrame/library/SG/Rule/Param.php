@@ -43,11 +43,13 @@ class SG_Rule_Param extends SG_Rule_Param_Abstract
     /**
      * Get the value
      * 
+     * We ignore the variables, not needed for this kind of param
+     * 
      * @param void
      * 
-     * @return mixed
+     * @return SG_Rule_Variables
      */
-    public function getValue()
+    public function getValue(SG_Rule_Variables $variables)
     {
         return $this->_value;
     }
