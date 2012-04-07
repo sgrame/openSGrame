@@ -79,5 +79,30 @@ abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
         $this->_collection[] = $item;
         return $this;
     }
+    
+    /**
+     * Get an array with the values of the collection items
+     * 
+     * @param SG_Rule_Variables $variables
+     * 
+     * @return array
+     */
+    protected function _getCollectionValues(SG_Rule_Variables $variables)
+    {
+        $values = array();
+        foreach($this->_collection AS $item) {
+            if($item instanceof SG_Rule_Param_Abstract) {
+                $values[] = $item->getValue($variables);
+                continue;
+            }
+            if($item instanceof SG_Rule_Formula_Abstract) {
+                $values[] = $item->getResult($variables);
+                continue;
+            }
+            
+            throw new SG_Rule_Exception('The item is not of a supported type');
+        }
+        return $values;
+    }
 }
 

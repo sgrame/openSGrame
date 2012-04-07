@@ -10,9 +10,9 @@
 
 
 /**
- * SG_Rule_Formula_Average
+ * SG_Rule_Formula_Max
  * 
- * Calculates the average out of an array of params or formulas
+ * Returns the max value of a collection of formula's and params
  * 
  * @category SG
  * @package  Rule
@@ -20,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Formula_Average extends SG_Rule_Formula_Collection
+class SG_Rule_Formula_Max extends SG_Rule_Formula_Collection
 {
     /**
      * Get the value
@@ -33,12 +33,11 @@ class SG_Rule_Formula_Average extends SG_Rule_Formula_Collection
     {
         $values = $this->_getCollectionValues($variables);
         
-        $count = count($values);
-        if($count === 0) {
+        if(!count($values)) {
             return 0;
         }
         
-        return array_sum($values) / count($values);
+        return max($values);
     }
 }
 
