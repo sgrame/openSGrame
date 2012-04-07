@@ -34,7 +34,10 @@ class SG_Rule_ParamTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($test, $value->getValue());
         
         $test2 = 654321;
-        $value->setValue($test2);
+        $this->assertInstanceOf(
+          'SG_Rule_Param', 
+          $value->setValue($test2)
+        );
         $this->assertEquals($test2, $value->getValue());
     }
 }

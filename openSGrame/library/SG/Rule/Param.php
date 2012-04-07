@@ -18,7 +18,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Param
+class SG_Rule_Param extends SG_Rule_Param_Abstract
 {
     /**
      * The variable key

@@ -10,7 +10,9 @@
 
 
 /**
- * SG_Rule_Variable
+ * SG_Rule_ParamVariable
+ * 
+ * Param from the variables container
  *
  * @category SG
  * @package  Rule
@@ -18,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Variable extends SG_Rule_Abstract
+class SG_Rule_ParamVariable extends SG_Rule_Param_Abstract
 {
     /**
      * The variable key
@@ -31,34 +33,25 @@ class SG_Rule_Variable extends SG_Rule_Abstract
      * Constructor
      * 
      * @param string $key
-     * @param SG_Rule_Variables $variables
      * 
      * @return SG_Rule_Variable
      */
-    public function __construct($key = NULL, $variables = null)
+    public function __construct($key = NULL)
     {
         if(!is_null($key)) {
             $this->setKey($key);
-        }
-        if(!is_null($variables)) {
-            parent::__construct(array('variables' => $variables));
         }
     }
     
     /**
      * Get the value
      * 
-     * @param void
+     * @param SG_Rule_Variables $variables
      * 
      * @return mixed
      */
-    public function getValue()
+    public function getValue(SG_Rule_Variables $variables)
     {
-        $variables = $this->getVariables();
-        if(!$variables) {
-            return NULL;
-        }
-        
         return $variables->getValue($this->getKey());
     }
     
