@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Param_ComparionTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Formula_ComparionTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters & Setters

@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Param_AverageTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Formula_AverageTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters & Setters
@@ -59,6 +59,13 @@ class SG_Rule_Param_AverageTest extends PHPUnit_Framework_TestCase
         
         $collection = array($var0, $var25, $var50, $var75, $var100);
         $average = new SG_Rule_Formula_Average($collection);
+        $this->assertEquals(50, $average->getResult($variables));
+        
+        $average1 = new SG_Rule_Formula_Average(array($var0, $var50));
+        $average2 = new SG_Rule_Formula_Average(array($var50, $var100));
+        $average  = new SG_Rule_Formula_Average(array(
+            $average1, $average2, $var50
+        ));
         $this->assertEquals(50, $average->getResult($variables));
     }
 }
