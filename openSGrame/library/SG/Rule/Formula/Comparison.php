@@ -35,14 +35,14 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     /**
      * Param left of the comparison function
      * 
-     * @var SG_Rule_Param_Abstract
+     * @var SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      */
     protected $_left;
     
     /**
      * Param right of the comparison function
      * 
-     * @var SG_Rule_Param_Abstract
+     * @var SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      */
     protected $_right;
     
@@ -56,9 +56,9 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     /**
      * Constructor
      * 
-     * @param SG_Rule_Param_Abstract $left
+     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $left
      * @param string operator
-     * @param SG_Rule_Param_Abstract $right
+     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $right
      * 
      * @return SG_Rule_Formula_Comparison
      */
@@ -78,8 +78,8 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
      */
     public function getResult(SG_Rule_Variables $variables) 
     {
-        $left  = $this->_left->getValue($variables);
-        $right = $this->_right->getValue($variables);
+        $left  = $this->_getItemValue($this->_left, $variables);
+        $right = $this->_getItemValue($this->_right, $variables);
         
         switch($this->_operator) {
             case self::EQUAL:
@@ -108,11 +108,11 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     /**
      * Set the left param
      * 
-     * @param SG_Rule_Param_Abstract
+     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      * 
      * @return SG_Rule_Formula_Comparison
      */
-    public function setLeft(SG_Rule_Param_Abstract $left)
+    public function setLeft($left)
     {
         $this->_left = $left;
         return $this;
@@ -123,7 +123,7 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
      * 
      * @param void
      * 
-     * @return SG_Rule_Param_Abstract
+     * @return SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      */
     public function getLeft()
     {
@@ -133,11 +133,11 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     /**
      * Set the right param
      * 
-     * @param SG_Rule_Param_Abstract
+     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      * 
      * @return SG_Rule_Formula_Comparison
      */
-    public function setRight(SG_Rule_Param_Abstract $right)
+    public function setRight($right)
     {
         $this->_right = $right;
         return $this;
@@ -148,7 +148,7 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
      * 
      * @param void
      * 
-     * @return SG_Rule_Param_Abstract
+     * @return SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
      */
     public function getRight()
     {

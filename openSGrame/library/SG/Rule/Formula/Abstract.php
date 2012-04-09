@@ -29,5 +29,25 @@ abstract class SG_Rule_Formula_Abstract
      */
     public function getResult(SG_Rule_Variables $variables) 
     {}
+    
+    /**
+     * Helper to get the value out of an item
+     * 
+     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $item
+     * @param SG_Rule_Variables $variables
+     * 
+     * @return mixed
+     */
+    protected function _getItemValue($item, SG_Rule_Variables $variables)
+    {
+        if($item instanceof SG_Rule_Param_Abstract) {
+            return $item->getValue($variables);
+        }
+        if($item instanceof SG_Rule_Formula_Abstract) {
+            return $item->getResult($variables);
+        }
+        
+        throw new SG_Rule_Exception('The item is not of a supported type');
+    }
 }
 

@@ -91,16 +91,7 @@ abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
     {
         $values = array();
         foreach($this->_collection AS $item) {
-            if($item instanceof SG_Rule_Param_Abstract) {
-                $values[] = $item->getValue($variables);
-                continue;
-            }
-            if($item instanceof SG_Rule_Formula_Abstract) {
-                $values[] = $item->getResult($variables);
-                continue;
-            }
-            
-            throw new SG_Rule_Exception('The item is not of a supported type');
+            $values[] = $this->_getItemValue($item, $variables);
         }
         return $values;
     }
