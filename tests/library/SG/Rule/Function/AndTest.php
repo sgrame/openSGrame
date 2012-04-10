@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Formula_AndTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Function_AndTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the operators
@@ -24,16 +24,16 @@ class SG_Rule_Formula_AndTest extends PHPUnit_Framework_TestCase
         $var100 = new SG_Rule_Param_Variable('buz');
         
         $collection = array();
-        $and = new SG_Rule_Formula_And($collection);
+        $and = new SG_Rule_Function_And($collection);
         $this->assertFalse($and->getResult($variables));
         
         $collection = array($var0, $var25, $var50, $var75, $var100);
-        $and = new SG_Rule_Formula_And($collection);
+        $and = new SG_Rule_Function_And($collection);
         $this->assertFalse($and->getResult($variables));
         
-        $and1 = new SG_Rule_Formula_And(array($var25, $var50));
-        $and2 = new SG_Rule_Formula_And(array($var50, $var100));
-        $and  = new SG_Rule_Formula_And(array(
+        $and1 = new SG_Rule_Function_And(array($var25, $var50));
+        $and2 = new SG_Rule_Function_And(array($var50, $var100));
+        $and  = new SG_Rule_Function_And(array(
             $and1, $and2, $var50
         ));
         $this->assertTrue($and->getResult($variables));

@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Formula_Or
+ * SG_Rule_Function_Or
  * 
  * Checks if at least one param or formula is true
  * 
@@ -20,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Formula_Or extends SG_Rule_Formula_Collection
+class SG_Rule_Function_Or extends SG_Rule_Function_Collection
 {
     /**
      * Get the value

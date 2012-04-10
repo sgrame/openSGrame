@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Formula_Abstract
+ * SG_Rule_Function_Abstract
  * 
  * @category SG
  * @package  Rule
@@ -18,7 +18,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-abstract class SG_Rule_Formula_Abstract
+abstract class SG_Rule_Function_Abstract
 {
     /**
      * Get the value
@@ -33,7 +33,7 @@ abstract class SG_Rule_Formula_Abstract
     /**
      * Helper to get the value out of an item
      * 
-     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $item
+     * @param SG_Rule_Param_Abstract|SG_Rule_Function_Abstract $item
      * @param SG_Rule_Variables $variables
      * 
      * @return mixed
@@ -43,7 +43,7 @@ abstract class SG_Rule_Formula_Abstract
         if($item instanceof SG_Rule_Param_Abstract) {
             return $item->getValue($variables);
         }
-        if($item instanceof SG_Rule_Formula_Abstract) {
+        if($item instanceof SG_Rule_Function_Abstract) {
             return $item->getResult($variables);
         }
         

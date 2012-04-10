@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Formula_OrTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Function_OrTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the operators
@@ -24,22 +24,22 @@ class SG_Rule_Formula_OrTest extends PHPUnit_Framework_TestCase
         $var100 = new SG_Rule_Param_Variable('buz');
         
         $collection = array();
-        $or = new SG_Rule_Formula_Or($collection);
+        $or = new SG_Rule_Function_Or($collection);
         $this->assertFalse($or->getResult($variables));
         
         $collection = array($var0, $var25, $var50, $var75, $var100);
-        $or = new SG_Rule_Formula_Or($collection);
+        $or = new SG_Rule_Function_Or($collection);
         $this->assertTrue($or->getResult($variables));
         
-        $or1 = new SG_Rule_Formula_Or(array($var25, $var50));
-        $or2 = new SG_Rule_Formula_Or(array($var50, $var100));
-        $or  = new SG_Rule_Formula_Or(array(
+        $or1 = new SG_Rule_Function_Or(array($var25, $var50));
+        $or2 = new SG_Rule_Function_Or(array($var50, $var100));
+        $or  = new SG_Rule_Function_Or(array(
             $or1, $or2, $var50
         ));
         $this->assertTrue($or->getResult($variables));
         
-        $or1 = new SG_Rule_Formula_Or(array($var0, $var0));
-        $or2 = new SG_Rule_Formula_Or(array($var0, $var0));
-        $or  = new SG_Rule_Formula_Or(array($or1, $or2));
+        $or1 = new SG_Rule_Function_Or(array($var0, $var0));
+        $or2 = new SG_Rule_Function_Or(array($var0, $var0));
+        $or  = new SG_Rule_Function_Or(array($or1, $or2));
     }
 }

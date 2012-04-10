@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Formula_MinTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Function_MinTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the operators
@@ -24,16 +24,16 @@ class SG_Rule_Formula_MinTest extends PHPUnit_Framework_TestCase
         $var100 = new SG_Rule_Param_Variable('buz');
         
         $collection = array();
-        $min = new SG_Rule_Formula_Min($collection);
+        $min = new SG_Rule_Function_Min($collection);
         $this->assertEquals(0, $min->getResult($variables));
         
         $collection = array($var0, $var25, $var50, $var75, $var100);
-        $min = new SG_Rule_Formula_Min($collection);
+        $min = new SG_Rule_Function_Min($collection);
         $this->assertTrue(0 === $min->getResult($variables));
         
-        $min1 = new SG_Rule_Formula_Min(array($var25, $var50));
-        $min2 = new SG_Rule_Formula_Min(array($var50, $var100));
-        $min  = new SG_Rule_Formula_Min(array(
+        $min1 = new SG_Rule_Function_Min(array($var25, $var50));
+        $min2 = new SG_Rule_Function_Min(array($var50, $var100));
+        $min  = new SG_Rule_Function_Min(array(
             $min1, $min2, $var50
         ));
         $this->assertEquals(25, $min->getResult($variables));

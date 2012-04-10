@@ -55,7 +55,7 @@ class SG_Rule
         if($this->_rule instanceof SG_Rule_Param_Abstract) {
             return (bool)$this->_rule->getValue($variables);
         }
-        elseif($this->_rule instanceof SG_Rule_Formula_Abstract) {
+        elseif($this->_rule instanceof SG_Rule_Function_Abstract) {
             return (bool)$this->_rule->getResult($variables);
         }
         

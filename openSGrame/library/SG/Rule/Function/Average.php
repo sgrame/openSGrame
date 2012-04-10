@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Formula_Average
+ * SG_Rule_Function_Average
  * 
  * Calculates the average out of an array of params or formulas
  * 
@@ -20,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Formula_Average extends SG_Rule_Formula_Collection
+class SG_Rule_Function_Average extends SG_Rule_Function_Collection
 {
     /**
      * Get the value

@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Formula_AverageTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Function_AverageTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test Getters & Setters
@@ -17,18 +17,18 @@ class SG_Rule_Formula_AverageTest extends PHPUnit_Framework_TestCase
         $param70 = new SG_Rule_Param(70);
         
         $collection = array($varFoo, $varBar);
-        $average = new SG_Rule_Formula_Average($collection);
+        $average = new SG_Rule_Function_Average($collection);
         $this->assertEquals($collection, $average->getCollection());
         
         $collection = array($param30, $param70);
         $this->assertInstanceOf(
-            'SG_Rule_Formula_Average',
+            'SG_Rule_Function_Average',
             $average->setCollection($collection)
         );
         $this->assertEquals($collection, $average->getCollection());
         
         $this->assertInstanceOf(
-            'SG_Rule_Formula_Average',
+            'SG_Rule_Function_Average',
             $average->addItem($varFoo)
         );
         $collection = $average->getCollection();
@@ -54,16 +54,16 @@ class SG_Rule_Formula_AverageTest extends PHPUnit_Framework_TestCase
         $var100 = new SG_Rule_Param_Variable('buz');
         
         $collection = array();
-        $average = new SG_Rule_Formula_Average($collection);
+        $average = new SG_Rule_Function_Average($collection);
         $this->assertEquals(0, $average->getResult($variables));
         
         $collection = array($var0, $var25, $var50, $var75, $var100);
-        $average = new SG_Rule_Formula_Average($collection);
+        $average = new SG_Rule_Function_Average($collection);
         $this->assertEquals(50, $average->getResult($variables));
         
-        $average1 = new SG_Rule_Formula_Average(array($var0, $var50));
-        $average2 = new SG_Rule_Formula_Average(array($var50, $var100));
-        $average  = new SG_Rule_Formula_Average(array(
+        $average1 = new SG_Rule_Function_Average(array($var0, $var50));
+        $average2 = new SG_Rule_Function_Average(array($var50, $var100));
+        $average  = new SG_Rule_Function_Average(array(
             $average1, $average2, $var50
         ));
         $this->assertEquals(50, $average->getResult($variables));

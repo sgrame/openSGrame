@@ -10,9 +10,9 @@
 
 
 /**
- * SG_Rule_Formula_Collection
+ * SG_Rule_Function_Collection
  * 
- * This base class supports a collection of params & formulas
+ * This base class supports a collection of params & functions
  * 
  * @category SG
  * @package  Rule
@@ -20,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
+abstract class SG_Rule_Function_Collection extends SG_Rule_Function_Abstract
 {
     /**
      * The collection to calculate the average out
@@ -35,7 +35,7 @@ abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
      * @param array $collection
      *     OPTIONAL
      * 
-     * @return SG_Rule_Formula_Average
+     * @return SG_Rule_Function_Average
      */
     public function __construct($collection = array())
     {
@@ -47,7 +47,7 @@ abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
      * 
      * @param array $collection
      * 
-     * @return SG_Rule_Formula_Average
+     * @return SG_Rule_Function_Average
      */
     public function setCollection($collection)
     {
@@ -72,7 +72,7 @@ abstract class SG_Rule_Formula_Collection extends SG_Rule_Formula_Abstract
      * 
      * @param mixed $item
      * 
-     * @return SG_Rule_Formula_Average
+     * @return SG_Rule_Function_Average
      */
     public function addItem($item)
     {

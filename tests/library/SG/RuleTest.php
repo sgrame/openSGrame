@@ -38,7 +38,7 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
     /**
      * Test with comparison
      */
-    public function testFormula()
+    public function testFunction()
     {
         $variables = new SG_Rule_Variables(array(0 => 0, 10 => 10, 20 => 20));
         $var0  = new SG_Rule_Param_Variable(0);
@@ -92,9 +92,9 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
         $var17 = new SG_Rule_Param_Variable('q17');
         $var18 = new SG_Rule_Param_Variable('q18');
         
-        $and = new SG_Rule_Formula_And(array(
+        $and = new SG_Rule_Function_And(array(
             new SG_Rule_Comparison_GreatherThanOrEqual(
-                new SG_Rule_Formula_Average(array(
+                new SG_Rule_Function_Average(array(
                     $var10, $var11, $var12, $var13, $var14, $var15
                 )),
                 new SG_Rule_Param(40)
@@ -104,14 +104,14 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
                 new SG_Rule_Param(70)
             ),
             new SG_Rule_Comparison_GreatherThanOrEqual(
-                new SG_Rule_Formula_Average(array(
+                new SG_Rule_Function_Average(array(
                     $var10, $var18
                 )),
                 new SG_Rule_Param(70)
             ),
             new SG_Rule_Comparison_LessThanOrEqual(
                 $var10,
-                new SG_Rule_Formula_Average(array(
+                new SG_Rule_Function_Average(array(
                     $var13, $var18
                 ))
             ),

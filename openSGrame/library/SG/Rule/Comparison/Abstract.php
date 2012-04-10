@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Formula_Comparison_Abstract
+ * SG_Rule_Function_Comparison_Abstract
  * 
  * Base class for comparison functions
  * 
@@ -20,29 +20,29 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
+abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Function_Abstract
 {
     /**
      * Param left of the comparison function
      * 
-     * @var SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @var SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      */
     protected $_left;
     
     /**
      * Param right of the comparison function
      * 
-     * @var SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @var SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      */
     protected $_right;
     
     /**
      * Constructor
      * 
-     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $left
-     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $right
+     * @param SG_Rule_Param_Abstract|SG_Rule_Function_Abstract $left
+     * @param SG_Rule_Param_Abstract|SG_Rule_Function_Abstract $right
      * 
-     * @return SG_Rule_Formula_Comparison
+     * @return SG_Rule_Function_Comparison
      */
     public function __construct($left, $right)
     {
@@ -79,9 +79,9 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
     /**
      * Set the left param
      * 
-     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @param SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      * 
-     * @return SG_Rule_Formula_Comparison
+     * @return SG_Rule_Function_Comparison
      */
     public function setLeft($left)
     {
@@ -94,7 +94,7 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
      * 
      * @param void
      * 
-     * @return SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @return SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      */
     public function getLeft()
     {
@@ -104,9 +104,9 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
     /**
      * Set the right param
      * 
-     * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @param SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      * 
-     * @return SG_Rule_Formula_Comparison
+     * @return SG_Rule_Function_Comparison
      */
     public function setRight($right)
     {
@@ -119,7 +119,7 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
      * 
      * @param void
      * 
-     * @return SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract
+     * @return SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      */
     public function getRight()
     {

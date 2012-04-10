@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Formula_Max
+ * SG_Rule_Function_Max
  * 
  * Returns the max value of a collection of formula's and params
  * 
@@ -20,7 +20,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Formula_Max extends SG_Rule_Formula_Collection
+class SG_Rule_Function_Max extends SG_Rule_Function_Collection
 {
     /**
      * Get the value
