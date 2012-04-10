@@ -10,7 +10,9 @@
 
 
 /**
- * SG_Rule_Formula_Abstract
+ * SG_Rule_Formula_Comparison_Abstract
+ * 
+ * Base class for comparison functions
  * 
  * @category SG
  * @package  Rule
@@ -18,20 +20,8 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
+abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Formula_Abstract
 {
-    /**
-     * Possible operators
-     * 
-     * @var string
-     */
-    const EQUAL             = '=';
-    const NOT_EQUAL         = '<>';
-    const GREATHER          = '>';
-    const GREATHER_OR_EQUAL = '>=';
-    const LESS              = '<';
-    const LESS_OR_EQUAL     = '<=';
-  
     /**
      * Param left of the comparison function
      * 
@@ -47,25 +37,16 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     protected $_right;
     
     /**
-     * Comparison operator
-     * 
-     * @var string
-     */
-    protected $_operator;
-    
-    /**
      * Constructor
      * 
      * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $left
-     * @param string operator
      * @param SG_Rule_Param_Abstract|SG_Rule_Formula_Abstract $right
      * 
      * @return SG_Rule_Formula_Comparison
      */
-    public function __construct($left, $operator, $right)
+    public function __construct($left, $right)
     {
         $this->setLeft($left);
-        $this->setOperator($operator);
         $this->setRight($right);
     }
   
@@ -81,29 +62,19 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
         $left  = $this->_getItemValue($this->_left, $variables);
         $right = $this->_getItemValue($this->_right, $variables);
         
-        switch($this->_operator) {
-            case self::EQUAL:
-                return ($left == $right);
-                break;
-            case self::NOT_EQUAL:
-                return ($left != $right);
-                break;
-            case self::GREATHER:
-                return ($left > $right);
-                break;
-            case self::GREATHER_OR_EQUAL:
-                return ($left >= $right);
-                break;
-            case self::LESS:
-                return ($left < $right);
-                break;
-            case self::LESS_OR_EQUAL:
-                return ($left <= $right);
-                break;
-        }
-        
-        throw new SG_Rule_Exception('Operator not supported');
+        return $this->_compare($left, $right);
     }
+    
+    /**
+     * Compare the values
+     * 
+     * @param mixed $left
+     * @param mixed $right
+     * 
+     * @return bool 
+     */
+    protected function _compare($left, $right)
+    {}
     
     /**
      * Set the left param
@@ -153,31 +124,6 @@ class SG_Rule_Formula_Comparison extends SG_Rule_Formula_Abstract
     public function getRight()
     {
         return $this->_right;
-    }
-    
-    /**
-     * Set the operator
-     * 
-     * @param string
-     * 
-     * @return SG_Rule_Formula_Comparison
-     */
-    public function setOperator($operator)
-    {
-        $this->_operator = $operator;
-        return $this;
-    }
-    
-    /**
-     * Get the operator
-     * 
-     * @param void
-     * 
-     * @return string
-     */
-    public function getOperator()
-    {
-        return $this->_operator;
     }
 }
 

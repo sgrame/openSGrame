@@ -45,14 +45,14 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
         $var10 = new SG_Rule_Param_Variable(10);
         $var20 = new SG_Rule_Param_Variable(20);
         
-        $less  = new SG_Rule_Formula_Comparison(
-            $var20, SG_Rule_Formula_Comparison::LESS, $var10
+        $less  = new SG_Rule_Comparison_LessThan(
+            $var20, $var10
         );
         $rule = new SG_Rule($less);
         $this->assertTrue(false === $rule->isValid($variables));
         
-        $less = new SG_Rule_Formula_Comparison(
-            $var10, SG_Rule_Formula_Comparison::LESS, $var20
+        $less = new SG_Rule_Comparison_LessThan(
+            $var10, $var20
         );
         $rule = new SG_Rule($less);
         $this->assertTrue(true === $rule->isValid($variables));
@@ -93,28 +93,24 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
         $var18 = new SG_Rule_Param_Variable('q18');
         
         $and = new SG_Rule_Formula_And(array(
-            new SG_Rule_Formula_Comparison(
+            new SG_Rule_Comparison_GreatherThanOrEqual(
                 new SG_Rule_Formula_Average(array(
                     $var10, $var11, $var12, $var13, $var14, $var15
                 )),
-                SG_Rule_Formula_Comparison::GREATHER_OR_EQUAL,
                 new SG_Rule_Param(40)
             ),
-            new SG_Rule_Formula_Comparison(
+            new SG_Rule_Comparison_GreatherThanOrEqual(
                 $var10,
-                SG_Rule_Formula_Comparison::GREATHER_OR_EQUAL,
                 new SG_Rule_Param(70)
             ),
-            new SG_Rule_Formula_Comparison(
+            new SG_Rule_Comparison_GreatherThanOrEqual(
                 new SG_Rule_Formula_Average(array(
                     $var10, $var18
                 )),
-                SG_Rule_Formula_Comparison::GREATHER_OR_EQUAL,
                 new SG_Rule_Param(70)
             ),
-            new SG_Rule_Formula_Comparison(
+            new SG_Rule_Comparison_LessThanOrEqual(
                 $var10,
-                SG_Rule_Formula_Comparison::LESS_OR_EQUAL,
                 new SG_Rule_Formula_Average(array(
                     $var13, $var18
                 ))
