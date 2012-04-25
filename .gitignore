@@ -25,3 +25,5 @@ openSGrame/application/modules/*
 
 /nbproject/private/
 nbproject
+/openSGrame/application/modules/default/forms/Element/.svn/
+/openSGrame/application/modules/default/forms/.svn/
