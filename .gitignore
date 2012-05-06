@@ -1,22 +1,22 @@
 # Ignore svn files.
 .svn
 
-# Ignore eclipse files
+# Ignore IDE files (eclipse & netbeans)
 .project
 .settings
-
-# Ignore Netbeans files
 nbproject
 
 # Ignore variable files
-openSGrame/data/Zend*
+openSGrame/data/cache/*
+!.gitignore
+
+openSGrame/data/files/*
+!.gitignore
 
 openSGrame/data/session/*
 !.gitignore
 
-openSGrame/data/cache/*
-!.gitignore
-
+# Ignore the app specific config files
 openSGrame/application/configs/config.ini
 openSGrame/application/configs/navigation-app.ini
 
