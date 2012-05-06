@@ -5,6 +5,9 @@
 .project
 .settings
 
+# Ignore Netbeans files
+nbproject
+
 # Ignore variable files
 openSGrame/data/Zend*
 
@@ -22,8 +25,11 @@ openSGrame/application/modules/*
 !default
 !mail
 !user
+!file
 
-/nbproject/private/
-nbproject
-/openSGrame/application/modules/default/forms/Element/.svn/
-/openSGrame/application/modules/default/forms/.svn/
+# Ignore non base libraries
+openSGrame/library/*
+!SG
+!TB
+!Zend
+!ZendX
