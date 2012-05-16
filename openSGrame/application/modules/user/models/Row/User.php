@@ -27,6 +27,34 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
     protected $_tableClass = 'User_Model_DbTable_User';
     
     /**
+     * Get the users fullname
+     * 
+     * This will return the firstname fullname.
+     * If none of them are set, the username will be returned.
+     * 
+     * @param void
+     * 
+     * @return string 
+     */
+    public function getFullName()
+    {
+        $name = array();
+        
+        if (!empty($this->firstname)) {
+            $name[] = $this->firstname;
+        }
+        if (!empty($this->lastname)) {
+            $name[] = $this->lastname;
+        }
+        
+        if (empty($name)) {
+            $name[] = $this->username;
+        }
+        
+        return implode(' ', $name);
+    }
+    
+    /**
      * Check if user is not blocked or locked
      * 
      * @param void
@@ -183,7 +211,32 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
         }
         
         return $this->_groups;
-    }  
+    }
+    
+    /**
+     * Check if given group is one of the users groups
+     * 
+     * @param mixed $group
+     *      Group Id or User_Model_Row_Group object
+     * 
+     * @return bool 
+     */
+    public function isMemberOfGroup($group)
+    {
+        $groupId = (is_numeric($group))
+            ? (int)$group
+            : (int)$group->id;
+        unset($group);
+        
+        $groups = $this->getGroups();
+        foreach ($groups AS $group) {
+            if ((int)$group->id === $groupId) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
     /**
      * Get the role names as an array
@@ -222,6 +275,29 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
         }
         
         return $this->_roles;
+    }
+    
+    /**
+     * Check if the user has specific role
+     * 
+     * @param mixed $role
+     *     Role object or role ID
+     * 
+     * @return bool 
+     */
+    public function hasRole($role)
+    {
+        $roleId = User_Model_Role::extractRoleId($role);
+        
+        $roles = $this->getRoles();
+        
+        foreach ($roles AS $role) {
+            if ($roleId === (int)$role->id) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
 

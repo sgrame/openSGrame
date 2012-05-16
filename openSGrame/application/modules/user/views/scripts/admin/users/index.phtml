@@ -24,6 +24,7 @@ $this->placeholder('layout-sidebar')->captureEnd();
   <table class="table table-striped">
     <thead>
       <tr>
+        <th><?php echo $this->t('Name'); ?></th>
         <th><?php echo $this->t('Username'); ?></th>
         <th><?php echo $this->t('Email'); ?></th>
         <th><?php echo $this->t('Group(s)'); ?></th>
@@ -36,6 +37,7 @@ $this->placeholder('layout-sidebar')->captureEnd();
     <tbody>
       <?php foreach($this->users AS $user): ?>
         <tr>
+          <td><?php echo $this->escape($user->getFullName()); ?></td>
           <td><?php echo $this->escape($user->username); ?></td>
           <td><?php echo $this->escape($user->email); ?></td>
           <td>

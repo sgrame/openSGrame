@@ -38,14 +38,6 @@ class User_Form_User extends SG_Form
                    ->setRequired(true)
                    ->setAttrib('autocomplete', 'off');
                    
-        $this->addElement('email', 'email', array(
-            'label'      => 'Email',
-            'required'   => true,
-            'attribs'    => array(
-                'autocomplete' => 'off',
-            ),
-        ));
-                   
         // password
         $validator = new Zend_Validate_StringLength(6, 32);
         $this->addElement('password', 'user_password', array(
@@ -69,6 +61,23 @@ class User_Form_User extends SG_Form
             )
         ));
         
+        $firstname  = new Zend_Form_Element_Text('firstname');
+        $firstname ->setLabel('Firstname')
+                   ->setRequired(true)
+                   ->setAttrib('autocomplete', 'off');
+        $lastname  = new Zend_Form_Element_Text('lastname');
+        $lastname  ->setLabel('Lastname')
+                   ->setRequired(true)
+                   ->setAttrib('autocomplete', 'off');
+        
+        $this->addElement('email', 'email', array(
+            'label'      => 'Email',
+            'required'   => true,
+            'attribs'    => array(
+                'autocomplete' => 'off',
+            ),
+        ));
+        
         $groups    = new User_Form_Element_SelectGroups('groups');
         $groups    ->setLabel('Group');
         
@@ -78,6 +87,9 @@ class User_Form_User extends SG_Form
         $status    = new User_Form_Element_RadioStatus('status');
         $status    ->setLabel('Status');
         $status    ->setValue(1);
+        $status    ->setDescription(
+            'Blocking an user will prevent him from logging in to the platform.'
+        );
         
         $submit    = new Zend_Form_Element_Submit('submit');
         $submit    ->setLabel('Save');
@@ -89,8 +101,8 @@ class User_Form_User extends SG_Form
         // add elements
         $this->addElements(array(
             $username, 
-            //$firstname,
-            //$lastname,
+            $firstname,
+            $lastname,
             $groups,
             $roles,
             $status,
@@ -100,7 +112,11 @@ class User_Form_User extends SG_Form
         
         // Login group
         $this->addDisplayGroup(
-            array('username', 'email', 'user_password', 'user_password_confirm'),
+            array(
+                'username', 
+                'user_password', 
+                'user_password_confirm'
+            ),
             'login'
         );
         $this->getDisplayGroup('login')->setLegend('User login');
@@ -108,8 +124,9 @@ class User_Form_User extends SG_Form
         // User details group
         $this->addDisplayGroup(
             array(
-                //'firstname', 
-                //'lastname', 
+                'firstname', 
+                'lastname', 
+                'email', 
                 'roles', 
                 'groups', 
                 'status'

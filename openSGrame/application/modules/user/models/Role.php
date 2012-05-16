@@ -152,6 +152,19 @@ class User_Model_Role
     }
     
     /**
+     * Find a role by its name
+     * 
+     * @param string $name
+     * 
+     * @return User_Model_Row_Role 
+     */
+    public function findByName($name)
+    {
+        $role = $this->_mapper->findByName($name)->current();
+        return $role;
+    }
+    
+    /**
      * Get the roles
      * 
      * @param $page

@@ -31,9 +31,9 @@ class User_Form_Element_RadioStatus extends Zend_Form_Element_Radio
     
 		// Add the possible statusses
 		$options = array(
-        0 => $translate->translate('Blocked'),
-        1 => $translate->translate('Active'),
-    );
+            1 => $translate->translate('Active'),
+            0 => $translate->translate('Blocked'),
+        );
 		$this->addMultiOptions($options);
 	}
 }

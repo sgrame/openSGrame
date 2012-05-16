@@ -33,9 +33,9 @@ class User_Form_Element_SelectStatusFilter extends Zend_Form_Element_Select
 		$options = array(
 		    'all'     => $translate->translate('All'),
 		    'active'  => $translate->translate('Active'),
-        'blocked' => $translate->translate('Blocked'),
-        'locked'  => $translate->translate('Locked'),
-    );
+            'blocked' => $translate->translate('Blocked'),
+            'locked'  => $translate->translate('Locked'),
+        );
 		$this->addMultiOptions($options);
 	}
 }

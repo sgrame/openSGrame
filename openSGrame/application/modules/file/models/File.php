@@ -222,11 +222,12 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
      * 
      * @param void
      * 
-     * @return bool 
+     * @return File_Model_File 
      */
     public function setPermanent()
     {
         $this->_row->status = 1;
+        return $this;
     }
     
     /**
@@ -247,11 +248,12 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
      * 
      * @param void
      * 
-     * @return bool 
+     * @return File_Model_File 
      */
     public function setTemporary()
     {
         $this->_row->status = 0;
+        return $this;
     }
     
     /**
@@ -306,7 +308,7 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
     public function move($uri)
     {
         $oldPath = $this->getPath();
-        $newPath     = self::createPath($uri);
+        $newPath = self::createPath($uri);
         
         if ($this->exists()) {
             if (!rename($oldPath, $newPath)) {
@@ -385,34 +387,28 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
             throw new Exception('File does not exist in the file system.');
         }
         
-        header('Pragma: public');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Cache-Control: private', false);
-
-        header('Content-Description: application/octet-stream');
-        
-        // @todo: add force download
+        header('Content-Description: File Transfer');
         if ($force) {
             header('Content-Type: application/octet-stream');
         }
         else {
-            header('Content-type: ' . $this->Mime());
+            header('Content-Type: ' . $this->getMime());
         }
-        
-        header('Content-Disposition: attachment; filename="' . $this->getName() . '"');
+        header('Content-Disposition: attachment; filename=' . $this->getName());
         header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
         header('Content-Length: ' . $this->getSize());
         
-        ob_clean();
-        flush();
-        
-        if ($this->Size() > 1024*1024) {
+        if ($this->getSize() > 1024*1024) {
             $this->_readfileChunked($this->getPath());
         }
         else {
             readfile($this->getPath());
         }
+        
+        return;
     }
     
     /**

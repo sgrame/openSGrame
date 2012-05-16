@@ -43,7 +43,7 @@ class User_Model_User
      */
     public function __construct($mapper = null)
     {
-        if(!is_null($mapper)) {
+        if (!is_null($mapper)) {
             $this->_mapper = $mapper;
         }
         else {
@@ -76,16 +76,16 @@ class User_Model_User
     {
         // search by email
         $validator = new Zend_Validate_EmailAddress();
-        if($validator->isValid($usernameOrEmail)) {
+        if ($validator->isValid($usernameOrEmail)) {
             $result = $this->_mapper->findByEmail($usernameOrEmail);
-            if($result->count()) {
+            if ($result->count()) {
                 return $result->current();
             }
         }
         
         // search by username
         $result = $this->_mapper->findByUsername($usernameOrEmail);
-        if($result) {
+        if ($result) {
             return $result->current();
         }
         
@@ -104,23 +104,25 @@ class User_Model_User
     public function getUserForm($user = null)
     {
         $form = new User_Form_User();
-        if($user instanceof User_Model_Row_User) {
+        if ($user instanceof User_Model_Row_User) {
             $data = array(
-                'username' => $user->username,
-                'email'    => $user->email,
-                'roles'    => array(),
-                'groups'   => NULL,
-                'status'   => (int)$user->isActive(),
-                'user_id'  => $user->id,
+                'username'  => $user->username,
+                'firstname' => $user->firstname,
+                'lastname'  => $user->lastname,
+                'email'     => $user->email,
+                'roles'     => array(),
+                'groups'    => NULL,
+                'status'    => (int)$user->isActive(),
+                'user_id'   => $user->id,
             );
             
             $roles = $user->getRoles();
-            foreach($roles AS $role) {
+            foreach ($roles AS $role) {
                 $data['roles'][] = $role->id;
             }
             
             $groups = $user->getGroups();
-            foreach($groups AS $group) {
+            foreach ($groups AS $group) {
                 $data['groups'] = $group->id;
                 // @TODO: Make the platform support multiple groups (configuration)!
                 break;
@@ -143,25 +145,38 @@ class User_Model_User
      */
     public function saveUserForm(User_Form_User $form)
     {
+        return $this->saveUserArray($form->getValues());
+    }
+    
+    /**
+     * Save user from array data
+     * 
+     * @param array
+     * 
+     * @return User_Model_User 
+     */
+    public function saveUserArray($values)
+    {
         $db = $this->_mapper->getAdapter();
         $db->beginTransaction();
       
         try {
-            $user     = $this->_mapper->createRow();
-            $values   = $form->getValues();
+            $user = $this->_mapper->createRow();
             
             // update?
-            if(!empty($values['user_id'])) {
+            if (!empty($values['user_id'])) {
                 $user = $this->findById($values['user_id']);
-                if(!$user) {
+                if (!$user) {
                     return false;
                 }
             }
             
             // User -----------------------------------------------------------
-            $user->username = $values['username'];
-            $user->email    = $values['email'];
-            if(!empty($values['user_password'])) {
+            $user->username  = $values['username'];
+            $user->email     = $values['email'];
+            $user->firstname = $values['firstname'];
+            $user->lastname  = $values['lastname'];
+            if (!empty($values['user_password'])) {
                 $user->password = $values['user_password'];
             }
             $user->blocked = ((int)$values['status'] === 1)
@@ -170,18 +185,18 @@ class User_Model_User
             $user->save();
             
             // Groups ---------------------------------------------------------
-            if(empty($values['groups'])) {
+            if (empty($values['groups'])) {
                 $values['groups'] = array();
             }
-            if(!is_array($values['groups'])) {
+            if (!is_array($values['groups'])) {
                 $values['groups'] = array($values['groups']);
             }
             
             // get existing user groups
             $userGroups = new User_Model_DbTable_UserGroups();
             $currentGroups = $user->getGroups();
-            foreach($currentGroups AS $group) {
-                if(in_array($group->id, $values['groups'])) {
+            foreach ($currentGroups AS $group) {
+                if (in_array($group->id, $values['groups'])) {
                     $arrayKey = array_search($group->id, $values['groups']);
                     unset($values['groups'][$arrayKey]);
                     continue;
@@ -189,23 +204,23 @@ class User_Model_User
                 
                 $userGroups->deleteByGroup($group);
             }
-            foreach($values['groups'] AS $groupId) {
+            foreach ($values['groups'] AS $groupId) {
                 $userGroups->createByUserAndGroup($user, $groupId);
             }
             
             // Roles ----------------------------------------------------------
-            if(empty($values['roles'])) {
+            if (empty($values['roles'])) {
                 $values['roles'] = array();
             }
-            if(!is_array($values['roles'])) {
+            if (!is_array($values['roles'])) {
                 $values['roles'] = array($values['roles']);
             }
             
             // get existing user roles
             $userRoles = new User_Model_DbTable_UserRoles();
             $currentRoles = $user->getRoles();
-            foreach($currentRoles AS $role) {
-                if(in_array($role->id, $values['roles'])) {
+            foreach ($currentRoles AS $role) {
+                if (in_array($role->id, $values['roles'])) {
                     $arrayKey = array_search($role->id, $values['roles']);
                     unset($values['roles'][$arrayKey]);
                     continue;
@@ -213,14 +228,14 @@ class User_Model_User
                 
                 $userRoles->deleteByRole($role);
             }
-            foreach($values['roles'] AS $roleId) {
+            foreach ($values['roles'] AS $roleId) {
                 $userRoles->createByUserAndRole($user, $roleId);
             }
             
             $db->commit();
             return $user;
         }
-        catch(Exception $e) {
+        catch (Exception $e) {
             $db->rollBack();
             SG_Log::log($e->getMessage(), SG_Log::CRIT);
         }
@@ -242,7 +257,7 @@ class User_Model_User
         
         // @TODO: limit the groups if user can only search in own group!
         
-        if(!empty($search)) {
+        if (!empty($search)) {
             $form->populate($search);
         }
         
@@ -269,7 +284,7 @@ class User_Model_User
         $noteText   = null;
         $buttonText = null;
         
-        switch($action) {
+        switch ($action) {
           case 'delete':
               $legendText = $translator->t(
                   'Delete user'
@@ -281,13 +296,13 @@ class User_Model_User
               break;
         }
         
-        if($legendText) {
+        if ($legendText) {
             $form->getDisplayGroup('confirm')->setLegend($legendText);
         }
-        if($noteText) {
+        if ($noteText) {
             $form->getElement('note')->setValue($noteText);
         }
-        if($buttonText) {
+        if ($buttonText) {
             $form->getElement('submit')->setLabel($buttonText);
         }
         
@@ -394,7 +409,7 @@ class User_Model_User
      * @param array $search
      *     Array of search params
      * 
-     * @return User_Model_DbTable_User
+     * @return Zend_Paginator
      */
     public function getUsers(
         $page = 0, $order = 'created', $direction = 'desc', $search = array()
@@ -407,11 +422,11 @@ class User_Model_User
         }
         
         // administer only group users
-        if(!$acl->isUserAllowed('user:admin', 'administer all users')) {
+        if (!$acl->isUserAllowed('user:admin', 'administer all users')) {
             $auth = new User_Model_Auth();
             $user = $auth->getAuthenticatedUser();
             
-            if(!$user) {
+            if (!$user) {
                 $search['groups'] = array('NONE');
             }
             else {
@@ -441,11 +456,11 @@ class User_Model_User
      */
     public static function extractUserId($user)
     {
-        if(is_numeric($user)) {
+        if (is_numeric($user)) {
             return (int)$user;
         }
         
-        if($user instanceof User_Model_Row_User) {
+        if ($user instanceof User_Model_Row_User) {
             return (int)$user->id;
         }
         
