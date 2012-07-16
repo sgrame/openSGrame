@@ -94,10 +94,33 @@ class SG_Rule_Parser_Patterns
     }
 
     
+    /**
+     * Parse a string
+     * 
+     * @param string $string
+     * @param string $type
+     *     (optional) parse by specific type
+     * 
+     * @return mixed
+     */
+    public function parse($string, $type = NULL)
+    {
+        if (!$type) {
+            $info = $this->match($string);
+            $type = $info['token'];
+        }
+        
+        $parserName = 'SG_Rule_Parser_' . $type;
+        if (!class_exists($parserName)) {
+            throw new SG_Rule_Parser_Exception('Unknown pattern type');
+        }
+        
+        $parser = new $parserName();
+        return $parser->parse($string, $this);
+    }
     
     /**
-     * Parse the given string and returns an array with info about the 
-     * matching pattern
+     * Match a given string with the known patterns
      * 
      * @param  string $source
      * 
@@ -114,7 +137,7 @@ class SG_Rule_Parser_Patterns
     }
     
     /**
-     * Loop trough the string and parse the parts
+     * The actual matching functionality
      * 
      * @param string $string
      * @param int $number

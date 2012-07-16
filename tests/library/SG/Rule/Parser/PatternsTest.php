@@ -86,12 +86,26 @@ class SG_Rule_Parser_PatternsTest extends PHPUnit_Framework_TestCase
     /**
      * Test the parser 
      */
-    public function testParser()
+    public function testParse()
     {
-        $parser = new SG_Rule_Parser_Patterns('CT');
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
+        $result = $patterns->parse(15);
+        $this->assertInstanceOf('SG_Rule_Param', $result);
+        
+        $result = $patterns->parse('FOO15');
+        $this->assertInstanceOf('SG_Rule_Param_Variable', $result);
+    }
+    
+    
+    /**
+     * Test the matching 
+     */
+    public function testMatch()
+    {
+        $patterns = new SG_Rule_Parser_Patterns('CT');
         
         foreach ($this->_strings AS $params) {
-            $result = $parser->match($params[0]);
+            $result = $patterns->match($params[0]);
             $this->assertEquals($params[1], $result['match']);
             $this->assertEquals($params[2], $result['token']);
             
@@ -103,13 +117,13 @@ class SG_Rule_Parser_PatternsTest extends PHPUnit_Framework_TestCase
     /**
      * Test the exceptions 
      */
-    public function testParserExceptions()
+    public function testMatchExceptions()
     {
-        $parser = new SG_Rule_Parser_Patterns('FOO');
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
         foreach ($this->_stringsFail AS $test) {
             try {
-                $parser->match($test);
+                $patterns->match($test);
             }
             catch(Exception $e) {
                 $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
