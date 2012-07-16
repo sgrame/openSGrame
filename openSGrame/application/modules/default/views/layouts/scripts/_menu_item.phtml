@@ -31,7 +31,10 @@ $aHref      = $this->page->getHref();
 $aLabel     = $this->t($this->page->getLabel());
 
 if($this->page->isActive()) {
-  $liClass[] = 'active';
+  $router = Zend_Controller_Front::getInstance()->getRouter();
+  if ($this->page->getRoute() === $router->getCurrentRouteName()) {
+    $liClass[] = 'active';
+  }
 }
 
 if($this->page->hasChildren()) {
