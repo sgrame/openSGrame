@@ -33,6 +33,12 @@ class User_Form_UserSearch extends SG_Form
         $this->setAttrib('id', 'user-form');
 
         // create elements
+        $firstname  = new Zend_Form_Element_Text('firstname');
+        $firstname  ->setLabel('Firstname');
+        
+        $lastname  = new Zend_Form_Element_Text('lastname');
+        $lastname  ->setLabel('Lastname');
+        
         $username  = new Zend_Form_Element_Text('username');
         $username  ->setLabel('Username');
         
@@ -52,10 +58,12 @@ class User_Form_UserSearch extends SG_Form
         $submit    ->setLabel('Search');
         
         $showall   = new Zend_Form_Element_Submit('showall');
-        $showall   ->setLabel('Show all users');
+        $showall   ->setLabel('Show all');
 
         // add elements
         $this->addElements(array(
+            $firstname,
+            $lastname,
             $username, 
             $email, 
             $groups,
@@ -65,9 +73,9 @@ class User_Form_UserSearch extends SG_Form
             $showall,
         ));
         
-        // Login group
+        // Search params
         $this->addDisplayGroup(
-            array('username', 'email', 'groups', 'roles', 'status'),
+            array('firstname', 'lastname', 'username', 'email', 'groups', 'roles', 'status'),
             'search'
         );
         $this->getDisplayGroup('search')->setLegend('Search users');

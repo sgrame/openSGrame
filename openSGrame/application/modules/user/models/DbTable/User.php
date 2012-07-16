@@ -141,6 +141,39 @@ class User_Model_DbTable_User extends SG_Db_Table
     }
     
     /**
+     * Count the number of users by the Group ID
+     * 
+     * @param int $groupId
+     * 
+     * @return int
+     */
+    public function countByGroupId($groupId)
+    {
+        $select = $this->select();
+        $select->from($this->_name, new Zend_Db_Expr('COUNT(1) AS total'));
+        $select->where($this->_name . '.cr IS NULL');
+        
+        $select->joinInner(
+            'user_groups', 
+            $this->_name . '.id = user_groups.user_id', 
+            null
+        );
+        $select->where(
+            'user_groups.group_id = ?',
+            (int)$groupId
+        );
+        $select->where('user_groups.cr IS NULL');
+        
+        $result = $this->getAdapter()->fetchOne($select);
+        
+        if (!$result) {
+            return 0;
+        }
+        
+        return (int)$result;
+    }
+    
+    /**
      * Fetch all by search
      * 
      * @param array $search
@@ -156,6 +189,20 @@ class User_Model_DbTable_User extends SG_Db_Table
         // filter system users
         if(isset($search['excludeSystemUsers']) && $search['excludeSystemUsers']) {
             $select->where($this->_name . '.id > 1');
+        }
+        
+        // search name
+        if(isset($search['firstname']) && 0 < strlen($search['firstname'])) {
+            $select->where(
+                $this->_name . '.firstname LIKE ?',
+                str_replace('*', '%', $search['firstname'])
+            );
+        }
+        if(isset($search['lastname']) && 0 < strlen($search['lastname'])) {
+            $select->where(
+                $this->_name . '.lastname LIKE ?',
+                str_replace('*', '%', $search['lastname'])
+            );
         }
         
         // search username
