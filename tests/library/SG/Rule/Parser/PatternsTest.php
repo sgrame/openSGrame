@@ -3,7 +3,7 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_Parser_PatternTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Parser_PatternsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Array with lexicon tests 
