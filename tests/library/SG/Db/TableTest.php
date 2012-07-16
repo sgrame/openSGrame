@@ -205,12 +205,12 @@ class SG_Db_TableTest extends SG_Test_PHPUnit_ControllerTestCase
     }
     
     /**
-     * Test select with auto where "cr IS NULL"
+     * @todo: Test select with auto where "cr IS NULL"
      */
     
     
     /**
-     * 
+     * @todo: Test the auto UUID field
      */
     
     
