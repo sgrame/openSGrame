@@ -138,5 +138,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $navigation = new Zend_Navigation($config);
         $view->navigation($navigation);
     }
+    
+    /**
+     * Set the default timezone
+     * 
+     * @todo: this should come from the platform/user settings 
+     */
+    protected function _initTimeZone() {
+        date_default_timezone_set('Europe/Brussels');
+    }
 }
 
