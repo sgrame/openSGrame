@@ -14,7 +14,10 @@
  *
  * This extension of the Zend_Db_Table adds "auto fields" to table records:
  *  - owner_id : The owner of the record (default the currently logged in user)
- *  - created  : The date the record was entered the forst in the database
+ *  - created  : The date the record was created (first data entry)
+ * 
+ *  - uuid     : An universal unique identifier. 
+ *               Will be auto created using the SG_Token::uuid() method
  * 
  *  - ci       : The user who has written the record (insert/update)
  *  - cd       : The data the record was written (insert/update)
@@ -100,7 +103,7 @@ class SG_Db_Table extends Zend_Db_Table
     }
     
     /**
-     * Method to know if the table has a owner id (owner_id) field
+     * Method to know if the table has an owner id (owner_id) field
      * 
      * @param void
      * 
@@ -109,6 +112,18 @@ class SG_Db_Table extends Zend_Db_Table
     public function hasOwnerIdField()
     {
         return array_key_exists('owner_id', $this->info('metadata'));
+    }
+    
+    /**
+     * Method to know if the table has an universal unique identifier (uuid) field
+     * 
+     * @param void
+     * 
+     * @return bool
+     */
+    public function hasUuidField()
+    {
+        return array_key_exists('uuid', $this->info('metadata'));
     }
     
     /**
@@ -125,6 +140,7 @@ class SG_Db_Table extends Zend_Db_Table
     {
         $data = $this->_addCreatorIdAndCreateDateTime($data);
         $data = $this->_addOwnerIdAndCreated($data);
+        $data = $this->_addUuid($data);
         return parent::insert($this->_addCreatorIdAndCreateDateTime($data));
     }
     
@@ -326,6 +342,25 @@ class SG_Db_Table extends Zend_Db_Table
             $data['created']  = $this->_getCurrentDateTime();
         }
         
+        return $data;
+    }
+    
+    /**
+     * Method to add universal unique ID if none is set yet
+     * 
+     * @param array $data
+     *     ColumnName => Value
+     * 
+     * @return array
+     *     extended data array
+     */
+    protected function _addUuid(array $data)
+    {
+        if($this->hasUuidField() && empty($data['uuid'])) {
+            $token = new SG_Token();
+            $data['uuid'] = $token->uuid();
+        }
+
         return $data;
     }
     
