@@ -70,7 +70,8 @@ VALUES
     ('user_login_max_tries', 0x693a303b),
     ('site_languages', 0x613a333a7b693a303b733a323a22656e223b693a313b733a323a226e6c223b693a323b733a323a226672223b7d),
     ('site_languages_default', 0x733a323a22656e223b),
-    ('date_default_format', 0x733a31303a2264642f4d4d2f79797979223b)
+    ('date_default_format', 0x733a31303a2264642f4d4d2f79797979223b),
+    ('datetime_default_format', 0x733a31393a2264642f4d4d2f595959592048483a6d6d3a7373223b)
 ;
 
 -- --------------------------------------------------------
