@@ -92,8 +92,8 @@ class SG_Rule_Parser_PatternTest extends PHPUnit_Framework_TestCase
         
         foreach ($this->_strings AS $params) {
             $result = $parser->parse($params[0]);
-            $this->assertEquals($params[1], $result[0]['match']);
-            $this->assertEquals($params[2], $result[0]['token']);
+            $this->assertEquals($params[1], $result['match']);
+            $this->assertEquals($params[2], $result['token']);
             
             //var_dump($result);
         }

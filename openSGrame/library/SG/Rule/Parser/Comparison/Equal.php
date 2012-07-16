@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Parser_Variable
+ * SG_Rule_Parser_Comparison_Equal
  *
  * @category SG
  * @package  Rule
@@ -18,27 +18,10 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Parser_Param_Variable extends SG_Rule_Parser_Abstract
+class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
 {
     /**
-     * Prefix
-     * 
-     * @param array
-     */
-    protected $_prefixes;
-    
-    /**
-     * Constructor
-     * 
-     * @param string|array $prefixes
-     */
-    public function __construct($prefixes = array())
-    {
-        $this->_prefixes = $prefixes;
-    }
-    
-    /**
-     * Parse a param string
+     * Parse a equal string
      * 
      * @param  string $source
      * 
@@ -47,15 +30,22 @@ class SG_Rule_Parser_Param_Variable extends SG_Rule_Parser_Abstract
      * @throws SG_Rule_Parser_Exception 
      */
     public function parse($string) {
-        $parser = new SG_Rule_Parser_Pattern($this->_prefixes);
+        $parser = new SG_Rule_Parser_Pattern();
         $info   = $parser->parse($string);
         
         if (!isset($info['token']) 
-            || $info['token'] !== SG_Rule_Parser_Pattern::VARIABLE
+            || $info['token'] !== SG_Rule_Parser_Pattern::COMPARISON_EQUAL
         ) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
         
-        return new SG_Rule_Param_Variable($string);
+        // split into parts
+        $string = str_replace(' ', NULL, $string);
+        $parts = preg_split('/=/', $string);
+        $left  = $parts[0];
+        $right = $parts[1];
+        
+        return TRUE;
+        return new SG_Rule_Comparison_Equal($left, $right);
     }
 }

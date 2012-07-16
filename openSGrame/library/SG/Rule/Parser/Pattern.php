@@ -45,13 +45,6 @@ class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
     const PARAM                             = 'Param';
     
     /**
-     * Possible variable prefixes
-     * 
-     * @var array 
-     */
-    protected $_varPrefixes = array();
-    
-    /**
      * Lexicon : definition of all parts that the parser can identify
      * 
      * @var array
@@ -111,20 +104,11 @@ class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
      * @throws SG_Rule_Parser_Exception 
      */
     public function parse($string) {
-        $tokens = array();
-        
-        $number = 0;
-        $offset = 0;
-        while($offset < strlen($string)) {
-            $result = $this->_match($string, $number, $offset);
-            if($result === false) {
-                throw new SG_Rule_Parser_Exception('Unable to parse string.');
-            }
-            $tokens[] = $result;
-            $offset += strlen($result['match']);
+        $result = $this->_match($string);
+        if($result === false) {
+            throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
-        
-        return $tokens;
+        return $result;
     }
     
     /**
@@ -136,15 +120,12 @@ class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
      * 
      * @return boolean 
      */
-    protected function _match($string, $number, $offset) {
-        $string = substr($string, $offset);
-
+    protected function _match($string) {
         foreach($this->_tokens as $pattern => $name) {
             if(preg_match($pattern, $string, $matches)) {
                 return array(
                     'match' => $matches[1],
                     'token' => $name,
-                    'line'  => (int)$number+1
                 );
             }
         }
