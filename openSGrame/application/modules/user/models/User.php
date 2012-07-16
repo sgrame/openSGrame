@@ -445,6 +445,20 @@ class User_Model_User
         return $paged;
     }
     
+    /**
+     * Count the number of users by the Group
+     * 
+     * @param mixed $group
+     *     Group object or Group ID
+     * 
+     * @return int 
+     */
+    public function countByGroup($group)
+    {
+        $groupId = User_Model_Group::extractGroupId($group);
+        return $this->_mapper->countByGroupId($groupId);
+    }
+    
     
     /**
      * Get the user id from the user ID or user object
