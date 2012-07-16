@@ -50,7 +50,9 @@ class SG_Rule_Parser_Param_Variable extends SG_Rule_Parser_Abstract
         $parser = new SG_Rule_Parser_Pattern($this->_prefixes);
         $info   = $parser->parse($string);
         
-        if (!isset($info[0]) || $info[0]['token'] !== 'VARIABLE') {
+        if (!isset($info[0]) 
+            || $info[0]['token'] !== SG_Rule_Parser_Pattern::VARIABLE
+        ) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
         

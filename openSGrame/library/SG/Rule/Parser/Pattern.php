@@ -26,6 +26,25 @@
 class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
 {
     /**
+     * Pattern names
+     * 
+     * @var string 
+     */
+    const FUNCTION_AND                      = 'Function_And';
+    const FUNCTION_AVERAGE                  = 'Function_Average';
+    const FUNCTION_MAX                      = 'Function_Max';
+    const FUNCTION_MIN                      = 'Function_Min';
+    const FUNCTION_OR                       = 'Function_OR';
+    const COMPARISON_NOT_EQUAL              = 'Comparison_NotEqual';
+    const COMPARISON_GREATHER_THAN_OR_EQUAL = 'Comparison_GreatherThanOrEqual';
+    const COMPARISON_GREATHER_THAN          = 'Comparison_GreatherThan';
+    const COMPARISON_LESS_THAN_OR_EQUAL     = 'Comparison_LessThanOrEqual';
+    const COMPARISON_LESS_THAN              = 'Comparison_LessThan';
+    const COMPARISON_EQUAL                  = 'Comparison_Equal';
+    const VARIABLE                          = 'Param_Variable';
+    const PARAM                             = 'Param';
+    
+    /**
      * Possible variable prefixes
      * 
      * @var array 
@@ -39,19 +58,19 @@ class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
      */
     protected $_tokens = array(
         // Functions
-        '/^(AND\(.+\))$/'    => 'FUNCTION_AND',
-        '/^(AVG\(.+\))$/'    => 'FUNCTION_AVERAGE',
-        '/^(MAX\(.+\))$/'    => 'FUNCTION_MAX',
-        '/^(MIN\(.+\))$/'    => 'FUNCTION_MIN',
-        '/^(OR\(.+\))$/'     => 'FUNCTION_OR',
+        '/^(AND\(.+\))$/'    => self::FUNCTION_AND,
+        '/^(AVG\(.+\))$/'    => self::FUNCTION_AVERAGE,
+        '/^(MAX\(.+\))$/'    => self::FUNCTION_MAX,
+        '/^(MIN\(.+\))$/'    => self::FUNCTION_MIN,
+        '/^(OR\(.+\))$/'     => self::FUNCTION_OR,
         
         // Comparisons
-        '/^(.+!=.+)$/'       => 'COMPARISON_NOT_EQUAL',
-        '/^(.+>=.+)$/'       => 'COMPARISON_GREATHER_THAN_OR_EQUAL',
-        '/^(.+>.+)$/'        => 'COMPARISON_GREATHER_THAN',
-        '/^(.+<=.+)$/'       => 'COMPARISON_LESS_THAN_OR_EQUAL',
-        '/^(.+<.+)$/'        => 'COMPARISON_LESS_THAN',
-        '/^(.+=.+)$/'        => 'COMPARISON_EQUAL',
+        '/^(.+!=.+)$/'       => self::COMPARISON_NOT_EQUAL,
+        '/^(.+>=.+)$/'       => self::COMPARISON_GREATHER_THAN_OR_EQUAL,
+        '/^(.+>.+)$/'        => self::COMPARISON_GREATHER_THAN,
+        '/^(.+<=.+)$/'       => self::COMPARISON_LESS_THAN_OR_EQUAL,
+        '/^(.+<.+)$/'        => self::COMPARISON_LESS_THAN,
+        '/^(.+=.+)$/'        => self::COMPARISON_EQUAL,
     );
     
     
@@ -73,12 +92,12 @@ class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
                 continue;
             }
             
-            $this->_tokens['/^(' . $prefix . '[0-9]{1,4})$/'] = 'VARIABLE';
+            $this->_tokens['/^(' . $prefix . '[0-9]{1,4})$/'] = self::VARIABLE;
         }
             
         // add the other patterns
-        $this->_tokens['/^([0-9]{1,2})$/'] = 'PARAM';
-        $this->_tokens['/^(100)$/']        = 'PARAM';
+        $this->_tokens['/^([0-9]{1,2})$/'] = self::PARAM;
+        $this->_tokens['/^(100)$/']        = self::PARAM;
     }
     
     /**
