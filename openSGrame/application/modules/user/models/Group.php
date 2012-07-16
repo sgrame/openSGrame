@@ -182,8 +182,16 @@ class User_Model_Group
      * 
      * @return array 
      */
-    public function getGroupsAsArray($excludeSystem = true)
+    public function getGroupsAsArray($excludeSystem = null)
     {
+        if (is_null($excludeSystem)) {
+            $acl = Zend_Registry::get('acl');
+            $excludeSystem = !$acl->isUserAllowed(
+                'user:admin', 
+                'administer users of the system'
+            );
+        }
+        
         if(is_null($this->_groupsArray)) {
             $this->_groupsArray = array();
             $groups = ($excludeSystem)
