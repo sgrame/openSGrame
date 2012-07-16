@@ -3,27 +3,36 @@
  * @group SG
  * @group SG_Rule
  */
-class SG_Rule_ParamTest extends PHPUnit_Framework_TestCase
+class SG_Rule_Parser_Param_VariableTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * Test constructor
+     * Test the parser 
      */
-    public function testValue()
+    public function testParser()
     {
-        $variables = new SG_Rule_Variables();
-      
-        $value = new SG_Rule_Param();
-        $this->assertNull($value->getValue($variables));
+        $parser = new SG_Rule_Parser_Param_Variable('FOO');
         
-        $test = 123456;
-        $value = new SG_Rule_Param($test);
-        $this->assertEquals($test, $value->getValue($variables));
+        $result = $parser->parse('FOO15');
+        $this->assertInstanceOf('SG_Rule_Param_Variable', $result);
         
-        $test2 = 654321;
-        $this->assertInstanceOf(
-          'SG_Rule_Param', 
-          $value->setValue($test2)
-        );
-        $this->assertEquals($test2, $value->getValue($variables));
+        $result = $parser->parse('FOO1');
+        $this->assertInstanceOf('SG_Rule_Param_Variable', $result);
+    }
+    
+    /**
+     * Test the exceptions 
+     */
+    public function testParserExceptions()
+    {
+        $parser = new SG_Rule_Parser_Param_Variable('FOO');
+        
+        try {
+            $result = $parser->parse('BAR12');
+        }
+        catch(Exception $e) {
+            $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
+            return;
+        }
+        $this->fail('Test should throw Exception');
     }
 }
