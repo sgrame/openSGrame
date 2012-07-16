@@ -1,5 +1,10 @@
-<?php if(!empty($this->layout()->title)): ?>
+<?php if (!empty($this->layout()->title)): ?>
   <div class="page-header">
-    <h1><?php echo $this->layout()->title; ?></h1>
+    <h1>
+      <?php echo $this->layout()->title; ?>
+      <?php if (!empty($this->layout()->subtitle)) : ?>
+        <small><?php echo $this->layout()->subtitle; ?></small>
+      <?php endif; ?>
+    </h1>
   </div>
 <?php endif; ?>
