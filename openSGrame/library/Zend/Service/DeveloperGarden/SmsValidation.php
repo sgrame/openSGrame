@@ -126,7 +126,7 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
 
         return $this->getSoapClient()
                     ->validate($request)
-                    ->parse();
+                    ->match();
     }
 
     /**
@@ -144,7 +144,7 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
 
         return $this->getSoapClient()
                     ->invalidate($request)
-                    ->parse();
+                    ->match();
     }
 
     /**
@@ -172,7 +172,7 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
 
         return $this->getSoapClient()
                     ->sendValidationKeyword($request)
-                    ->parse();
+                    ->match();
     }
 
     /**
@@ -187,7 +187,7 @@ class Zend_Service_DeveloperGarden_SmsValidation extends Zend_Service_DeveloperG
         );
         return $this->getSoapClient()
                     ->getValidatedNumbers($request)
-                    ->parse();
+                    ->match();
     }
 // @codeCoverageIgnoreEnd
 }

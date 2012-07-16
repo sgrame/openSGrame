@@ -423,7 +423,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'createConferenceRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -443,7 +443,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'commitConferenceRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -476,7 +476,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'updateConferenceRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -498,7 +498,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getConferenceStatusRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -518,7 +518,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getRunningConferenceRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -538,7 +538,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'removeConferenceRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -560,7 +560,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getConferenceListRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -584,7 +584,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'newParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -606,7 +606,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getParticipantStatusRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -628,7 +628,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'removeParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -658,7 +658,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'updateParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -685,7 +685,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'createConferenceTemplateRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -705,7 +705,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getConferenceTemplateRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -732,7 +732,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'updateConferenceTemplateRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -752,7 +752,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'removeConferenceTemplateRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -772,7 +772,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getConferenceTemplateListRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -796,7 +796,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'addConferenceTemplateParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -818,7 +818,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'getConferenceTemplateParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -845,7 +845,7 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'updateConferenceTemplateParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -867,6 +867,6 @@ class Zend_Service_DeveloperGarden_ConferenceCall
             'removeConferenceTemplateParticipantRequest' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 }

@@ -151,6 +151,6 @@ class Zend_Service_DeveloperGarden_SendSms
             }
         }
 
-        return $response->parse();
+        return $response->match();
     }
 }

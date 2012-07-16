@@ -288,7 +288,7 @@ class Zend_Service_DeveloperGarden_BaseUserService extends Zend_Service_Develope
         $this->_checkModuleId($request->getModuleId());
         return $this->getSoapClient()
                     ->getQuotaInformation($request)
-                    ->parse();
+                    ->match();
     }
 
     /**
@@ -378,7 +378,7 @@ class Zend_Service_DeveloperGarden_BaseUserService extends Zend_Service_Develope
         $this->_checkModuleId($request->getModuleId());
         return $this->getSoapClient()
                     ->changeQuotaPool($request)
-                    ->parse();
+                    ->match();
     }
 
     /**
@@ -394,6 +394,6 @@ class Zend_Service_DeveloperGarden_BaseUserService extends Zend_Service_Develope
         );
         return $this->getSoapClient()
                     ->getAccountBalance($request)
-                    ->parse();
+                    ->match();
     }
 }

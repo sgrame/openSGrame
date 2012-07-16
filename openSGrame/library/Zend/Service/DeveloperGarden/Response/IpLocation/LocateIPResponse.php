@@ -79,7 +79,7 @@ class Zend_Service_DeveloperGarden_Response_IpLocation_LocateIPResponse
         parent::parse();
         if (is_array($this->ipAddressLocation)) {
             foreach ($this->ipAddressLocation as $address) {
-                $address->parse();
+                $address->match();
             }
         } elseif ($this->ipAddressLocation instanceof Zend_Service_DeveloperGarden_Response_IpLocation_IPAddressLocationType) {
             $this->ipAddressLocation->parse();

@@ -214,7 +214,7 @@ final class Zend_Amf_Parse_TypeLoader
                 }
                 $parser = new $resclass();
                 if(is_callable(array($parser, 'parse'))) {
-                    $resource = $parser->parse($resource);
+                    $resource = $parser->match($resource);
                 } else {
                     require_once 'Zend/Amf/Exception.php';
                     throw new Zend_Amf_Exception("Could not call parse() method on class $resclass");

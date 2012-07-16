@@ -92,6 +92,8 @@ class SG_Rule_Parser_Patterns
         $this->_tokens['/^([0-9]{1,2})$/'] = self::PARAM;
         $this->_tokens['/^(100)$/']        = self::PARAM;
     }
+
+    
     
     /**
      * Parse the given string and returns an array with info about the 
@@ -103,7 +105,7 @@ class SG_Rule_Parser_Patterns
      * 
      * @throws SG_Rule_Parser_Exception 
      */
-    public function parse($string) {
+    public function match($string) {
         $result = $this->_match($string);
         if($result === false) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');

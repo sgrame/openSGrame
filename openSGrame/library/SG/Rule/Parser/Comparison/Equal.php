@@ -31,7 +31,7 @@ class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
      * @throws SG_Rule_Parser_Exception 
      */
     public function parse($string, SG_Rule_Parser_Patterns $patterns) {
-        $info   = $patterns->parse($string);
+        $info   = $patterns->match($string);
         
         if (!isset($info['token']) 
             || $info['token'] !== SG_Rule_Parser_Patterns::COMPARISON_EQUAL

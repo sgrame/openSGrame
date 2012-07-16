@@ -140,7 +140,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
             'request' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
 
@@ -180,7 +180,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
             'request' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -199,7 +199,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
             'request' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 
     /**
@@ -221,6 +221,6 @@ class Zend_Service_DeveloperGarden_VoiceCall
             'request' => $request
         ));
 
-        return $result->parse();
+        return $result->match();
     }
 }
