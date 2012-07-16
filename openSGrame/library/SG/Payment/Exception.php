@@ -1,7 +1,7 @@
 <?php
 /**
  * @category SG
- * @package  Exception
+ * @package  Payment
  * @author   Peter Decuyper <sgrame@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
@@ -13,11 +13,11 @@
  * SG_Exception
  * 
  * @category SG
- * @package  Exception
+ * @package  Payment
  * @author   Peter Decuyper <sgrame@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Exception extends Zend_Exception
+class SG_Payment_Exception extends SG_Exception
 {
 }
