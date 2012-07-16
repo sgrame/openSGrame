@@ -109,7 +109,7 @@ class SG_Rule_Parser_PatternsTest extends PHPUnit_Framework_TestCase
         
         foreach ($this->_stringsFail AS $test) {
             try {
-                $result = $parser->parse($test);
+                $parser->parse($test);
             }
             catch(Exception $e) {
                 $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
