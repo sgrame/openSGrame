@@ -57,21 +57,6 @@ class User_Admin_UsersController extends SG_Controller_Action
        $this->view->layout()->subnavId = 'sub-user-admin';
     }
     
-    public function __dummyAction()
-    {
-        $prefix = 'user' . rand(1000, 9999);
-        $users = new User_Model_DbTable_User();
-        for($i = 0; $i < 50; $i++) {
-            $user = $users->createRow(array(
-                'username' => $prefix . $i,
-                'email'    => $prefix . $i . '@test.be'
-            ));
-            $user->save();
-        }
-        
-        $this->_goToOverview();
-    }
-
     /**
      * Users overview
      */
