@@ -10,9 +10,9 @@
 
 
 /**
- * SG_View_Helper_Date
+ * SG_View_Helper_DateTime
  *
- * Formats a given date string (yyyy-MM-dd) or Zend_Date object in the 
+ * Formats a given date string (yyyy-MM-dd HH:mm:ss) or Zend_Date object in the 
  * default date format or the given format
  *
  * @category SG
@@ -21,14 +21,14 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_View_Helper_Date extends Zend_View_Helper_Abstract
+class SG_View_Helper_DateTime extends Zend_View_Helper_Abstract
 {
     /**
      * The internal date format
      * 
      * @var string
      */
-    protected $_internalFormat = 'yyyy-MM-dd';
+    protected $_internalFormat = 'yyyy-MM-dd HH:mm:ss';
     
     /**
      * View instance
@@ -63,7 +63,7 @@ class SG_View_Helper_Date extends Zend_View_Helper_Abstract
      * 
      * @return string
      */
-    public function date($date, $format = null)
+    public function dateTime($date, $format = null)
     {
         if(empty($date)) {
             return null;
@@ -71,12 +71,13 @@ class SG_View_Helper_Date extends Zend_View_Helper_Abstract
         
         if(!$format) {
             $format = SG_Variables::getInstance()->get(
-                'date_default_format', Zend_Date::DATE_MEDIUM
+                'datetime_default_format', 
+                'dd/MM/YYYY HH:mm:ss'
             );
         }
         
         if(!($date instanceof Zend_Date)) {
-            // check if date is in the yyyy-MM-dd format
+            // check if date is in the yyyy-MM-dd HH:mm:ss format
             $validator = new Zend_Validate_Date();
             $validator->setFormat($this->_internalFormat);
             if(!$validator->isValid($date)) {
