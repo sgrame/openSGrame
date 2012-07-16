@@ -21,37 +21,20 @@
 class SG_Rule_Parser_Param_Variable extends SG_Rule_Parser_Abstract
 {
     /**
-     * Prefix
-     * 
-     * @param array
-     */
-    protected $_prefixes;
-    
-    /**
-     * Constructor
-     * 
-     * @param string|array $prefixes
-     */
-    public function __construct($prefixes = array())
-    {
-        $this->_prefixes = $prefixes;
-    }
-    
-    /**
      * Parse a param string
      * 
-     * @param  string $source
+     * @param string $string
+     * @param SG_Rule_Parser_Patterns $patterns
      * 
      * @return array
      * 
      * @throws SG_Rule_Parser_Exception 
      */
-    public function parse($string) {
-        $parser = new SG_Rule_Parser_Pattern($this->_prefixes);
-        $info   = $parser->parse($string);
+    public function parse($string, SG_Rule_Parser_Patterns $patterns) {
+        $info = $patterns->parse($string);
         
         if (!isset($info['token']) 
-            || $info['token'] !== SG_Rule_Parser_Pattern::VARIABLE
+            || $info['token'] !== SG_Rule_Parser_Patterns::VARIABLE
         ) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }

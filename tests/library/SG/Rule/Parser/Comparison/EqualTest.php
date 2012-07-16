@@ -11,8 +11,9 @@ class SG_Rule_Parser_Comparison_EqualTest extends PHPUnit_Framework_TestCase
     public function testParser()
     {
         $parser = new SG_Rule_Parser_Comparison_Equal();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
-        $result = $parser->parse('50=20');
+        $result = $parser->parse('50=20', $patterns);
         $this->assertTrue($result);
         
         //$this->assertInstanceOf('Comparison_Equal', $result);
@@ -25,10 +26,11 @@ class SG_Rule_Parser_Comparison_EqualTest extends PHPUnit_Framework_TestCase
      */
     public function __testParserExceptions()
     {
-        $parser = new SG_Rule_Parser_Param_Variable('FOO');
+        $parser = new SG_Rule_Parser_Param_Variable();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
         try {
-            $result = $parser->parse('BAR12');
+            $result = $parser->parse('50-60', $patterns);
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);

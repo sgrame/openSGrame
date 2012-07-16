@@ -10,12 +10,13 @@ class SG_Rule_Parser_Param_VariableTest extends PHPUnit_Framework_TestCase
      */
     public function testParser()
     {
-        $parser = new SG_Rule_Parser_Param_Variable('FOO');
+        $parser = new SG_Rule_Parser_Param_Variable();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
-        $result = $parser->parse('FOO15');
+        $result = $parser->parse('FOO15', $patterns);
         $this->assertInstanceOf('SG_Rule_Param_Variable', $result);
         
-        $result = $parser->parse('FOO1');
+        $result = $parser->parse('FOO1', $patterns);
         $this->assertInstanceOf('SG_Rule_Param_Variable', $result);
     }
     
@@ -24,10 +25,11 @@ class SG_Rule_Parser_Param_VariableTest extends PHPUnit_Framework_TestCase
      */
     public function testParserExceptions()
     {
-        $parser = new SG_Rule_Parser_Param_Variable('FOO');
+        $parser = new SG_Rule_Parser_Param_Variable();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
         try {
-            $result = $parser->parse('BAR12');
+            $result = $parser->parse('BAR12', $patterns);
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);

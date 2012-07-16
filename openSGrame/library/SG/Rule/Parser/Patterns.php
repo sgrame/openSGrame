@@ -23,7 +23,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Parser_Pattern extends SG_Rule_Parser_Abstract
+class SG_Rule_Parser_Patterns
 {
     /**
      * Pattern names

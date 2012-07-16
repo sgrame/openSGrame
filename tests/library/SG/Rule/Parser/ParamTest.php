@@ -11,11 +11,12 @@ class SG_Rule_Parser_ParamTest extends PHPUnit_Framework_TestCase
     public function testParser()
     {
         $parser = new SG_Rule_Parser_Param();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
-        $result = $parser->parse(35);
+        $result = $parser->parse(35, $patterns);
         $this->assertInstanceOf('SG_Rule_Param', $result);
         
-        $result = $parser->parse('99');
+        $result = $parser->parse('99', $patterns);
         $this->assertInstanceOf('SG_Rule_Param', $result);
     }
     
@@ -25,9 +26,10 @@ class SG_Rule_Parser_ParamTest extends PHPUnit_Framework_TestCase
     public function testParserExceptions()
     {
         $parser = new SG_Rule_Parser_Param();
+        $patterns = new SG_Rule_Parser_Patterns('FOO');
         
         try {
-            $result = $parser->parse('A12');
+            $result = $parser->parse('A12', $patterns);
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);

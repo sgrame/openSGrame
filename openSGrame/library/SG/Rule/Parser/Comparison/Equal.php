@@ -23,18 +23,18 @@ class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
     /**
      * Parse a equal string
      * 
-     * @param  string $source
+     * @param string $string
+     * @param SG_Rule_Parser_Patterns $patterns
      * 
      * @return array
      * 
      * @throws SG_Rule_Parser_Exception 
      */
-    public function parse($string) {
-        $parser = new SG_Rule_Parser_Pattern();
-        $info   = $parser->parse($string);
+    public function parse($string, SG_Rule_Parser_Patterns $patterns) {
+        $info   = $patterns->parse($string);
         
         if (!isset($info['token']) 
-            || $info['token'] !== SG_Rule_Parser_Pattern::COMPARISON_EQUAL
+            || $info['token'] !== SG_Rule_Parser_Patterns::COMPARISON_EQUAL
         ) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }

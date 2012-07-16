@@ -20,6 +20,6 @@
  */
 abstract class SG_Rule_Parser_Abstract implements SG_Rule_Parser_Interface
 {
-    public function parse($string)
+    public function parse($string, SG_Rule_Parser_Patterns $patterns)
     {}
 }
