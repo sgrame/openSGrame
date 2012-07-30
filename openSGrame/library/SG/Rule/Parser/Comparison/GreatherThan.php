@@ -10,7 +10,7 @@
 
 
 /**
- * SG_Rule_Parser_Comparison_Equal
+ * SG_Rule_Parser_Comparison_GreatherThan
  *
  * @category SG
  * @package  Rule
@@ -18,7 +18,7 @@
  * @license  http://www.opensource.org/licenses/mit-license.html MIT License
  * @link     https://github.com/sgrame/openSGrame
  */
-class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
+class SG_Rule_Parser_Comparison_GreatherThan extends SG_Rule_Parser_Abstract
 {
     /**
      * Parse a equal string
@@ -34,12 +34,12 @@ class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
         $info = $patterns->match($string);
         
         if (!isset($info['token']) 
-            || $info['token'] !== SG_Rule_Parser_Patterns::COMPARISON_EQUAL
+            || $info['token'] !== SG_Rule_Parser_Patterns::COMPARISON_GREATHER_THAN
         ) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
         
-        $parts = $patterns->split('=', $string, array('!=', '=!'));
+        $parts = $patterns->split('>', $string, array('>=', '>='));
         if (2 !== count($parts)) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
@@ -47,6 +47,6 @@ class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Abstract
         $left  = $patterns->parse($parts[0]);
         $right = $patterns->parse($parts[1]);
         
-        return new SG_Rule_Comparison_Equal($left, $right);
+        return new SG_Rule_Comparison_GreatherThan($left, $right);
     }
 }
