@@ -33,7 +33,6 @@ class SG_Rule_Parser_Comparison_GreatherThanTest extends PHPUnit_Framework_TestC
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
-            return;
         }
         
         try {
@@ -42,7 +41,6 @@ class SG_Rule_Parser_Comparison_GreatherThanTest extends PHPUnit_Framework_TestC
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
-            return;
         }
     }
 }
