@@ -157,4 +157,75 @@ class SG_Rule_Parser_Patterns
 
         return false;
     }
+    
+    /**
+     * Split a string in parts defined by a given string
+     * 
+     * Delimters between () are excluded
+     * 
+     * @param string $pattern
+     * @param string $string
+     * @param string|array $excludes
+     *     (optional) string or array of strings that should excluded from 
+     *     the split
+     * 
+     * @return array
+     */
+    static function split($pattern, $string, $excludes = array())
+    {
+        $patternLength = strlen($pattern);
+        if ($excludes && !is_array($excludes)) {
+            $excludes = array($excludes);
+        }
+        $stringLength = strlen($string);
+        
+        $parts  = array();
+        $part   = NULL;
+        $level  = 0;
+        for($i = 0; $i < $stringLength; $i++) {
+            $sub = substr($string, $i, 1);
+      
+            if ($sub === '(') {
+                $part .= $sub;
+                $level++;
+                continue;
+            }
+            if ($sub === ')') {
+                $part .= $sub;
+                $level--;
+                continue;
+            }
+            if ($level > 0) {
+                $part .= $sub;
+                continue;
+            }
+            if ($excludes) {
+                $match = FALSE;
+                foreach($excludes AS $exclude) {
+                    $test = substr($string, $i, strlen($exclude));
+                    if ($test !== $exclude) {
+                        continue;
+                    }
+                    $match = $test;
+                    break;
+                }
+                if ($match) {
+                    $part .= $match;
+                    $i = $i + strlen($match) - 1;
+                    continue;
+                }
+            }
+            if (substr($string, $i, $patternLength) === $pattern) {
+                $parts[] = $part;
+                $part = NULL;
+                $i = $i + ($patternLength - 1);
+                continue;
+            }
+
+            $part .= $sub;
+        }
+        $parts[] = $part;
+        
+        return $parts;
+    }
 }

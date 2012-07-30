@@ -132,4 +132,53 @@ class SG_Rule_Parser_PatternsTest extends PHPUnit_Framework_TestCase
             $this->fail('String "' . $test . '" should not pass');
         }
     }
+    
+    /**
+     * Test the split 
+     */
+    public function testSplit()
+    {
+        $result = SG_Rule_Parser_Patterns::split('=', 'A=B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('=', 'A=B;(C=D)');
+        $this->assertEquals(array('A', 'B;(C=D)'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('=', 'A!=B', '!=');
+        $this->assertEquals(array('A!=B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('=', 'A!=B', array('!='));
+        $this->assertEquals(array('A!=B'), $result);
+        
+        
+        $result = SG_Rule_Parser_Patterns::split('!=', 'A!=B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        
+        $result = SG_Rule_Parser_Patterns::split(';', 'A;B;C;D');
+        $this->assertEquals(array('A', 'B', 'C', 'D'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('>', 'A>B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('>', 'A>B;A>=B', '>=');
+        $this->assertEquals(array('A', 'B;A>=B'), $result);
+        
+        
+        $result = SG_Rule_Parser_Patterns::split('>=', 'A>=B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('<', 'A<B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('<', 'A<B;A<=B', '<=');
+        $this->assertEquals(array('A', 'B;A<=B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('<=', 'A<=B');
+        $this->assertEquals(array('A', 'B'), $result);
+        
+        $result = SG_Rule_Parser_Patterns::split('=', 'A=B;A!=B', '!=');
+        $this->assertEquals(array('A', 'B;A!=B'), $result);
+        
+    }
 }
