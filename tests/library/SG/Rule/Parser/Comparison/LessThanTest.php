@@ -33,7 +33,14 @@ class SG_Rule_Parser_Comparison_LessThanTest extends PHPUnit_Framework_TestCase
         }
         catch(Exception $e) {
             $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
-            return;
+        }
+        
+        try {
+            $result = $parser->parse('50=<60', $patterns);
+            $this->fail('The string is wrongly parsed');
+        }
+        catch(Exception $e) {
+            $this->assertInstanceOf('SG_Rule_Parser_Exception', $e);
         }
     }
 }
