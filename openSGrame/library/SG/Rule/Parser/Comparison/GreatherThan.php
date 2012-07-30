@@ -39,7 +39,7 @@ class SG_Rule_Parser_Comparison_GreatherThan extends SG_Rule_Parser_Abstract
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
         
-        $parts = $patterns->split('>', $string, array('>=', '>='));
+        $parts = $patterns->split('>', $string, array('>=', '=>'));
         if (2 !== count($parts)) {
             throw new SG_Rule_Parser_Exception('Unable to parse string.');
         }
