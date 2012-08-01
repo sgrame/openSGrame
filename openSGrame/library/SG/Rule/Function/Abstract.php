@@ -21,6 +21,13 @@
 abstract class SG_Rule_Function_Abstract
 {
     /**
+     * Function prefix
+     * 
+     * @var array 
+     */
+    const FUNCTION_NAME = NULL;
+    
+    /**
      * Get the value
      * 
      * @param SG_Rule_Variables

@@ -23,6 +23,13 @@
 class SG_Rule_Function_And extends SG_Rule_Function_Collection
 {
     /**
+     * Function prefix
+     * 
+     * @var array 
+     */
+    const FUNCTION_NAME = 'AND';
+    
+    /**
      * Get the value
      * 
      * @param SG_Rule_Variables

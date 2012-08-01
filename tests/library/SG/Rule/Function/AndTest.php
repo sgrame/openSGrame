@@ -38,4 +38,21 @@ class SG_Rule_Function_AndTest extends PHPUnit_Framework_TestCase
         ));
         $this->assertTrue($and->getResult($variables));
     }
+    
+    /**
+     * Test the to string functionality 
+     */
+    public function testToString()
+    {
+        $collection = array(
+            new SG_Rule_Param(100),
+            new SG_Rule_Param(90),
+            new SG_Rule_Param(80),
+            new SG_Rule_Param(70),
+        );
+        
+        $function = new SG_Rule_Function_And($collection);
+        
+        $this->assertEquals('AND(100;90;80;70)', (string)$function);
+    }
 }

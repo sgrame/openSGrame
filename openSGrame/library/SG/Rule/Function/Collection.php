@@ -95,5 +95,20 @@ abstract class SG_Rule_Function_Collection extends SG_Rule_Function_Abstract
         }
         return $values;
     }
+    
+    /**
+     * Get string representation of the rule 
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        $parts = array();
+        foreach($this->_collection AS $part) {
+            $parts[] = (string)$part;
+        }
+        
+        return $this::FUNCTION_NAME . '(' . IMPLODE(';', $parts) . ')';
+    }
 }
 
