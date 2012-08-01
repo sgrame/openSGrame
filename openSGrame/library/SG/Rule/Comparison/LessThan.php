@@ -22,6 +22,13 @@ class SG_Rule_Comparison_LessThan
     extends SG_Rule_Comparison_Abstract
 {
     /**
+     * The comparison operator (string version)
+     * 
+     * @var string 
+     */
+    protected $_operator = '<';
+    
+    /**
      * Compare the 2 values
      * 
      * @param mixed
