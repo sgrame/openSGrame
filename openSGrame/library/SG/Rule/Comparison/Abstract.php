@@ -23,6 +23,13 @@
 abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Function_Abstract
 {
     /**
+     * Comparison operator
+     * 
+     * @var string 
+     */
+    const OPERATOR = NULL;
+    
+    /**
      * Param left of the comparison function
      * 
      * @var SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
@@ -35,13 +42,6 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Function_Abstract
      * @var SG_Rule_Param_Abstract|SG_Rule_Function_Abstract
      */
     protected $_right;
-    
-    /**
-     * The comparison operator (string version)
-     * 
-     * @var string 
-     */
-    protected $_operator = NULL;
     
     /**
      * Constructor
@@ -143,7 +143,7 @@ abstract class SG_Rule_Comparison_Abstract extends SG_Rule_Function_Abstract
     public function __toString() {
         return 
             (string)$this->getLeft() 
-            . $this->_operator 
+            . $this::OPERATOR
             . (string)$this->getRight();
     }
 }

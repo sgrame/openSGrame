@@ -22,11 +22,11 @@ class SG_Rule_Comparison_Equal
     extends SG_Rule_Comparison_Abstract
 {
     /**
-     * The comparison operator (string version)
+     * Comparison operator
      * 
      * @var string 
      */
-    protected $_operator = '=';
+    const OPERATOR = '=';
     
     /**
      * Compare the 2 values

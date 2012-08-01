@@ -23,7 +23,7 @@ abstract class SG_Rule_Function_Abstract
     /**
      * Function name
      * 
-     * @var array 
+     * @var string 
      */
     const FUNCTION_NAME = NULL;
     
