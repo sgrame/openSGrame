@@ -26,4 +26,14 @@ class SG_Rule_ParamTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($test2, $value->getValue($variables));
     }
+    
+    /**
+     * Test the __toString function 
+     */
+    public function testToString() {
+        $test = 123456;
+        $value = new SG_Rule_Param($test);
+        
+        $this->assertEquals((string)$test, $value);
+    }
 }

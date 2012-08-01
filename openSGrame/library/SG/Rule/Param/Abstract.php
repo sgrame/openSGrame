@@ -28,5 +28,14 @@ abstract class SG_Rule_Param_Abstract
      * @return mixed
      */
     abstract public function getValue(SG_Rule_Variables $variables);
+    
+    /**
+     * Return the string version of the param
+     * 
+     * @param void
+     * 
+     * @return string 
+     */
+    public function __toString() {}
 }
 

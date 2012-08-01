@@ -66,5 +66,15 @@ class SG_Rule_Param extends SG_Rule_Param_Abstract
         $this->_value = $value;
         return $this;
     }
+    
+    /**
+     * Get the string version of the variable
+     * 
+     * @return string
+     */
+    function __toString()
+    {
+        return (string)$this->_value;
+    }
 }
 
