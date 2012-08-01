@@ -79,5 +79,15 @@ class SG_Rule_Param_Variable extends SG_Rule_Param_Abstract
     {
         return $this->_key;
     }
+    
+    /**
+     * Get the string version of the variable
+     * 
+     * @return string
+     */
+    function __toString()
+    {
+        return (string)$this->getKey();
+    }
 }
 
