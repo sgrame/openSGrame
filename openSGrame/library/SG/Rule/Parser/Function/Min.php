@@ -32,5 +32,5 @@ class SG_Rule_Parser_Function_Min extends SG_Rule_Parser_Function_Abstract
      * 
      * @var array 
      */
-    protected $_prefix = 'MIN';
+    protected $_prefix = SG_Rule_Function_Min::FUNCTION_NAME;
 }

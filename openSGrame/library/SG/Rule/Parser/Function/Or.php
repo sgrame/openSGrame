@@ -32,5 +32,5 @@ class SG_Rule_Parser_Function_Or extends SG_Rule_Parser_Function_Abstract
      * 
      * @var array 
      */
-    protected $_prefix = 'OR';
+    protected $_prefix = SG_Rule_Function_Or::FUNCTION_NAME;
 }

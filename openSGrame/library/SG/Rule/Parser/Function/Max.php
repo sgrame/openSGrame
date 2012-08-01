@@ -32,5 +32,5 @@ class SG_Rule_Parser_Function_Max extends SG_Rule_Parser_Function_Abstract
      * 
      * @var array 
      */
-    protected $_prefix = 'MAX';
+    protected $_prefix = SG_Rule_Function_Max::FUNCTION_NAME;
 }

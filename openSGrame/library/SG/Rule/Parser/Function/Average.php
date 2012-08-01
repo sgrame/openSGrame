@@ -32,5 +32,5 @@ class SG_Rule_Parser_Function_Average extends SG_Rule_Parser_Function_Abstract
      * 
      * @var array 
      */
-    protected $_prefix = 'AVG';
+    protected $_prefix = SG_Rule_Function_Average::FUNCTION_NAME;
 }
