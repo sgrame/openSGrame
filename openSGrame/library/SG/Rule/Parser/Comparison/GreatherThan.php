@@ -32,12 +32,15 @@ class SG_Rule_Parser_Comparison_GreatherThan extends SG_Rule_Parser_Comparison_A
      * 
      * @var string 
      */
-    protected $_split = '>';
+    protected $_split = SG_Rule_Comparison_GreatherThan::OPERATOR;
     
     /**
      * Split exclude
      * 
      * @var array 
      */
-    protected $_exclude = array('>=', '=>');
+    protected $_exclude = array(
+        SG_Rule_Comparison_GreatherThanOrEqual::OPERATOR, 
+        '=>'
+    );
 }

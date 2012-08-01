@@ -32,5 +32,5 @@ class SG_Rule_Parser_Comparison_GreatherThanOrEqual extends SG_Rule_Parser_Compa
      * 
      * @var string 
      */
-    protected $_split = '>=';
+    protected $_split = SG_Rule_Comparison_GreatherThanOrEqual::OPERATOR;
 }

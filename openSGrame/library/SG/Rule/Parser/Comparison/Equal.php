@@ -32,12 +32,12 @@ class SG_Rule_Parser_Comparison_Equal extends SG_Rule_Parser_Comparison_Abstract
      * 
      * @var string 
      */
-    protected $_split = '=';
+    protected $_split = SG_Rule_Comparison_Equal::OPERATOR;
     
     /**
      * Split exclude
      * 
      * @var array 
      */
-    protected $_exclude = array('!=');
+    protected $_exclude = array(SG_Rule_Comparison_NotEqual::OPERATOR);
 }

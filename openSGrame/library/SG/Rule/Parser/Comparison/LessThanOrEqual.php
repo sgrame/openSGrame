@@ -32,5 +32,5 @@ class SG_Rule_Parser_Comparison_LessThanOrEqual extends SG_Rule_Parser_Compariso
      * 
      * @var string 
      */
-    protected $_split = '<=';
+    protected $_split = SG_Rule_Comparison_LessThanOrEqual::OPERATOR;
 }

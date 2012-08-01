@@ -32,5 +32,5 @@ class SG_Rule_Parser_Comparison_NotEqual extends SG_Rule_Parser_Comparison_Abstr
      * 
      * @var string 
      */
-    protected $_split = '!=';
+    protected $_split = SG_Rule_Comparison_NotEqual::OPERATOR;
 }
