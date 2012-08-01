@@ -23,7 +23,7 @@
 class SG_Rule_Function_And extends SG_Rule_Function_Collection
 {
     /**
-     * Function prefix
+     * Function name
      * 
      * @var array 
      */

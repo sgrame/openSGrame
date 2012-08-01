@@ -21,7 +21,7 @@
 abstract class SG_Rule_Function_Abstract
 {
     /**
-     * Function prefix
+     * Function name
      * 
      * @var array 
      */

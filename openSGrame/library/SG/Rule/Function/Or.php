@@ -23,6 +23,13 @@
 class SG_Rule_Function_Or extends SG_Rule_Function_Collection
 {
     /**
+     * Function name
+     * 
+     * @var array 
+     */
+    const FUNCTION_NAME = 'OR';
+    
+    /**
      * Get the value
      * 
      * @param SG_Rule_Variables

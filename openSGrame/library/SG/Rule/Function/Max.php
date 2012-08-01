@@ -23,6 +23,13 @@
 class SG_Rule_Function_Max extends SG_Rule_Function_Collection
 {
     /**
+     * Function name
+     * 
+     * @var array 
+     */
+    const FUNCTION_NAME = 'MAX';
+    
+    /**
      * Get the value
      * 
      * @param SG_Rule_Variables

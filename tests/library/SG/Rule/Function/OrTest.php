@@ -42,4 +42,21 @@ class SG_Rule_Function_OrTest extends PHPUnit_Framework_TestCase
         $or2 = new SG_Rule_Function_Or(array($var0, $var0));
         $or  = new SG_Rule_Function_Or(array($or1, $or2));
     }
+    
+    /**
+     * Test the to string functionality 
+     */
+    public function testToString()
+    {
+        $collection = array(
+            new SG_Rule_Param(100),
+            new SG_Rule_Param(90),
+            new SG_Rule_Param(80),
+            new SG_Rule_Param(70),
+        );
+        
+        $function = new SG_Rule_Function_Or($collection);
+        
+        $this->assertEquals('OR(100;90;80;70)', (string)$function);
+    }
 }
