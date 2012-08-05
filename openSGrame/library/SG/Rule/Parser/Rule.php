@@ -35,6 +35,6 @@ class SG_Rule_Parser_Rule extends SG_Rule_Parser_Abstract
      */
     public function parse($string, SG_Rule_Parser_Patterns $patterns)
     {
-        return new SG_Rule($string);
+        return new SG_Rule($patterns->parse($string));
     }
 }

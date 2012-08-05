@@ -103,8 +103,11 @@ class SG_Rule_Parser_Patterns
      * 
      * @return mixed
      */
-    public function parse($string, $type = NULL)
+    public function parse($string, $type = null)
     {
+        // remove spaces and newlines
+        $string = preg_replace('/\s/', null, $string);
+        
         if (!$type) {
             $info = $this->match($string);
             $type = $info['token'];
@@ -163,7 +166,7 @@ class SG_Rule_Parser_Patterns
      * 
      * Delimters between () are excluded
      * 
-     * @param string $pattern
+     * @param string|array $patterns
      * @param string $string
      * @param string|array $excludes
      *     (optional) string or array of strings that should excluded from 
@@ -171,14 +174,16 @@ class SG_Rule_Parser_Patterns
      * 
      * @return array
      */
-    static function split($pattern, $string, $excludes = array())
+    static function split($patterns, $string, $excludes = array())
     {
-        $patternLength = strlen($pattern);
+        if (!is_array($patterns)) {
+            $patterns = array($patterns);
+        }
         if ($excludes && !is_array($excludes)) {
             $excludes = array($excludes);
         }
-        $stringLength = strlen($string);
         
+        $stringLength = strlen($string);
         $parts  = array();
         $part   = NULL;
         $level  = 0;
@@ -215,10 +220,19 @@ class SG_Rule_Parser_Patterns
                     continue;
                 }
             }
-            if (substr($string, $i, $patternLength) === $pattern) {
-                $parts[] = $part;
-                $part = NULL;
-                $i = $i + ($patternLength - 1);
+            
+            $found = false;
+            foreach($patterns AS $pattern) {
+                $patternLength = strlen($pattern);
+                if (substr($string, $i, $patternLength) === $pattern) {
+                    $parts[] = $part;
+                    $part = NULL;
+                    $i = $i + ($patternLength - 1);
+                    $found = true;
+                    continue;
+                }
+            }
+            if ($found) {
                 continue;
             }
 

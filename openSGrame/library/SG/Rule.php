@@ -61,5 +61,17 @@ class SG_Rule
         
         throw new SG_Rule_Exception('The rule is not supported');
     }
+    
+    /**
+     * Convert to string
+     * 
+     * @param void
+     * 
+     * @return string 
+     */
+    public function __toString()
+    {
+        return (string)$this->_rule;
+    }
 }
 

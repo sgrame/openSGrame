@@ -124,4 +124,21 @@ class SG_Rule_RuleTest extends PHPUnit_Framework_TestCase
         $ruleCode = unserialize($ruleText);
         $this->assertTrue($ruleCode->isValid($variables));
     }
+    
+    /**
+     * Test the toString method 
+     */
+    public function testToString() {
+        $variables = new SG_Rule_Variables(array(0 => 0, 10 => 10, 20 => 20));
+        $var0  = new SG_Rule_Param_Variable(0);
+        $var10 = new SG_Rule_Param_Variable(10);
+        $var20 = new SG_Rule_Param_Variable(20);
+        
+        $less  = new SG_Rule_Comparison_LessThan(
+            $var20, $var10
+        );
+        $rule = new SG_Rule($less);
+
+        $this->assertEquals('20<10', (string)$rule);
+    }
 }
