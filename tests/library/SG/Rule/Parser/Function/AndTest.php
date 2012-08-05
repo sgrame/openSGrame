@@ -15,6 +15,9 @@ class SG_Rule_Parser_Function_AndTest extends PHPUnit_Framework_TestCase
         
         $result = $parser->parse('AND(30;40;50)', $patterns);
         $this->assertInstanceOf('SG_Rule_Function_And', $result);
+        
+        $result = $parser->parse('AND(30,40,50)', $patterns);
+        $this->assertInstanceOf('SG_Rule_Function_And', $result);
     }
     
     /**
