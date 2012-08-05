@@ -32,7 +32,7 @@ class SG_Rule_Parser_Function_Abstract extends SG_Rule_Parser_Abstract
      * 
      * @var string 
      */
-    protected $_split = ';';
+    protected $_split = array(',', ';');
     
     /**
      * Prefix
