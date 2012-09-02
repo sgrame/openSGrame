@@ -90,5 +90,25 @@ class SG_Form extends TB_Form
     {
         $this->model = $model;
     }
+    
+    /**
+     * Add a crsf element to the form
+     * 
+     * @param string $spec
+     *     (optional) the element name
+     * 
+     * @return SG_Form 
+     */
+    public function addHash($spec = null)
+    {
+        if(is_null($spec)) {
+            $spec = 'hash_' . strtolower(get_class($this));
+        }
+        
+        $hash = new Zend_Form_Element_Hash($spec);
+        $this->addElement($hash, $spec);
+        
+        return $this;
+    }
 }
 
