@@ -46,7 +46,7 @@ class SG_Form_Sortable extends SG_Form
         $sortable = new SG_Form_Element_Sortable($this->_sortableId);
         
         $submit     = new Zend_Form_Element_Submit('submit');
-        $submit     ->setLabel('Save');
+        $submit     ->setLabel('Save order');
         
         $elements = array($sortable, $submit);
         $buttons  = array('submit');
