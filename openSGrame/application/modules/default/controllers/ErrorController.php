@@ -21,7 +21,7 @@ class Default_ErrorController extends Zend_Controller_Action
     {
         $errors = $this->_getParam('error_handler');
         
-        if (!$errors || !$errors instanceof ArrayObject) {
+        if (!$errors || !($errors instanceof ArrayObject)) {
             $this->view->message = 'You have reached the error page';
             return;
         }
@@ -68,13 +68,58 @@ class Default_ErrorController extends Zend_Controller_Action
         }
         
         // conditionally display exceptions
-        if ($this->getInvokeArg('displayExceptions') == true) {
-            $this->view->exception = $errors->exception;
-        }
-        
-        $this->view->request = $errors->request;
+        $this->_debugInfo($errors);
     }
 
+    /**
+     * Add error reporting to the view (only if we are in development mode)
+     * 
+     * @param ArrayObject $errors
+     */
+    protected function _debugInfo(ArrayObject $errors)
+    {
+        $this->view->errorsShow = FALSE;
+        if (!$this->getInvokeArg('displayExceptions')) {
+            return;
+        }
+        $this->view->errorsShow        = TRUE;
+        
+        $exception                     = $errors->exception;
+        $this->view->exceptionType     = get_class($exception);
+        $this->view->exceptionMessage  = $exception->getMessage();
+        
+        $this->view->exceptionTrace     = array();
+        $path      = str_replace('openSGrame/application', NULL, APPLICATION_PATH);
+        $fullTrace = $exception->getTrace();
+        foreach($fullTrace AS $key => $line) {
+            $function = array();
+            if (!empty($line['class'])) {
+                $function[] = $line['class'];
+            }
+            if (!empty($line['type'])) {
+                $function[] = $line['type'];
+            }
+            $function[] = $line['function'];
+            $location = str_replace($path, '../', $line['file'])
+                        . ':'
+                        . $line['line'];
+            $this->view->exceptionTrace[] = array(
+                '#' => $key,
+                'function' => implode(NULL, $function),
+                'location' => $location,
+            );
+        }
+        
+        $this->view->requestParameters = array();
+        $params = $errors->request->getParams();
+        foreach($params AS $param => $value) {
+            $this->view->requestParameters[$param] = (is_string($value))
+                ? $this->view->escape($value)
+                : '<pre>' . var_export($value,TRUE) . '</pre>';
+        }
+    }
+    
+    
     /**
      * Gets the log from the config (if any)
      * 
