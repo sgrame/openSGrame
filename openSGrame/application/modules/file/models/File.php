@@ -439,6 +439,9 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
      */
     static function prepare($uri)
     {
+        // mapper
+        $mapper = new File_Model_DbTable_File();
+        
         // filename
         $filename = basename($uri);
         
@@ -455,7 +458,9 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
         
         // try to suggest a new name with numeric suffix
         for ($i = 0; $i < 100; $i++) {
-            if (!file_exists(self::createPath($testuri))) {
+            if (!file_exists(self::createPath($testuri)) 
+                && !$mapper->findByUri($testuri)->current()
+            ) {
                 break;
             }
             
@@ -467,7 +472,6 @@ class File_Model_File extends Zend_Db_Table_Row_Abstract
         }
         
         // create the object
-        $mapper = new File_Model_DbTable_File();
         $row = $mapper->createRow(array(
             'filename' => $filename,
             'uri'      => $testuri,
