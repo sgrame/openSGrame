@@ -39,7 +39,8 @@ class User_Form_Login extends SG_Form
         //$remember  = new Zend_Form_Element_Checkbox('remember');
 
         $username->setLabel('Username')
-                 ->setRequired(true);
+                 ->setRequired(true)
+                 ->setAttrib('autofocus', 'autofocus');
 
         $password->setLabel('Password')
                  ->setRequired(true);
