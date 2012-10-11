@@ -9,46 +9,40 @@ $sidebar        = $this->placeholder('layout-sidebar');
 $sidebarContent = $sidebar->getValue();
 
 $contentClass = (!empty($sidebarContent))
-    ? ' class="span9"'
-    : null;
-
+    ? 'span9'
+    : 'span12';
 ?>
-
 
 <?php echo $this->partial('_html_header.phtml', array('bodyClass' => array('layout-default'))); ?>
 
 <?php echo $this->render('_header_menu.phtml'); ?>
 
-<div class="container-fluid">
-  <?php echo $this->render('_header_tabs.phtml'); ?>
-  <?php echo $this->render('_header_title.phtml'); ?>
+
+<div class="container">
+    <?php echo $this->render('_header_tabs.phtml'); ?>
+    <?php echo $this->render('_header_title.phtml'); ?>
 </div>
 
 
-
 <!-- CONTENT -->
-  <div class="container-fluid"><div class="row-fluid">
-    
-    <div<?php echo $contentClass; ?>><div class="content">
+<div class="container"><div class="row">
+
+    <div class="<?php echo $contentClass; ?>"><div class="content">
         <section id="main">
-        <?php echo $this->render('_messages.phtml'); ?>
-          
-        
-            
+            <?php echo $this->render('_messages.phtml'); ?>
+
             <?php echo $this->layout()->content; ?> 
-            
         </section>  
     </div></div>
-    
-    <?php if($sidebar): ?>
-      <div class="span3"><div class="sidebar">
-        <?php echo $sidebar; ?>
-      </div></div>
-    <?php endif; ?>
-    
-  </div></div>
-<!-- /CONTENT -->
 
+<?php if($sidebar): ?>
+    <div class="span3"><div class="sidebar">
+        <?php echo $sidebar; ?>
+    </div></div>
+<?php endif; ?>
+
+</div></div>
+<!-- /CONTENT -->
 
 
 <?php echo $this->render('_footer.phtml'); ?>
