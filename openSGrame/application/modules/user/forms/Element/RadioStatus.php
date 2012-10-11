@@ -27,7 +27,7 @@ class User_Form_Element_RadioStatus extends Zend_Form_Element_Radio
 	 */
 	public function init()
 	{
-	  $translate = Zend_Registry::get('Zend_Translate');
+	    $translate = Zend_Registry::get('Zend_Translate');
     
 		// Add the possible statusses
 		$options = array(
