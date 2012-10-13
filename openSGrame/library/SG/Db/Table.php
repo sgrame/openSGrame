@@ -383,7 +383,8 @@ class SG_Db_Table extends Zend_Db_Table
         }
         
         // Create date
-        $_data['cd'] = new Zend_Db_Expr('NOW()');
+        $date = new Zend_Date();
+        $_data['cd'] = $this->_getCurrentDateTime();
         
         return $_data;
     }
@@ -438,13 +439,16 @@ class SG_Db_Table extends Zend_Db_Table
     /**
      * Get the current timestamp
      * 
+     * @TODO: make this Database Provider safe?
+     * 
      * @param void
      * 
      * @return string
      */
     protected function _getCurrentDateTime()
     {
-        return new Zend_Db_Expr('NOW()');
+        $date = new Zend_Date();
+        return $date->get('yyyy-MM-dd HH:ii:ss');
     }
 }
 
