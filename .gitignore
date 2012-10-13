@@ -22,6 +22,7 @@ openSGrame/application/configs/navigation-app.ini
 
 # Ignore non core modules
 openSGrame/application/modules/*
+!activity
 !default
 !mail
 !user
