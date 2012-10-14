@@ -9,9 +9,24 @@
 
 
 /**
- * Activity_Model_Activity_Abstract
- *
  * Activity base class
+ * 
+ * This class is the base of all possible Activity objects.
+ * 
+ * You need to extend this class if you want to add new records.
+ * The class module prefix and name will be used to determen the module & type
+ * values of the Activity record.
+ * 
+ * If your class is: MODULE_Model_Activity_TYPE then
+ * - module: MODULE
+ * - type  : TYPE
+ *
+ * You need to implement following methods to support displaying activity:
+ * - getTitle()       : Return a translated string that will be used as the title.
+ * - getDescription() : Return an array of translated strings. Every array part 
+ *                      shall be displayed as an paragraph.
+ * - getActions()     : Return an array of Activity_Model_Activity_Action objects.
+ *                      These will be used to display a list of action links.
  *
  * @category Activity_Model
  * @author   Peter Decuyper <sgrame@gmail.com>
