@@ -214,6 +214,19 @@ abstract class Activity_Model_Activity_Abstract
     }
     
     /**
+     * Set the user related to the activity
+     * 
+     * @param int|User_Model_Row_User
+     * 
+     * @return Activity_Model_Activity_Interace
+     */
+    public function setUser($user) {
+        $this->_user = User_Model_User::load($user);
+        $this->getRow()->owner_id = $this->getUser()->id;
+        return $this;
+    }
+    
+    /**
      * Get the activity date as a Zend_Date object.
      * 
      * @param void

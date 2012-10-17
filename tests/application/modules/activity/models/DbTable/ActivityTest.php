@@ -139,6 +139,18 @@ class Activity_Model_DbTable_ActivityTest
         $this->assertEquals(2, $result->count());
     }
     
+    /**
+     * Test if return if the returned rowset is the special
+     */
+    public function testReturnRowset()
+    {
+        $table = new Activity_Model_DbTable_Activity();
+        $this->assertInstanceOf(
+            'Activity_Model_Rowset_Activity', 
+            $table->find(-10000)
+        );
+    }
+    
     
     /**
      * Get the Table mapper

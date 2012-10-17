@@ -33,6 +33,13 @@ class Activity_Model_DbTable_Activity extends SG_Db_Table
     protected $_rowClass = 'Activity_Model_Row_Activity';
     
     /**
+     * The rowset class
+     * 
+     * @var string
+     */
+    protected $_rowsetClass = 'Activity_Model_Rowset_Activity';
+    
+    /**
      * CR on
      * 
      * @var   bool

@@ -144,4 +144,40 @@ class SG_Test_PHPUnit_ControllerTestCase extends Zend_Test_PHPUnit_ControllerTes
         $auth = new User_Model_Auth();
         $auth->unsetAuth();
     }
+    
+    /**
+     * Set the database to in-memory
+     * 
+     * @param void
+     * 
+     * @return SG_Test_Db_Adapter_Memory
+     */
+    public function setTestDbAsDefault()
+    {
+        $db = $this->getTestDb(true);
+        Zend_Db_Table::setDefaultAdapter($db);
+        return $db;
+    }
+    
+    /**
+     * Get the in-memory database
+     * 
+     * @param void
+     * 
+     * @return SG_Test_Db_Adapter_Memory
+     */
+    public function getTestDb($reset = false)
+    {
+        static $db;
+        
+        if ($reset && $db) {
+            $db->closeConnection();
+            $db = NULL;
+        }
+        if (!$db) {
+            $db = new SG_Test_Db_Adapter_Memory();
+        }
+        
+        return $db;
+    }
 }

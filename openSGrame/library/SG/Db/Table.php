@@ -448,7 +448,7 @@ class SG_Db_Table extends Zend_Db_Table
     protected function _getCurrentDateTime()
     {
         $date = new Zend_Date();
-        return $date->get('yyyy-MM-dd HH:ii:ss');
+        return $date->get('yyyy-MM-dd HH:mm:ss');
     }
 }
 

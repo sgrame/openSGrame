@@ -482,5 +482,22 @@ class User_Model_User
             'No valid user ID or user object'
         );
     }
+    
+    /**
+     * Load the user or return the given User object
+     * 
+     * @param int|User_Model_Row_User
+     * 
+     * @return User_Model_Row_User
+     */
+    public static function load($user)
+    {
+        if ($user instanceof User_Model_Row_User) {
+            return $user;
+        }
+        
+        $users = new User_Model_User();
+        return $users->findById($user);
+    }
 }
 

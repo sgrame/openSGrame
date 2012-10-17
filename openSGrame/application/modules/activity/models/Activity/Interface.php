@@ -30,6 +30,15 @@ interface Activity_Model_Activity_Interface
     public function getParams();
     
     /**
+     * Set all the params at once
+     * 
+     * @param array $params
+     * 
+     * @return Activity_Model_Activity_Interface
+     */
+    public function setParams($params);
+    
+    /**
      * Add a named parameter
      * 
      * @param string $name
@@ -37,7 +46,7 @@ interface Activity_Model_Activity_Interface
      * 
      * @return Activity_Model_Activity_Interace
      */
-    public function addParam($name, $value);
+    public function setParam($name, $value);
     
     /**
      * Get a param by its name

@@ -17,14 +17,7 @@ class Activity_Model_DbTable_AbstractTest
         );
         parent::setUp();
         
-        Zend_Db_Table::setDefaultAdapter($this->_getDb());
-        $this->_populateDb();
-    }
-    
-    public function tearDown()
-    {
-        $this->_db->closeConnection();
-        $this->_db = NULL;
+        $this->_setupDb();
     }
     
     
@@ -165,12 +158,40 @@ class Activity_Model_DbTable_AbstractTest
     public function testGetUser()
     {
         $activity = $this->_getStub(
-            'Activity_Model_Activity_TestUser', 
+            'Activity_Model_Activity_TestGetUser', 
             $this->_getActivityRow()
         );
         $this->assertInstanceOf('User_Model_Row_User', $activity->getUser());
         $this->assertEquals(1, $activity->getUser()->id);
     }
+    
+    /**
+     * Test setting the user
+     */
+    public function testSetUser()
+    {
+        $activity = $this->_getStub(
+            'Activity_Model_Activity_TestSetUser', 
+            $this->_getActivityRow()
+        );
+        
+        $users = new User_Model_User();
+        $user  = $users->findById(1);
+        
+        // set by id
+        $this->assertInstanceOf(
+            'Activity_Model_Activity_TestSetUser', 
+            $activity->setUser(1)
+        );
+        $this->assertEquals($user, $activity->getUser());
+        $this->assertEquals(1, $activity->getRow()->owner_id);
+        
+        // set by User object
+        $activity->setUser($user);
+        $this->assertEquals($user, $activity->getUser());
+        $this->assertEquals(1, $activity->getRow()->owner_id);
+    }
+    
     
     /**
      * Test the get data functionality
@@ -272,26 +293,20 @@ class Activity_Model_DbTable_AbstractTest
      * 
      * @return void
      */
-    protected function _getDb()
+    protected function _setupDb()
     {
-        if (!$this->_db) {
-            // connect
-            $this->_db = Zend_Db::factory(
-                'Pdo_Sqlite', 
-                array('dbname' => ':memory:')
-            );
-
-            // create the users tables
-            require_once './application/modules/user/models/Db/Structure.php';
-            User_Model_Db_Structure::createAllTables($this->_db);
-            User_Model_Db_Structure::populateAllTables($this->_db);
-            
-            // create the activity tables
-            require_once './application/modules/activity/models/Db/Structure.php';
-            Activity_Model_Db_Structure::createAllTables($this->_db);
-        }
+        $db = $this->setTestDbAsDefault();
         
-        return $this->_db;
+        // create the users tables
+        require_once './application/modules/user/models/Db/Structure.php';
+        User_Model_Db_Structure::createAllTables($db);
+        User_Model_Db_Structure::populateAllTables($db);
+
+        // create the activity tables
+        require_once './application/modules/activity/models/Db/Structure.php';
+        Activity_Model_Db_Structure::createAllTables($db);
+        
+        $this->_populateDb();
     }
     
     /**
@@ -301,7 +316,7 @@ class Activity_Model_DbTable_AbstractTest
      */
     protected function _populateDb()
     {
-        $db = $this->_getDb();
+        $db = $this->getTestDb();
         $param1 = $db->quote(serialize(array(
             'param1-1' => 'value1-1',
             'param1-2' => 'value1-2',
