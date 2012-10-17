@@ -41,16 +41,19 @@ class Activity_Model_Rowset_Activity extends Zend_Db_Table_Rowset
         if (!$row) {
             return NULL;
         }
-
+        
         // create the element
         $className = $row->module . '_Model_Activity_' . $row->type;
+        
         if (!class_exists($className)) {
+            var_dump('Class does not exists', $className); die;
             throw new Zend_Db_Exception(
                 'A class of the type "' . $className . '" does not exists'
             );
         }
         
-        return new $className($row);
+        $activity = new $className($row);
+        return $activity;
     }
 }
 
