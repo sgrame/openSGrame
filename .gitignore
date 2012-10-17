@@ -24,9 +24,18 @@ openSGrame/application/configs/navigation-app.ini
 openSGrame/application/modules/*
 !activity
 !default
+!file
 !mail
 !user
+
+# Ignore non core module tests
+tests/application/modules/*
+!activity
+!default
 !file
+!mail
+!user
+
 
 # Ignore non base libraries
 openSGrame/library/*
@@ -34,5 +43,7 @@ openSGrame/library/*
 !TB
 !Zend
 !ZendX
+
+
 
 vpproject/
