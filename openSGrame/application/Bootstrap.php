@@ -147,5 +147,58 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initTimeZone() {
         date_default_timezone_set('Europe/Brussels');
     }
+    
+    /**
+     * Enables ZF Debug toolbar
+     */
+    protected function _initZFDebug()
+    {
+        $options = $this->getOptions();
+        if (empty($options['zfdebug']['enabled']) 
+            || !$options['zfdebug']['enabled']
+        ) {
+            return;
+        }
+        
+        $zfdebugOptions = array();
+        if (!empty($options['zfdebug']['options'])) {
+            $zfdebugOptions = $options['zfdebug']['options'];
+        }
+        
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->registerNamespace('ZFDebug');
+
+        $debug = new ZFDebug_Controller_Plugin_Debug($zfdebugOptions);
+
+        $this->bootstrap('frontController');
+        $frontController = $this->getResource('frontController');
+        $frontController->registerPlugin($debug);
+    }
+    
+    /**
+     * Enables translation of the interface
+     * 
+     * Adds untranslated strings logging to the DB
+     */
+    protected function _initMultilingual()
+    {
+        $options = $this->getOptions();
+        
+        if (empty($options['resources']['translate']['logUntranslated']) 
+            || !(bool)$options['resources']['translate']['logUntranslated']
+        ) {
+            return;
+        }
+        
+        $this->bootstrap('log');
+        $this->bootstrap('translate');
+        $translator = Zend_Registry::get('Zend_Translate');
+        
+        $translateOptions = array(
+            'logUntranslated' => true,
+            'log'             => Zend_Registry::get('SG_Logger')
+        );
+        $translator->setOptions($translateOptions);
+    }
 }
 

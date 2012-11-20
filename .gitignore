@@ -28,6 +28,9 @@ openSGrame/application/modules/*
 !mail
 !user
 
+# Ignore non core languages
+
+
 # Ignore non core module tests
 tests/application/modules/*
 !activity
@@ -41,6 +44,7 @@ tests/application/modules/*
 openSGrame/library/*
 !SG
 !TB
+!ZFDebug
 !Zend
 !ZendX
 
