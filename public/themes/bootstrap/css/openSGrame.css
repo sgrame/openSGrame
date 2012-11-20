@@ -195,7 +195,19 @@ ul.list, ol.list, li.list-row {
   margin-left: 30px;  
 }
 
-
+/**
+ * Forms
+ */
+form.well legend {
+    margin: 0;
+}
+form.well .form-actions {
+    margin: 18px -19px -19px -19px;
+    padding: 17px 18px;
+}
+label {
+  word-wrap: break-word;
+}
 
 
 
