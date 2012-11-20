@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSGrame\n"
+"POT-Creation-Date: 2012-11-14 08:12+0100\n"
+"PO-Revision-Date: 2012-11-14 08:12+0100\n"
+"Last-Translator: Peter Decuyper <peter.decuyper@amplexor.com>\n"
+"Language-Team: SerialGraphics <info@serial-graphics.be>\n"
+"Language: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;t;translate;setMessage;"
+"setLabel;setLegend;setValue;_refresh;append;prepend\n"
+"X-Poedit-Basepath: /Volumes/webdev/www/sg/clients/coretalents.com/trunk/app/"
+"openSGrame\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: application/modules/default\n"
+
+#: application/modules/default/forms/Element/RadioGender.php:36
+msgid "Male"
+msgstr ""
+
+#: application/modules/default/forms/Element/RadioGender.php:37
+msgid "Female"
+msgstr ""
+
+#: application/modules/default/views/layouts/scripts/_language_switch.phtml:24
+msgid "Language"
+msgstr ""
+
+#: application/modules/default/views/layouts/scripts/_menu_acount.phtml:29
+msgid "Login"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:3
+#, php-format
+msgid "Welcome to %s"
+msgstr ""
+
+#: application/modules/default/views/scripts/index/index.phtml:5
+msgid "This is your project's main page"
+msgstr ""
+
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:8
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:14
+msgid "First"
+msgstr ""
+
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:22
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:28
+msgid "Prev"
+msgstr ""
+
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:52
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:58
+msgid "Next"
+msgstr ""
+
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:66
+#: application/modules/default/views/scripts/partials/pagination_control.phtml:72
+msgid "Last"
+msgstr ""

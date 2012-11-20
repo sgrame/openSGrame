@@ -1,0 +1,479 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSGrame - user\n"
+"POT-Creation-Date: 2012-11-14 08:14+0100\n"
+"PO-Revision-Date: 2012-11-20 22:50+0100\n"
+"Last-Translator: Peter Decuyper <peter.decuyper@amplexor.com>\n"
+"Language-Team: SerialGraphics <info@serial-graphics.be>\n"
+"Language: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;t;translate;setMessage;"
+"setLabel;setLegend;setValue;_refresh;append;prepend\n"
+"X-Poedit-Basepath: /Volumes/webdev/www/sg/clients/coretalents.com/trunk/app/"
+"openSGrame\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: application/modules/user\n"
+
+#: application/modules/user/controllers/PasswordController.php:88
+msgid "<strong>Check form values</strong>"
+msgstr "<strong>Controleer de ingevulde velden</strong>"
+
+#: application/modules/user/controllers/PasswordController.php:106
+msgid "<strong>Password is changed</strong>"
+msgstr "<strong>Wachtwoord is aangepast</strong>"
+
+#: application/modules/user/controllers/Admin/ConfigController.php:44
+msgid "Users configuration"
+msgstr "Configuratie gebruikers"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:53
+msgid "Manage groups"
+msgstr "Beheer groepen"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:79
+msgid "Add group"
+msgstr "Groep toevoegen"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:108
+#: application/modules/user/controllers/Admin/GroupsController.php:161
+msgid ""
+"There was a problem saving the group, try again or contact platform "
+"administrator."
+msgstr ""
+"Er heeft zich een fout voorgedaan bij het opslaan van de groep. Probeer "
+"opnieuw of contacteer een beheerder."
+
+#: application/modules/user/controllers/Admin/GroupsController.php:115
+#, php-format
+msgid "Group <strong>%s</strong> created"
+msgstr "Groep <strong>%s</strong> toegevoegd"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:130
+#, php-format
+msgid "Edit group <em>%s</em>"
+msgstr "Groep <em>%s</em> aanpassen"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:168
+#, php-format
+msgid "Group <strong>%s</strong> updated"
+msgstr "Groep <strong>%s</strong> aangepast"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:183
+#, php-format
+msgid "Delete group <em>%s</em>"
+msgstr "Groep <em>%s</em> verwijderen"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:205
+#, php-format
+msgid "Group <strong>%s</strong> deleted"
+msgstr "Groep <strong>%s</strong> is verwijderd"
+
+#: application/modules/user/controllers/Admin/GroupsController.php:246
+msgid "Group not found"
+msgstr "Groep niet gevonden"
+
+#: application/modules/user/controllers/Admin/PermissionsController.php:53
+msgid "Manage permissions"
+msgstr "Beheer rechten"
+
+#: application/modules/user/controllers/Admin/PermissionsController.php:82
+msgid ""
+"There was a problem saving the permissions data, try again or contact "
+"platform administrator."
+msgstr ""
+"Er heeft zich een probleem voorgedaan bij het opslaan van de rechten. "
+"probeer later opnieuw of contacteer een beheerder."
+
+#: application/modules/user/controllers/Admin/PermissionsController.php:89
+msgid "Permissions are saved."
+msgstr "Rechten zijn opgeslagen."
+
+#: application/modules/user/controllers/Admin/RolesController.php:53
+msgid "Manage roles"
+msgstr "Beheer rollen"
+
+#: application/modules/user/controllers/Admin/RolesController.php:78
+msgid "Add role"
+msgstr "Rol toevoegen"
+
+#: application/modules/user/controllers/Admin/RolesController.php:107
+#: application/modules/user/controllers/Admin/RolesController.php:160
+msgid ""
+"There was a problem saving the role, try again or contact platform "
+"administrator."
+msgstr ""
+"Er heeft zich een fout voorgedaan bij het opslaan van de rol. Probeer later "
+"opnieuw of contacteer een beheerder."
+
+#: application/modules/user/controllers/Admin/RolesController.php:114
+#, php-format
+msgid "Role <strong>%s</strong> created"
+msgstr "Rol <strong>%s</strong> aangemaakt"
+
+#: application/modules/user/controllers/Admin/RolesController.php:129
+#, php-format
+msgid "Edit role <em>%s</em>"
+msgstr "Rol <em>%s</em> aanpassen"
+
+#: application/modules/user/controllers/Admin/RolesController.php:167
+#, php-format
+msgid "Role <strong>%s</strong> updated"
+msgstr "Rol <strong>%s</strong> aangepast"
+
+#: application/modules/user/controllers/Admin/RolesController.php:182
+#, php-format
+msgid "Delete role <em>%s</em>"
+msgstr "Rol <em>%s</em> verwijderen"
+
+#: application/modules/user/controllers/Admin/RolesController.php:204
+#, php-format
+msgid "Role <strong>%s</strong> deleted"
+msgstr "Rol <strong>%s</strong> is verwijderd."
+
+#: application/modules/user/controllers/Admin/RolesController.php:244
+msgid "Role not found"
+msgstr "Rol niet gevonden"
+
+#: application/modules/user/controllers/Admin/UsersController.php:54
+msgid "Manage users"
+msgstr "Beheer gebruikers"
+
+#: application/modules/user/controllers/Admin/UsersController.php:127
+msgid "Add user"
+msgstr "Gebruiker toevoegen"
+
+#: application/modules/user/controllers/Admin/UsersController.php:157
+#: application/modules/user/controllers/Admin/UsersController.php:213
+msgid ""
+"There was a problem saving the user data, try again or contact platform "
+"administrator."
+msgstr ""
+"Er heeft zich een probleem voorgedaan bij het opslaan van de gebruiker. "
+"Probeer later opnieuw of contacteer een beheerder."
+
+#: application/modules/user/controllers/Admin/UsersController.php:164
+#, php-format
+msgid "User <strong>%s</strong> created"
+msgstr "Gebruiker <strong>%s</strong> aangemaakt"
+
+#: application/modules/user/controllers/Admin/UsersController.php:182
+#, php-format
+msgid "Edit user <em>%s</em>"
+msgstr "Gebruiker <em>%s</em> aanpassen"
+
+#: application/modules/user/controllers/Admin/UsersController.php:220
+#, php-format
+msgid "User <strong>%s</strong> updated"
+msgstr "Gebruiker <strong>%s</strong> aangepast"
+
+#: application/modules/user/controllers/Admin/UsersController.php:238
+#, php-format
+msgid "Delete user <em>%s</em>"
+msgstr "Gebruiker <em>%s</em> verwijderen"
+
+#: application/modules/user/controllers/Admin/UsersController.php:260
+#, php-format
+msgid "User <strong>%s</strong> deleted"
+msgstr "Gebruiker <strong>%s</strong> verwijderd "
+
+#: application/modules/user/controllers/Admin/UsersController.php:281
+#, php-format
+msgid "User <strong>%s</strong> is activated."
+msgstr "Gebruiker <strong>%s</strong> is geactiveerd."
+
+#: application/modules/user/controllers/Admin/UsersController.php:300
+#, php-format
+msgid "User <strong>%s</strong> is blocked."
+msgstr "Gebruiker <strong>%s</strong> is geblokkeerd."
+
+#: application/modules/user/controllers/Admin/UsersController.php:319
+#, php-format
+msgid "User <strong>%s</strong> is unlocked."
+msgstr "Gebruiker <strong>%s</strong> is gedeblokkeerd."
+
+#: application/modules/user/controllers/Admin/UsersController.php:371
+msgid "User not found"
+msgstr "Gebruiker niet gevonden"
+
+#: application/modules/user/forms/Confirm.php:38
+msgid "Confirm"
+msgstr "Bevestig"
+
+#: application/modules/user/forms/Confirm.php:41
+#: application/modules/user/forms/Group.php:44
+#: application/modules/user/forms/Role.php:44
+#: application/modules/user/forms/User.php:98
+msgid "Cancel"
+msgstr "Annuleer "
+
+#: application/modules/user/forms/Confirm.php:55
+msgid "You need to confirm this action"
+msgstr "U dient deze actie te bevestigen"
+
+#: application/modules/user/forms/Group.php:37
+msgid "Group name"
+msgstr "Groep naam"
+
+#: application/modules/user/forms/Group.php:41
+#: application/modules/user/forms/Permissions.php:36
+#: application/modules/user/forms/Role.php:41
+#: application/modules/user/forms/User.php:95
+msgid "Save"
+msgstr "Opslaan"
+
+#: application/modules/user/forms/Group.php:58
+#: application/modules/user/forms/User.php:82
+#: application/modules/user/forms/UserSearch.php:49
+msgid "Group"
+msgstr "Groep"
+
+#: application/modules/user/forms/Login.php:41
+#: application/modules/user/forms/User.php:37
+#: application/modules/user/forms/UserSearch.php:43
+#: application/modules/user/views/scripts/admin/users/index.phtml:28
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: application/modules/user/forms/Login.php:45
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: application/modules/user/forms/Login.php:48
+#: application/modules/user/forms/Login.php:64
+#: application/modules/user/views/scripts/reset/index.phtml:18
+msgid "Login"
+msgstr "Login"
+
+#: application/modules/user/forms/Password.php:69
+msgid "Change password"
+msgstr "Paswoord aanpassen"
+
+#: application/modules/user/forms/PasswordReset.php:39
+msgid "Username or Email"
+msgstr "Gebruikersnaam of Email adres"
+
+#: application/modules/user/forms/PasswordReset.php:42
+#: application/modules/user/forms/PasswordReset.php:55
+msgid "Reset password"
+msgstr "Wachtwoord opnieuw instellen"
+
+#: application/modules/user/forms/Role.php:37
+msgid "Role name"
+msgstr "Rol naam"
+
+#: application/modules/user/forms/Role.php:58
+#: application/modules/user/forms/UserSearch.php:52
+msgid "Role"
+msgstr "Rol"
+
+#: application/modules/user/forms/User.php:65
+#: application/modules/user/forms/UserSearch.php:37
+msgid "Firstname"
+msgstr "Voornaam"
+
+#: application/modules/user/forms/User.php:69
+#: application/modules/user/forms/UserSearch.php:40
+msgid "Lastname"
+msgstr "Familienaam"
+
+#: application/modules/user/forms/User.php:85
+#: application/modules/user/views/scripts/admin/users/index.phtml:31
+msgid "Role(s)"
+msgstr "Rol(len)"
+
+#: application/modules/user/forms/User.php:88
+#: application/modules/user/forms/UserSearch.php:55
+#: application/modules/user/views/scripts/admin/users/index.phtml:32
+msgid "Status"
+msgstr "Status"
+
+#: application/modules/user/forms/User.php:122
+msgid "User login"
+msgstr "Gebruiker login"
+
+#: application/modules/user/forms/User.php:136
+msgid "User details"
+msgstr "Gebruiker details"
+
+#: application/modules/user/forms/UserSearch.php:46
+msgid "email"
+msgstr "email"
+
+#: application/modules/user/forms/UserSearch.php:58
+msgid "Search"
+msgstr "Zoeken"
+
+#: application/modules/user/forms/UserSearch.php:61
+msgid "Show all"
+msgstr "Toon alles"
+
+#: application/modules/user/forms/UserSearch.php:81
+msgid "Search users"
+msgstr "Zoek gebruikers"
+
+#: application/modules/user/forms/Element/RadioStatus.php:34
+#: application/modules/user/forms/Element/SelectStatusFilter.php:35
+#: application/modules/user/views/scripts/admin/users/index.phtml:52
+msgid "Active"
+msgstr "Actief"
+
+#: application/modules/user/forms/Element/RadioStatus.php:35
+#: application/modules/user/forms/Element/SelectStatusFilter.php:36
+#: application/modules/user/views/scripts/admin/users/index.phtml:57
+msgid "Blocked"
+msgstr "Geblokeerd"
+
+#: application/modules/user/forms/Element/SelectGroups.php:36
+msgid "-- Choose --"
+msgstr "-- Kies --"
+
+#: application/modules/user/forms/Element/SelectGroupsFilter.php:36
+#: application/modules/user/forms/Element/SelectRolesFilter.php:36
+#: application/modules/user/forms/Element/SelectStatusFilter.php:34
+msgid "All"
+msgstr "Alles"
+
+#: application/modules/user/forms/Element/SelectGroupsFilter.php:37
+msgid "No group"
+msgstr "Geen groep"
+
+#: application/modules/user/forms/Element/SelectRolesFilter.php:37
+msgid "No role"
+msgstr "Geen rol"
+
+#: application/modules/user/forms/Element/SelectStatusFilter.php:37
+#: application/modules/user/views/scripts/admin/users/index.phtml:62
+msgid "Locked"
+msgstr "Afgesloten"
+
+#: application/modules/user/models/Group.php:117
+msgid "Delete group"
+msgstr "Verwijder groep"
+
+#: application/modules/user/models/Group.php:120
+#, php-format
+msgid "Are you sure that you want to delete group <strong>%s</strong>?"
+msgstr "Bent u zeker dat u groep <strong>%s</strong> wil verwijderen?"
+
+#: application/modules/user/models/Permission.php:65
+msgid "Permission"
+msgstr "Toestemming"
+
+#: application/modules/user/models/Role.php:118
+msgid "Delete role"
+msgstr "Verwijder rol"
+
+#: application/modules/user/models/Role.php:121
+#, php-format
+msgid "Are you sure that you want to delete role <strong>%s</strong>?"
+msgstr "Bent u zeker dat u rol <strong>%s</strong> wil verwijderen?"
+
+#: application/modules/user/models/User.php:290
+msgid "Delete user"
+msgstr "Gebruiker verwijderen"
+
+#: application/modules/user/models/User.php:293
+#, php-format
+msgid "Are you sure that you want to delete user <strong>%s</strong>?"
+msgstr "Bent u zeker dat u gebruiker <strong>%s</strong> wil verwijderen?"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:13
+msgid "Add Group"
+msgstr "Groep toevoegen"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:27
+#: application/modules/user/views/scripts/admin/roles/index.phtml:21
+#: application/modules/user/views/scripts/admin/users/index.phtml:27
+msgid "Name"
+msgstr "Naam"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:28
+#: application/modules/user/views/scripts/admin/roles/index.phtml:22
+msgid "Number of users"
+msgstr "Aantal gebruikers"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:29
+#: application/modules/user/views/scripts/admin/roles/index.phtml:26
+#: application/modules/user/views/scripts/admin/users/index.phtml:33
+msgid "Actions"
+msgstr "Acties"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:41
+#: application/modules/user/views/scripts/admin/roles/index.phtml:44
+msgid "view users"
+msgstr "bekijk gebruikers"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:48
+#: application/modules/user/views/scripts/admin/roles/index.phtml:63
+#: application/modules/user/views/scripts/admin/users/index.phtml:70
+msgid "Edit"
+msgstr "Aanpassen"
+
+#: application/modules/user/views/scripts/admin/groups/index.phtml:57
+#: application/modules/user/views/scripts/admin/roles/index.phtml:72
+#: application/modules/user/views/scripts/admin/users/index.phtml:93
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: application/modules/user/views/scripts/admin/permissions/index.phtml:4
+msgid "Permissions shown only for specific role(s)."
+msgstr "Toestemmingen enkel getoond voor specifieke rol(len)."
+
+#: application/modules/user/views/scripts/admin/permissions/index.phtml:5
+msgid "Show permissions for all roles"
+msgstr "Toon toegang voor alle rollen"
+
+#: application/modules/user/views/scripts/admin/roles/index.phtml:6
+msgid "Add Role"
+msgstr "Rol toevoegen"
+
+#: application/modules/user/views/scripts/admin/roles/index.phtml:24
+msgid "Permissions"
+msgstr "Toestemmingen"
+
+#: application/modules/user/views/scripts/admin/roles/index.phtml:36
+msgid "locked"
+msgstr "afgesloten"
+
+#: application/modules/user/views/scripts/admin/roles/index.phtml:53
+msgid "Edit permissions"
+msgstr "Toestemmingen aanpassen"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:12
+msgid "Add User"
+msgstr "Gebruiker toevoegen"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:29
+msgid "Email"
+msgstr "Email"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:30
+msgid "Group(s)"
+msgstr "Groep(pen)"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:51
+msgid "Block user"
+msgstr "Gebruiker blokeren"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:56
+msgid "Activate user"
+msgstr "Gebruiker activeren"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:61
+msgid "Unlock user"
+msgstr "Gebruiker deblokkeren"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:80
+msgid "Activate"
+msgstr "Activeer"
+
+#: application/modules/user/views/scripts/admin/users/index.phtml:85
+msgid "Block"
+msgstr "Blokeer"
+
+#: application/modules/user/views/scripts/login/index.phtml:40
+msgid "Forgot password?"
+msgstr "Wachtwoord vergeten?"
