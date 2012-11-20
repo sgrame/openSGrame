@@ -29,6 +29,11 @@ openSGrame/application/modules/*
 !user
 
 # Ignore non core languages
+openSGrame/application/languages/source/*
+!openSGrame
+openSGrame/application/languages/*/*
+!openSGrame
+
 
 
 # Ignore non core module tests
