@@ -492,12 +492,22 @@ class User_Model_User
      */
     public static function load($user)
     {
+        static $users = array();
+        $userId = NULL;
+        
         if ($user instanceof User_Model_Row_User) {
-            return $user;
+            $userId = $user->id;
+            $users[$userId] = $user;
+        }
+        else {
+            $userId = (int)$user;
+            if (!isset($users[$userId])) {
+                $userModel = new User_Model_User();
+                $users[$userId] = $userModel->findById($user);
+            }
         }
         
-        $users = new User_Model_User();
-        return $users->findById($user);
+        return $users[$userId];
     }
 }
 

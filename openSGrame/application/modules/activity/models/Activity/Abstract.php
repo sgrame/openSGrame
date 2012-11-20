@@ -206,8 +206,7 @@ abstract class Activity_Model_Activity_Abstract
     public function getUser()
     {
         if (!$this->_user) {
-            $users = new User_Model_User();
-            $this->_user = $users->findById($this->_activityRow->owner_id);
+            $this->_user = User_Model_User::load($this->_activityRow->owner_id);
         }
         
         return $this->_user;
