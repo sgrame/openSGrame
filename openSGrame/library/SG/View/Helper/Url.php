@@ -40,33 +40,74 @@ class SG_View_Helper_Url extends Zend_View_Helper_Url
      */
     public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true, $destination = null)
     {
-        $url = parent::url($urlOptions, $name, $reset, $encode);
-      
-        if(!empty($destination)) {
-            if(is_array($destination)) {
-                $dest_name = 'default';
-                if(isset($destination['route'])) {
-                    $dest_name = $destination['route'];
-                    unset($destination['route']);
-                }
-                
-                $dest_reset = false;
-                if(isset($destination['reset_params'])) {
-                    $dest_reset = $destination['reset_params'];
-                    unset($destination['reset_params']);
-                }
-                
-                $destination = parent::url(
-                    $destination,
-                    $dest_name,
-                    $dest_reset,
-                    true
-                );
-            }
-            
-            $url .= '?destination=' . $destination;
+        // Set default urlOptions if RESET is triggered
+        if ($reset) {
+            $this->_urlOptionsDefault($urlOptions, $reset);
         }
         
+        // get the URL
+        $url = parent::url($urlOptions, $name, $reset, $encode);
+      
+        // add the destination to it (if neccesary)
+        $this->_urlAddDestination($url, $destination);
+        
         return $url;
+    }
+    
+    /**
+     * Check the language of the requested URL. 
+     * If none is provided, use the current language.
+     * 
+     * @param array $urlOptions
+     * 
+     * @return void
+     */
+    protected function _urlOptionsDefault(&$urlOptions) 
+    {
+        // set the current language if none is given
+        if (empty($urlOptions['language'])) {
+            $urlOptions['language'] = Zend_Controller_Front::getInstance()
+                ->getRequest()
+                ->getParam('language');
+        }
+    }
+    
+    /**
+     * Check if we need to add a destination get param to the URL string.
+     * Add it if needed.
+     * 
+     * @param string $url
+     * @param string $destination
+     * 
+     * @return void 
+     */
+    protected function _urlAddDestination(&$url, $destination = null) 
+    {
+        if (empty($destination)) {
+            return;
+        }
+         
+        if(is_array($destination)) {
+            $route = 'default';
+            if(isset($destination['route'])) {
+                $route = $destination['route'];
+                unset($destination['route']);
+            }
+                
+            $reset = false;
+            if(isset($destination['reset_params'])) {
+                $reset = $destination['reset_params'];
+                unset($destination['reset_params']);
+            }
+                
+            $destination = self::url(
+                $destination,
+                $route,
+                $reset,
+                true
+            );
+        }
+            
+        $url .= '?destination=' . $destination;
     }
 }
