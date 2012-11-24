@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSGrame - user\n"
 "POT-Creation-Date: 2012-11-14 08:14+0100\n"
-"PO-Revision-Date: 2012-11-20 22:50+0100\n"
+"PO-Revision-Date: 2012-11-21 23:26+0100\n"
 "Last-Translator: Peter Decuyper <peter.decuyper@amplexor.com>\n"
 "Language-Team: SerialGraphics <info@serial-graphics.be>\n"
 "Language: Dutch\n"
@@ -452,7 +452,7 @@ msgstr "Email"
 
 #: application/modules/user/views/scripts/admin/users/index.phtml:30
 msgid "Group(s)"
-msgstr "Groep(pen)"
+msgstr "Groep(en)"
 
 #: application/modules/user/views/scripts/admin/users/index.phtml:51
 msgid "Block user"
