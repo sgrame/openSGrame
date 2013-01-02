@@ -65,7 +65,7 @@ class User_LogoutController extends Zend_Controller_Action
         $this->_model->unsetAuth();
         // we are logged in
         $this->_messenger->addInfo(
-            '<strong>You are now logged out</strong>'
+            $this->view->t('<strong>You are now logged out</strong>')
         );
         $this->_redirect($this->_goto);
     }

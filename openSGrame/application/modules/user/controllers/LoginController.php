@@ -80,12 +80,13 @@ class User_LoginController extends Zend_Controller_Action
             || !$this->_model->authenticateForm($loginForm)
         ) {
             $reset_url = $this->view->url(array(
+                'module'     => 'user',
                 'controller' => 'reset', 
                 'action'     => 'index'
-            ));
+            ), 'default', TRUE);
             $this->_messenger->addError(
-                '<strong>Please control your username and password</strong>',
-                array($reset_url => 'Forgot your password?')
+                $this->view->t('<strong>Please control your username and password</strong>'),
+                array($reset_url => $this->view->t('Forgot your password?'))
             );
             return;
         }
@@ -93,7 +94,7 @@ class User_LoginController extends Zend_Controller_Action
         
         // we are logged in
         $this->_messenger->addSuccess(
-            '<strong>You successfully logged in!</strong>'
+            $this->view->t('<strong>You successfully logged in!</strong>')
         );
         
         // redirect

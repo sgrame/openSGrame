@@ -29,8 +29,9 @@ if($remember = $this->form->getElement('remember')) {
 }
 
 $urlPasswordReset = $this->url(array(
+  'module'     => 'user',
   'controller' => 'reset',
-));
+), 'default', TRUE);
  
 ?>
 

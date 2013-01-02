@@ -84,25 +84,25 @@ class User_ResetController extends Zend_Controller_Action
         }
         
         if(!$form->isValid($this->_request->getPost())) {
-            $this->_messenger->addError(
+            $this->_messenger->addError($this->view->t(
                 '<strong>Fill in your username or email</strong>'
-            );
+            ));
             return;
         }
         
         $user = $this->_model->findByUsernameOrEmail($form->getValue('username'));
         if(!$user) {
-            $this->_messenger->addError(
+            $this->_messenger->addError($this->view->t(
                 '<strong>We could not find you, check username or email.</strong>'
-            );
+            ));
             return;
         }
         
         if(!$this->_model->resetPassword($user)) {
             $this->_messenger->addWarning(
                 array(
-                    '<strong>Something went wrong while sending out the password reset email.</strong>',
-                    'Contact an administrator or try again later'
+                    $this->view->t('<strong>Something went wrong while sending out the password reset email.</strong>'),
+                    $this->view->t('Contact an administrator or try again later'),
                 )
             );
             return;
@@ -111,8 +111,8 @@ class User_ResetController extends Zend_Controller_Action
         // password recovery mail sent
         $this->_messenger->addSuccess(
             array(
-                '<strong>Password reset email send!</strong>',
-                'Check your mail.'
+                $this->view->t('<strong>Password reset email send!</strong>'),
+                $this->view->t('Check your mail.'),
             )
         );
         
