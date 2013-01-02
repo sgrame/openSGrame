@@ -75,7 +75,12 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
      */
     public function isLocked()
     {
-        return (bool)$this->locked;
+        $model       = new User_Model_Config();
+        $maxAttempts = $model->getMaximumLoginAttempts();
+        if ($maxAttempts === 0) {
+            return false;
+        }
+        return ($this->locked >= $maxAttempts);
     }
     
     /**
@@ -114,7 +119,7 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
      */
     public function lock()
     {
-        $this->locked = 1;
+        $this->locked = 100;
         return (bool)$this->save();
     }
     
@@ -129,6 +134,44 @@ class User_Model_Row_User extends Zend_Db_Table_Row_Abstract
     {
         $this->locked = 0;
         return (bool)$this->save();
+    }
+    
+    /**
+     * Log bad login attempt
+     * 
+     * @param void
+     * 
+     * @return bool success
+     */
+    public function logBadLoginAttempt()
+    {
+        $model       = new User_Model_Config();
+        $maxAttempts = $model->getMaximumLoginAttempts();
+        if ($maxAttempts === 0) {
+            return false;
+        }
+        
+        $this->locked++;
+        return (bool)$this->save();
+    }
+    
+    /**
+     * Reset the number of bad login attempts
+     * 
+     * Will only call the unlock method if the user has any bad login attempts 
+     * logged.
+     * 
+     * @param void
+     * 
+     * @return bool success
+     */
+    public function resetBadLogginAttempts()
+    {
+        if (0 < $this->locked) {
+            return $this->unlock();
+        }
+        
+        return false;
     }
     
     /**

@@ -94,7 +94,7 @@ class User_Model_Auth
     {
         $mapper = new User_Model_DbTable_User();
         $user = $mapper->findByUsername($_form->getValue('username'))->current();
-        /* @var $user User_Model_User */
+        /* @var $user User_Model_Row_User */
         
         // check if user is found
         if(!$user) {
@@ -103,10 +103,12 @@ class User_Model_Auth
         
         // check the password
         if(!$user->checkPassword($_form->getValue('password'))) {
+            // update the wrong login attempt
+            $user->logBadLoginAttempt();
             return false;
         }
         
-        // check if not locked
+        // check if not locked out
         if($user->isLocked()) {
             return false;
         }
@@ -135,6 +137,9 @@ class User_Model_Auth
     {
         $auth = $this->getAuthObject();
         $auth->getStorage()->write($user);
+        
+        // reset possible wrong login attempts
+        $user->resetBadLogginAttempts();
         
         return true;
     }
