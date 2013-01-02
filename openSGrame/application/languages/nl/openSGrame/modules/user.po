@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSGrame - user\n"
-"POT-Creation-Date: 2012-11-14 08:14+0100\n"
-"PO-Revision-Date: 2012-11-21 23:26+0100\n"
+"POT-Creation-Date: 2012-12-05 21:34+0100\n"
+"PO-Revision-Date: 2012-12-05 21:34+0100\n"
 "Last-Translator: Peter Decuyper <peter.decuyper@amplexor.com>\n"
 "Language-Team: SerialGraphics <info@serial-graphics.be>\n"
 "Language: Dutch\n"
@@ -11,11 +11,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;t;translate;setMessage;"
-"setLabel;setLegend;setValue;_refresh;append;prepend\n"
+"setLabel;setLegend;setValue;_refresh;append;prepend;setDescription\n"
 "X-Poedit-Basepath: /Volumes/webdev/www/sg/clients/coretalents.com/trunk/app/"
 "openSGrame\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/user\n"
+
+#: application/modules/user/controllers/LoginController.php:88
+msgid "<strong>Please control your username and password</strong>"
+msgstr "<strong>Controleer uw gebruikersnaam en wachtwoord</strong>"
+
+#: application/modules/user/controllers/LoginController.php:89
+#, fuzzy
+msgid "Forgot your password?"
+msgstr "Wachtwoord vergeten?"
+
+#: application/modules/user/controllers/LoginController.php:97
+msgid "<strong>You successfully logged in!</strong>"
+msgstr "<strong>U bent succesvol ingelogd!</strong>"
+
+#: application/modules/user/controllers/LogoutController.php:68
+msgid "<strong>You are now logged out</strong>"
+msgstr "<strong>U bent nu uitgelogd</strong>"
 
 #: application/modules/user/controllers/PasswordController.php:88
 msgid "<strong>Check form values</strong>"
@@ -24,6 +41,36 @@ msgstr "<strong>Controleer de ingevulde velden</strong>"
 #: application/modules/user/controllers/PasswordController.php:106
 msgid "<strong>Password is changed</strong>"
 msgstr "<strong>Wachtwoord is aangepast</strong>"
+
+#: application/modules/user/controllers/ResetController.php:88
+msgid "<strong>Fill in your username or email</strong>"
+msgstr "<strong>Vul uw gebruikersnaam of email adres in</strong>"
+
+#: application/modules/user/controllers/ResetController.php:96
+msgid "<strong>We could not find you, check username or email.</strong>"
+msgstr ""
+"<strong>Gebruiker onbekend, controleer gebruikersnaam of email adres.</"
+"strong>"
+
+#: application/modules/user/controllers/ResetController.php:104
+msgid ""
+"<strong>Something went wrong while sending out the password reset email.</"
+"strong>"
+msgstr ""
+"<strong>Er ging iets mis bij het versturen van de wachtwoord opnieuw "
+"instellen email.</strong>"
+
+#: application/modules/user/controllers/ResetController.php:105
+msgid "Contact an administrator or try again later"
+msgstr "Contacteer een beheerder of probeer later opnieuw."
+
+#: application/modules/user/controllers/ResetController.php:114
+msgid "<strong>Password reset email send!</strong>"
+msgstr "<strong>Paswoord opnieuw instellen email verstuurd!</strong>"
+
+#: application/modules/user/controllers/ResetController.php:115
+msgid "Check your mail."
+msgstr "Controleer uw mailbox."
 
 #: application/modules/user/controllers/Admin/ConfigController.php:44
 msgid "Users configuration"
@@ -248,6 +295,7 @@ msgid "Login"
 msgstr "Login"
 
 #: application/modules/user/forms/Password.php:69
+#: application/modules/user/views/language/string-detect.phtml:21
 msgid "Change password"
 msgstr "Paswoord aanpassen"
 
@@ -289,6 +337,12 @@ msgstr "Rol(len)"
 #: application/modules/user/views/scripts/admin/users/index.phtml:32
 msgid "Status"
 msgstr "Status"
+
+#: application/modules/user/forms/User.php:91
+msgid "Blocking an user will prevent him from logging in to the platform."
+msgstr ""
+"Wanneer u een gebruiker blokkeert zal deze geen toegang meer hebben tot het "
+"platform."
 
 #: application/modules/user/forms/User.php:122
 msgid "User login"
@@ -359,6 +413,7 @@ msgid "Are you sure that you want to delete group <strong>%s</strong>?"
 msgstr "Bent u zeker dat u groep <strong>%s</strong> wil verwijderen?"
 
 #: application/modules/user/models/Permission.php:65
+#: application/modules/user/views/language/string-detect.phtml:48
 msgid "Permission"
 msgstr "Toestemming"
 
@@ -379,6 +434,108 @@ msgstr "Gebruiker verwijderen"
 #, php-format
 msgid "Are you sure that you want to delete user <strong>%s</strong>?"
 msgstr "Bent u zeker dat u gebruiker <strong>%s</strong> wil verwijderen?"
+
+#: application/modules/user/views/language/string-detect.phtml:12
+msgid "User"
+msgstr "Gebruiker"
+
+#: application/modules/user/views/language/string-detect.phtml:13
+#: application/modules/user/views/language/string-detect.phtml:23
+msgid "Users"
+msgstr "Gebruikers"
+
+#: application/modules/user/views/language/string-detect.phtml:14
+msgid "account"
+msgstr "gebruiker"
+
+#: application/modules/user/views/language/string-detect.phtml:15
+msgid "Profile"
+msgstr "Profiel"
+
+#: application/modules/user/views/language/string-detect.phtml:20
+msgid "View Profile"
+msgstr "Profiel bekijken"
+
+#: application/modules/user/views/language/string-detect.phtml:22
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: application/modules/user/views/language/string-detect.phtml:24
+msgid "Groups"
+msgstr "Groepen"
+
+#: application/modules/user/views/language/string-detect.phtml:25
+msgid "Roles"
+msgstr "Rollen"
+
+#: application/modules/user/views/language/string-detect.phtml:26
+#: application/modules/user/views/scripts/admin/roles/index.phtml:24
+msgid "Permissions"
+msgstr "Toestemmingen"
+
+#: application/modules/user/views/language/string-detect.phtml:27
+msgid "Configuration"
+msgstr "Configuratie"
+
+#: application/modules/user/views/language/string-detect.phtml:34
+msgid "cancel own profile"
+msgstr "eigen profiel verwijderen"
+
+#: application/modules/user/views/language/string-detect.phtml:35
+msgid "edit profile"
+msgstr "profiel aanpassen"
+
+#: application/modules/user/views/language/string-detect.phtml:36
+msgid "register"
+msgstr "registreren"
+
+#: application/modules/user/views/language/string-detect.phtml:38
+msgid "user:admin"
+msgstr "gebruiker:beheer"
+
+#: application/modules/user/views/language/string-detect.phtml:39
+msgid "administer all users"
+msgstr "alle gebruikers beheren"
+
+#: application/modules/user/views/language/string-detect.phtml:40
+msgid "administer configuration"
+msgstr "configuratie beheren"
+
+#: application/modules/user/views/language/string-detect.phtml:41
+msgid "administer groups"
+msgstr "beheer groepen"
+
+#: application/modules/user/views/language/string-detect.phtml:42
+msgid "administer permissions"
+msgstr "toestemmingen aanpassen"
+
+#: application/modules/user/views/language/string-detect.phtml:43
+msgid "administer roles"
+msgstr "beheer rollen"
+
+#: application/modules/user/views/language/string-detect.phtml:44
+msgid "administer users"
+msgstr "beheer gebruikers"
+
+#: application/modules/user/views/language/string-detect.phtml:45
+msgid "administer users of same group"
+msgstr "gebruikers beheren van zelfde groep"
+
+#: application/modules/user/views/language/string-detect.phtml:46
+msgid "administer users of the system"
+msgstr "beheer systeem gebruikers"
+
+#: application/modules/user/views/language/string-detect.phtml:49
+msgid "everyone"
+msgstr "iedereen"
+
+#: application/modules/user/views/language/string-detect.phtml:50
+msgid "registered"
+msgstr "geregistreerd"
+
+#: application/modules/user/views/language/string-detect.phtml:51
+msgid "admin"
+msgstr "beheerder"
 
 #: application/modules/user/views/scripts/admin/groups/index.phtml:13
 msgid "Add Group"
@@ -430,10 +587,6 @@ msgstr "Toon toegang voor alle rollen"
 msgid "Add Role"
 msgstr "Rol toevoegen"
 
-#: application/modules/user/views/scripts/admin/roles/index.phtml:24
-msgid "Permissions"
-msgstr "Toestemmingen"
-
 #: application/modules/user/views/scripts/admin/roles/index.phtml:36
 msgid "locked"
 msgstr "afgesloten"
@@ -474,6 +627,6 @@ msgstr "Activeer"
 msgid "Block"
 msgstr "Blokeer"
 
-#: application/modules/user/views/scripts/login/index.phtml:40
+#: application/modules/user/views/scripts/login/index.phtml:41
 msgid "Forgot password?"
 msgstr "Wachtwoord vergeten?"
