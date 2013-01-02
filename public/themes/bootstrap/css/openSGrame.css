@@ -60,6 +60,20 @@ body.layout-well .well {
 
 
 /**
+ * Custom navigation layouts
+ */
+.nav-horizontal > li {
+    float: left;
+    padding-right: 1em;
+}
+.nav-horizontal > li > a:hover {
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+
+
+/**
  * Messages
  */
 .alert-message div.alert-messages {
@@ -177,6 +191,9 @@ ul.list, ol.list, li.list-row {
   border-bottom: 1px solid #DDD;
 }
 
+.list-row-title {
+  margin-top: 0;
+}
 
 /**
  * Sortable
@@ -257,4 +274,18 @@ label {
        display: none;
    }
 }
+
+
+
+/**
+ * Activity
+ */
+ .activity-list   {}
+.activity-row     {}
+.activity-title   {}
+.activity-details {}
+.activity-actions {
+    margin-bottom: 0;
+}
+.activity-date    {}
 
