@@ -209,11 +209,11 @@ class SG_Db_Table extends Zend_Db_Table
         $values = $this->_addCreatorIdAndCreateDateTime(array());
         $sql = 'UPDATE ' 
                . $db->quoteTableAs($this->_name) 
-               . ' SET cr = id, ci = ?, cd = ' . $values['cd']->__toString()
+               . ' SET cr = id, ci = ?, cd = ?' 
                . ' WHERE ' . $newWhere
                . ' ;';
 
-        $stmt = $db->query($sql, $values['ci']);
+        $stmt = $db->query($sql, array($values['ci'], $values['cd']));
         
         return $stmt->rowCount();          
     }

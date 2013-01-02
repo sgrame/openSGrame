@@ -162,10 +162,10 @@ abstract class SG_Db_Model_Abstract implements SG_Db_Model_Interface
         }
         
         if (!$model) {
-            $model = new self();
+            $model = self::_createInstance();
         }
         if ($model->isRow($row)) {
-            return $row->id;
+            return (int)$row->id;
         }
         
         throw new Zend_Db_Table_Row_Exception(
@@ -196,7 +196,7 @@ abstract class SG_Db_Model_Abstract implements SG_Db_Model_Interface
         }
         
         if (!$model) {
-            $model = new self();
+            $model = self::_createInstance();
         }
         
         // get the rowId
@@ -220,6 +220,17 @@ abstract class SG_Db_Model_Abstract implements SG_Db_Model_Interface
         return $rows[$rowId];
     }
     
+    /**
+     * Static helper to create a new instance of the class called
+     * 
+     * @param void
+     * 
+     * @return SG_Db_Model_Abstract
+     */
+    protected static function _createInstance()
+    {
+        return new static();
+    }
     
     /**
      * Set the table object
